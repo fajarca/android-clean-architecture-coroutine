@@ -6,12 +6,14 @@
     <data>
 
         <variable
-            name="todo"
-            type="io.fajarca.todo.data.local.entity.Todo" />
+            name="character"
+            type="io.fajarca.todo.vo.Character" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:orientation="vertical"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="2dp"
         android:layout_width="match_parent"
         android:layout_margin="8dp"
         android:layout_height="wrap_content">
@@ -23,44 +25,36 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                loadPortraitImage="@{character.imageUrl}"
                 android:src="@mipmap/ic_launcher"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-
-            </ImageView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:text="@{todo.title}"
-                tools:text="Title"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:minLines="1"
+                android:gravity="center"
+                android:text="@{character.title}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                tools:text="Description"
-                android:text="@{todo.description}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                tools:text="Title" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

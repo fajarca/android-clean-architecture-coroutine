@@ -6,6 +6,6 @@ import javax.inject.Inject
 
 class HomeRemoteDataSource @Inject constructor(private val api: ApiService) : BaseRemoteDataSource() {
 
-    suspend fun nowPlaying() = getApiResult {  api.nowPlaying() }
+    suspend fun getAllCharacters() = getApiResult {  api.getCharacters() }
 
 }

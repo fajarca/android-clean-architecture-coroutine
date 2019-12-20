@@ -3,7 +3,7 @@ package io.fajarca.todo.domain.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class CharactersResponse(
+data class CharacterDto(
     @SerializedName("code")
     val code: Int = 0,
     @SerializedName("data")

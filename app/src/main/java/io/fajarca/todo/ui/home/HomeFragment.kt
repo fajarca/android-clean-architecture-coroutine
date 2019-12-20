@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.todo.R
 import io.fajarca.todo.base.BaseFragment
-import io.fajarca.todo.domain.model.response.CharactersResponse
+import io.fajarca.todo.domain.model.response.CharacterDto
 import io.fajarca.todo.databinding.FragmentHomeBinding
 import io.fajarca.todo.domain.model.Character
-import io.fajarca.todo.domain.model.Result
+import io.fajarca.todo.domain.model.common.Result
+import timber.log.Timber
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
@@ -29,15 +30,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         vm.characters.observe(this, Observer { subscribeCharacters(it) })
     }
 
-    private fun subscribeCharacters(it: Result<CharactersResponse>) {
-        when(it.status) {
-            Result.Status.LOADING -> {
-
+    private fun subscribeCharacters(it: Result<CharacterDto>) {
+        when(it) {
+            is Result.Loading-> {
+                Timber.v("Loading")
             }
-            Result.Status.SUCCESS -> {
+            is Result.Success-> {
                 val characters = mutableListOf<Character>()
 
-                val data = it.data?.data?.results ?: emptyList()
+                val data = it.data.data.results
                 for (i in data) {
                     characters.add(
                         Character(
@@ -50,8 +51,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
                 refreshData(characters)
             }
-            Result.Status.ERROR -> {
-
+            is Result.Error -> {
+                Timber.v("Error ${it.cause}")
             }
         }
     }

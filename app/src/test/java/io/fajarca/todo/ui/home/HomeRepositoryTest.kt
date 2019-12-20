@@ -1,8 +1,8 @@
 package io.fajarca.todo.ui.home
 
-import io.fajarca.todo.data.local.dao.TodoDao
-import io.fajarca.todo.data.local.entity.Todo
-import io.fajarca.todo.data.repository.HomeRepository
+import io.fajarca.todo.data.source.local.TodoDao
+import io.fajarca.todo.domain.model.local.Todo
+import io.fajarca.todo.domain.repository.HomeRepository
 import io.fajarca.todo.util.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
@@ -34,7 +34,7 @@ class HomeRepositoryTest {
     @Test
     fun `when insert is invoked should insert todo` () = testCoroutineRule.runBlockingTest{
         repository.insert(Todo(TITLE, DESCRIPTION))
-        verify(dao).insert(Todo(TITLE,DESCRIPTION))
+        verify(dao).insert(Todo(TITLE, DESCRIPTION))
     }
 
     @Test

@@ -5,14 +5,12 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import io.fajarca.todo.R
 import io.fajarca.todo.base.BaseFragment
-import io.fajarca.todo.data.remote.response.CharactersResponse
+import io.fajarca.todo.domain.model.response.CharactersResponse
 import io.fajarca.todo.databinding.FragmentHomeBinding
-import io.fajarca.todo.vo.Character
-import io.fajarca.todo.vo.Result
-import timber.log.Timber
+import io.fajarca.todo.domain.model.Character
+import io.fajarca.todo.domain.model.Result
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
@@ -26,32 +24,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
-
-
         vm.getAllCharacters()
 
         vm.characters.observe(this, Observer { subscribeCharacters(it) })
-
     }
 
     private fun subscribeCharacters(it: Result<CharactersResponse>) {
         when(it.status) {
             Result.Status.LOADING -> {
-                Timber.v("Status : Loading")
+
             }
             Result.Status.SUCCESS -> {
-                Timber.v("Status : Success")
                 val characters = mutableListOf<Character>()
 
                 val data = it.data?.data?.results ?: emptyList()
                 for (i in data) {
-                    characters.add(Character(i.id, i.name, "${i.thumbnail.path}/portrait_uncanny.${i.thumbnail.extension}"))
+                    characters.add(
+                        Character(
+                            i.id,
+                            i.name,
+                            "${i.thumbnail.path}/portrait_uncanny.${i.thumbnail.extension}"
+                        )
+                    )
                 }
 
                 refreshData(characters)
             }
             Result.Status.ERROR -> {
-                Timber.v("Status : Error" )
+
             }
         }
     }

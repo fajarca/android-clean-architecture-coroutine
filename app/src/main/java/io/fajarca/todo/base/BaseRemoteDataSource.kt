@@ -1,7 +1,7 @@
 package io.fajarca.todo.base
 
 import retrofit2.Response
-import io.fajarca.todo.vo.Result
+import io.fajarca.todo.domain.model.Result
 import timber.log.Timber
 
 

@@ -2,11 +2,11 @@ package io.fajarca.todo.ui.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import io.fajarca.todo.data.local.entity.Todo
-import io.fajarca.todo.data.repository.HomeRepository
+import io.fajarca.todo.domain.model.local.Todo
+import io.fajarca.todo.domain.repository.HomeRepository
 import io.fajarca.todo.util.TestCoroutineRule
 import io.fajarca.todo.util.provideFakeCoroutinesDispatcherProvider
-import io.fajarca.todo.vo.Result
+import io.fajarca.todo.domain.model.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -95,7 +95,12 @@ class HomeViewModelTest {
     fun `When title or description is empty string, insert should not invoked `() =
         testCoroutineRule.runBlockingTest {
             viewModel.validateInput(EMPTY_STRING_TITLE, EMPTY_STRING_DESCRIPTION)
-            verify(repository, never()).insert(Todo(EMPTY_STRING_TITLE, EMPTY_STRING_DESCRIPTION))
+            verify(repository, never()).insert(
+                Todo(
+                    EMPTY_STRING_TITLE,
+                    EMPTY_STRING_DESCRIPTION
+                )
+            )
         }
 
     @Test

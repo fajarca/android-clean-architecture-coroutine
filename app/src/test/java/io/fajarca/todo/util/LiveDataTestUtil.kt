@@ -17,6 +17,7 @@ package io.fajarca.todo.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import io.fajarca.todo.ui.CoroutinesDispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -79,7 +80,8 @@ fun provideFakeCoroutinesDispatcherProvider(
     return CoroutinesDispatcherProvider(
         dispatcher ?: sharedTestCoroutineDispatcher,
         dispatcher ?: sharedTestCoroutineDispatcher,
-        dispatcher ?: sharedTestCoroutineDispatcher)
+        dispatcher ?: sharedTestCoroutineDispatcher
+    )
 }
 
 @ExperimentalCoroutinesApi
@@ -89,8 +91,9 @@ fun provideFakeCoroutinesDispatcherProvider(
     io: CoroutineDispatcher? = null
 ): CoroutinesDispatcherProvider {
     val sharedTestCoroutineDispatcher = TestCoroutineDispatcher()
-    return CoroutinesDispatcherProvider(
+    return io.fajarca.todo.ui.CoroutinesDispatcherProvider(
         main ?: sharedTestCoroutineDispatcher,
         computation ?: sharedTestCoroutineDispatcher,
-        io ?: sharedTestCoroutineDispatcher)
+        io ?: sharedTestCoroutineDispatcher
+    )
 }

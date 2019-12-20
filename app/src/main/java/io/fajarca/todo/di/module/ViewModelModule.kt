@@ -6,8 +6,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import io.fajarca.todo.ui.home.HomeViewModel
-import io.fajarca.todo.util.ViewModelFactory
-import io.fajarca.todo.util.ViewModelKey
+import io.fajarca.todo.ui.ViewModelFactory
+import io.fajarca.todo.di.qualifier.ViewModelKey
 
 @Module
 abstract class ViewModelModule {

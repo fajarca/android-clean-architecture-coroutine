@@ -6,11 +6,11 @@ import android.content.SharedPreferences
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import io.fajarca.todo.TodoApp
-import io.fajarca.todo.data.local.TodoDatabase
-import io.fajarca.todo.data.remote.ApiService
-import io.fajarca.todo.util.DATABASE_NAME
-import io.fajarca.todo.util.PREF_NAME
+import io.fajarca.todo.core.TodoApp
+import io.fajarca.todo.data.source.local.TodoDatabase
+import io.fajarca.todo.data.service.ApiService
+import io.fajarca.todo.core.DATABASE_NAME
+import io.fajarca.todo.core.PREF_NAME
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -27,7 +27,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(context: Context) = Room.databaseBuilder(context, TodoDatabase::class.java, DATABASE_NAME).build()
+    fun provideDatabase(context: Context) = Room.databaseBuilder(context, TodoDatabase::class.java,
+        DATABASE_NAME
+    ).build()
 
     @Provides
     @Singleton

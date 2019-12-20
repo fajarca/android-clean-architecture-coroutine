@@ -6,9 +6,9 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import io.fajarca.todo.BuildConfig
-import io.fajarca.todo.util.DEFAULT_CONNECT_TIMEOUT
-import io.fajarca.todo.util.DEFAULT_READ_TIMEOUT
-import io.fajarca.todo.util.DEFAULT_WRITE_TIMEOUT
+import io.fajarca.todo.core.DEFAULT_CONNECT_TIMEOUT
+import io.fajarca.todo.core.DEFAULT_READ_TIMEOUT
+import io.fajarca.todo.core.DEFAULT_WRITE_TIMEOUT
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

@@ -3,8 +3,8 @@ package io.fajarca.todo.di.component
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
-import io.fajarca.todo.TodoApp
-import io.fajarca.todo.di.module.ActivityBuilder
+import io.fajarca.todo.core.TodoApp
+import io.fajarca.todo.di.builder.ActivityBuilder
 import io.fajarca.todo.di.module.AppModule
 import io.fajarca.todo.di.module.NetworkModule
 import io.fajarca.todo.di.module.RepositoryModule

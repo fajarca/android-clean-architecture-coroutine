@@ -1,10 +1,9 @@
 package io.fajarca.todo.domain.repository
 
-import io.fajarca.todo.domain.model.common.Result
-import io.fajarca.todo.domain.model.response.CharacterDto
+import io.fajarca.todo.domain.model.Character
 
 interface HomeRepository {
-    suspend fun getAllCharacters() : Result<CharacterDto>
+    suspend fun getAllCharacters() : List<Character>
 }
 
 

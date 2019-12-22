@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.todo.R
 import io.fajarca.todo.base.BaseFragment
-import io.fajarca.todo.domain.model.response.CharacterDto
 import io.fajarca.todo.databinding.FragmentHomeBinding
 import io.fajarca.todo.domain.model.Character
 import io.fajarca.todo.domain.model.common.Result
@@ -30,26 +29,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         vm.characters.observe(this, Observer { subscribeCharacters(it) })
     }
 
-    private fun subscribeCharacters(it: Result<CharacterDto>) {
+    private fun subscribeCharacters(it: Result<List<Character>>) {
         when(it) {
             is Result.Loading-> {
                 Timber.v("Loading")
             }
             is Result.Success-> {
-                val characters = mutableListOf<Character>()
-
-                val data = it.data.data.results
-                for (i in data) {
-                    characters.add(
-                        Character(
-                            i.id,
-                            i.name,
-                            "${i.thumbnail.path}/portrait_uncanny.${i.thumbnail.extension}"
-                        )
-                    )
-                }
-
-                refreshData(characters)
+                refreshData(it.data)
             }
             is Result.Error -> {
                 Timber.v("Error ${it.cause}")

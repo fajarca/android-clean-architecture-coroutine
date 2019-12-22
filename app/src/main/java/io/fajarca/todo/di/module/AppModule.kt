@@ -11,6 +11,7 @@ import io.fajarca.todo.data.source.local.TodoDatabase
 import io.fajarca.todo.data.service.ApiService
 import io.fajarca.todo.core.DATABASE_NAME
 import io.fajarca.todo.core.PREF_NAME
+import io.fajarca.todo.data.RemoteHandler
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -43,4 +44,6 @@ class AppModule {
     @Singleton
     fun providesSharedPreference(sharedPreferences: SharedPreferences): SharedPreferences.Editor = sharedPreferences.edit()
 
+    @Provides
+    fun provideRemoteHandler() = RemoteHandler()
 }

@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("v1/public/characters")
+    @GET("v1/public/characters3")
     suspend fun getCharacters(@Query("orderBy") orderBy: String = "-modified"): CharacterDto
 
 }

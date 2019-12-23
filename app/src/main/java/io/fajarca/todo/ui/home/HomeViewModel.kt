@@ -4,20 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.fajarca.todo.data.RemoteHandler
 import io.fajarca.todo.domain.model.Character
 import io.fajarca.todo.domain.model.common.Result
-import io.fajarca.todo.domain.model.response.CharacterDto
 import io.fajarca.todo.domain.usecase.GetCharactersUseCase
 import io.fajarca.todo.ui.CoroutinesDispatcherProvider
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase,
-    private val dispatcher: CoroutinesDispatcherProvider,
-    private val remoteHandler: RemoteHandler
+    private val dispatcher: CoroutinesDispatcherProvider
 ) : ViewModel() {
 
     private val _characters = MutableLiveData<Result<List<Character>>>()
@@ -25,7 +21,7 @@ class HomeViewModel @Inject constructor(
         get() = _characters
 
     fun getAllCharacters() {
-        _characters.postValue(Result.Loading())
+        _characters.postValue(Result.Loading)
         viewModelScope.launch(dispatcher.io) {
             _characters.postValue(getCharactersUseCase.execute(dispatcher))
         }

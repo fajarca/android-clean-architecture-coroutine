@@ -6,7 +6,6 @@ package  io.fajarca.todo.domain.model.common
 enum class HttpResult {
     NO_CONNECTION,
     TIMEOUT,
-    OK,
     UNAUTHORIZED,
     CLIENT_ERROR,
     BAD_RESPONSE,

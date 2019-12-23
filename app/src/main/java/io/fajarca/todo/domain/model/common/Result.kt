@@ -1,7 +1,7 @@
 package io.fajarca.todo.domain.model.common
 
 sealed class Result<out T> {
-    class Loading<out T> : Result<T>()
+    object Loading : Result<Nothing>()
     data class Success<out T>(val data: T) : Result<T>()
-    data class Error<out T>(val cause: HttpResult) : Result<T>()
+    data class Error(val cause: HttpResult, val code : Int? = null, val errorMessage : String? = null) : Result<Nothing>()
 }

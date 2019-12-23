@@ -1,4 +1,4 @@
-package io.fajarca.todo.base
+package io.fajarca.todo.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -49,9 +48,6 @@ abstract class BaseFragment<B : ViewDataBinding, V : ViewModel> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-       /* binding.setVariable(BR.vm, vm)
-        binding.setVariable(BR.fragment, this)*/
     }
 
     fun snackbar(message: String) = Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()

@@ -6,10 +6,10 @@ import io.fajarca.todo.domain.model.common.Result
 import io.fajarca.todo.ui.CoroutinesDispatcherProvider
 import javax.inject.Inject
 
-class GetCharactersUseCase @Inject constructor(private val repository: HomeRepositoryImpl) : UseCase()  {
+class GetCharactersUseCase @Inject constructor(private val repository: HomeRepositoryImpl) {
 
-    suspend fun execute(dispatcherProvider: CoroutinesDispatcherProvider) : Result<List<Character>> {
-        return safeApiCall(dispatcherProvider) { repository.getAllCharacters()}
+    suspend fun execute() : Result<List<Character>> {
+        return repository.getAllCharacters()
     }
 
 }

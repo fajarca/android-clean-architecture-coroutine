@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations
 @ExperimentalCoroutinesApi
 class HomeRepositoryTest {
 
-    @Mock
+    /*@Mock
     lateinit var dao: TodoDao
 
     private lateinit var repository: HomeRepository
@@ -46,7 +46,7 @@ class HomeRepositoryTest {
     companion object {
         private const val TITLE = "Title"
         private const val DESCRIPTION = "Description"
-    }
+    }*/
 
 
 }

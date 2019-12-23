@@ -71,6 +71,7 @@ fun <T> LiveData<T>.observeForTesting(block: () -> Unit) {
         removeObserver(observer)
     }
 }
+/*
 
 @ExperimentalCoroutinesApi
 fun provideFakeCoroutinesDispatcherProvider(
@@ -97,3 +98,4 @@ fun provideFakeCoroutinesDispatcherProvider(
         io ?: sharedTestCoroutineDispatcher
     )
 }
+*/

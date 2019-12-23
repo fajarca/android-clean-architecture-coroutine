@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import io.fajarca.todo.domain.model.common.HttpResult
 import io.fajarca.todo.domain.model.common.Result
-import io.fajarca.todo.ui.CoroutinesDispatcherProvider
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
@@ -13,8 +13,8 @@ import java.net.UnknownHostException
 
 open class UseCase {
 
-    suspend fun <T> safeApiCall(dispatcher: CoroutinesDispatcherProvider, apiCall: suspend () -> T): Result<T> {
-        return withContext(dispatcher.io) {
+    suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): Result<T> {
+        return withContext(dispatcher) {
             try {
                 Result.Success(apiCall.invoke())
             } catch (throwable: Throwable) {

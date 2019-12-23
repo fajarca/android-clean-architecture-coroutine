@@ -7,13 +7,11 @@ import androidx.lifecycle.viewModelScope
 import io.fajarca.todo.domain.model.Character
 import io.fajarca.todo.domain.model.common.Result
 import io.fajarca.todo.domain.usecase.GetCharactersUseCase
-import io.fajarca.todo.ui.CoroutinesDispatcherProvider
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    private val getCharactersUseCase: GetCharactersUseCase,
-    private val dispatcher: CoroutinesDispatcherProvider
+    private val getCharactersUseCase: GetCharactersUseCase
 ) : ViewModel() {
 
     private val _characters = MutableLiveData<Result<List<Character>>>()
@@ -22,8 +20,8 @@ class HomeViewModel @Inject constructor(
 
     fun getAllCharacters() {
         _characters.postValue(Result.Loading)
-        viewModelScope.launch(dispatcher.io) {
-            _characters.postValue(getCharactersUseCase.execute(dispatcher))
+        viewModelScope.launch {
+            _characters.postValue(getCharactersUseCase.execute())
         }
     }
 }

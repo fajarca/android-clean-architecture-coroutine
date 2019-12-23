@@ -6,11 +6,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.todo.R
-import io.fajarca.todo.ui.BaseFragment
 import io.fajarca.todo.databinding.FragmentHomeBinding
 import io.fajarca.todo.domain.model.Character
 import io.fajarca.todo.domain.model.common.Result
-import timber.log.Timber
+import io.fajarca.todo.ui.BaseFragment
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
@@ -32,13 +31,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     private fun subscribeCharacters(it: Result<List<Character>>) {
         when(it) {
             is Result.Loading-> {
-                Timber.v("Loading")
+                showLoading(true)
             }
             is Result.Success-> {
+                showLoading(false)
                 refreshData(it.data)
             }
             is Result.Error -> {
-                Timber.v("Error ${it.cause}")
+                showLoading(false)
             }
         }
     }
@@ -60,6 +60,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     override fun onCharacterPressed() {
 
+    }
+
+    private fun showLoading(isLoading : Boolean) {
+        binding.isLoading = isLoading
     }
 
 }

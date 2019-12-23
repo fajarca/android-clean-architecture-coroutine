@@ -25,14 +25,9 @@ class HomeViewModel @Inject constructor(
         get() = _characters
 
     fun getAllCharacters() {
-        _characters.postValue(Result.loading())
+        _characters.postValue(Result.Loading())
         viewModelScope.launch(dispatcher.io) {
-            try {
-                _characters.postValue(Result.success(getCharactersUseCase.execute()))
-            } catch (e : Exception) {
-                _characters.postValue(Result.error(remoteHandler.map(e)))
-            }
-
+            _characters.postValue(getCharactersUseCase.execute(dispatcher))
         }
     }
 }

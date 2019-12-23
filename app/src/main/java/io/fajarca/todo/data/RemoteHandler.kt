@@ -18,12 +18,12 @@ open class RemoteHandler {
                 val body = response.body()
 
                 if (body != null) {
-                    return Result.success(body)
+                    return Result.Success(body)
                 }
             }
-            return Result.error(map(response.code()))
+            return Result.Error(map(response.code()))
         } catch (e: Exception) {
-            return Result.error(map(e))
+            return Result.Error(map(e))
         }
     }
 

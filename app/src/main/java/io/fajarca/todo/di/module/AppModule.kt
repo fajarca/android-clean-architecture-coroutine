@@ -7,7 +7,7 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import io.fajarca.todo.core.TodoApp
-import io.fajarca.todo.data.source.local.TodoDatabase
+import io.fajarca.todo.data.source.local.MarvelDatabase
 import io.fajarca.todo.data.service.ApiService
 import io.fajarca.todo.core.DATABASE_NAME
 import io.fajarca.todo.core.PREF_NAME
@@ -27,7 +27,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(context: Context) = Room.databaseBuilder(context, TodoDatabase::class.java,
+    fun provideDatabase(context: Context) = Room.databaseBuilder(context, MarvelDatabase::class.java,
         DATABASE_NAME
     ).build()
 

@@ -1,7 +1,7 @@
 package io.fajarca.todo.data.mapper
 
-import io.fajarca.todo.domain.model.Character
 import io.fajarca.todo.domain.model.response.CharacterDto
+import io.fajarca.todo.domain.model.local.Character
 
 class CharactersMapper {
 

@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.todo.R
 import io.fajarca.todo.databinding.FragmentHomeBinding
-import io.fajarca.todo.domain.model.Character
 import io.fajarca.todo.domain.model.common.Result
+import io.fajarca.todo.domain.model.local.Character
 import io.fajarca.todo.ui.BaseFragment
 
 

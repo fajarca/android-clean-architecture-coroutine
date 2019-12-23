@@ -1,22 +1,13 @@
 package io.fajarca.todo.ui.home
 
-import io.fajarca.todo.data.source.local.TodoDao
 import io.fajarca.todo.domain.model.local.Todo
-import io.fajarca.todo.domain.repository.HomeRepository
-import io.fajarca.todo.util.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito.verify
-import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
 class HomeRepositoryTest {
 
     /*@Mock
-    lateinit var dao: TodoDao
+    lateinit var dao: CharacterDao
 
     private lateinit var repository: HomeRepository
 

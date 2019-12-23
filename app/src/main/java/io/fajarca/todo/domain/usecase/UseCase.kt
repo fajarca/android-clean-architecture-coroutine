@@ -22,7 +22,7 @@ open class UseCase {
                     is HttpException -> {
                         val result = when(throwable.code()) {
                             401 -> Result.Error(HttpResult.UNAUTHORIZED)
-                            in 400..420 -> parseHtppError(throwable)
+                            in 400..420 -> parseHttpError(throwable)
                             in 500..599 -> Result.Error(HttpResult.SERVER_ERROR)
                             else -> Result.Error(HttpResult.NOT_DEFINED)
                         }
@@ -38,7 +38,7 @@ open class UseCase {
         }
     }
 
-    private fun parseHtppError(throwable:  HttpException) : Result<Nothing> {
+    private fun parseHttpError(throwable:  HttpException) : Result<Nothing> {
         return try {
             val errorBody = throwable.response()?.errorBody()?.string() ?: "Unknown HTTP error"
             val errorMessage = Gson().fromJson(errorBody, JsonObject::class.java)

@@ -84,16 +84,3 @@ fun provideFakeCoroutinesDispatcherProvider(
     )
 }
 
-@ExperimentalCoroutinesApi
-fun provideFakeCoroutinesDispatcherProvider(
-    main: CoroutineDispatcher? = null,
-    computation: CoroutineDispatcher? = null,
-    io: CoroutineDispatcher? = null
-): CoroutinesDispatcherProvider {
-    val sharedTestCoroutineDispatcher = TestCoroutineDispatcher()
-    return CoroutinesDispatcherProvider(
-        main ?: sharedTestCoroutineDispatcher,
-        computation ?: sharedTestCoroutineDispatcher,
-        io ?: sharedTestCoroutineDispatcher
-    )
-}

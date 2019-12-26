@@ -26,9 +26,6 @@ import java.lang.IllegalArgumentException
 class HomeRepositoryTest {
 
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
-    @get:Rule
-    val testCoroutineRule = TestCoroutineRule()
-
 
     @Mock
     lateinit var dao: CharacterDao
@@ -45,11 +42,7 @@ class HomeRepositoryTest {
         MockitoAnnotations.initMocks(this)
 
         repository = HomeRepositoryImpl(
-            provideFakeCoroutinesDispatcherProvider(
-                testCoroutineDispatcher,
-                testCoroutineDispatcher,
-                testCoroutineDispatcher
-            ),
+            provideFakeCoroutinesDispatcherProvider(testCoroutineDispatcher),
             mapper,
             dao,
             remoteDataSource
@@ -72,7 +65,7 @@ class HomeRepositoryTest {
 
     @Test
     fun `when get all  characters from remote is success, should insert to db`() =
-        testCoroutineRule.runBlockingTest {
+        runBlockingTest {
             //Given
             val characters = listOf<Character>()
             val response = Result.Success(CharacterDto())
@@ -88,7 +81,7 @@ class HomeRepositoryTest {
 
     @Test
     fun `when get all  characters from remote is error, dont insert to db`() =
-        testCoroutineRule.runBlockingTest {
+        runBlockingTest {
             //Given
             val characters = listOf<Character>()
             val response = Result.Error(HttpResult.NO_CONNECTION)

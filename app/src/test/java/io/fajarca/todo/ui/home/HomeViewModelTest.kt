@@ -11,7 +11,6 @@ import io.fajarca.todo.util.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -60,7 +59,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `when get all all character is success, observer should receive success result`() = runBlocking {
+    fun `when get all all character is success, observer should receive success result`() = testCoroutineRule.runBlockingTest  {
         val flowOfCharacters = flowOf(emptyList<Character>())
 
         var characters = emptyList<Character>()

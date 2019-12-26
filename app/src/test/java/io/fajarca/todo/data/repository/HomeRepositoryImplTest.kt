@@ -1,4 +1,4 @@
-package io.fajarca.todo.ui.home
+package io.fajarca.todo.data.repository
 
 import io.fajarca.todo.data.mapper.CharactersMapper
 import io.fajarca.todo.data.repository.HomeRepositoryImpl
@@ -23,7 +23,7 @@ import org.mockito.MockitoAnnotations
 import java.lang.IllegalArgumentException
 
 @ExperimentalCoroutinesApi
-class HomeRepositoryTest {
+class HomeRepositoryImplTest {
 
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 

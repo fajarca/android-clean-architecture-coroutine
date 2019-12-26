@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import io.fajarca.todo.domain.model.local.Character
 import io.fajarca.todo.domain.usecase.GetCharactersUseCase
 import io.fajarca.todo.util.TestCoroutineRule
+import io.fajarca.todo.util.TestUtil
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
@@ -60,18 +61,18 @@ class HomeViewModelTest {
 
     @Test
     fun `when get all all character is success, observer should receive success result`() = testCoroutineRule.runBlockingTest  {
-        val flowOfCharacters = flowOf(emptyList<Character>())
-
-        var characters = emptyList<Character>()
-        flowOfCharacters.collect {
-            characters = it
-        }
-
+        //Given
+        val flowOfCharacters = flowOf(TestUtil.generateDummyCharacters(4))
         `when`(useCase.execute()).thenReturn(flowOfCharacters)
 
+        //When
         viewModel.getAllCharacters()
-        verify(observer).onChanged(HomeViewModel.Result.Loading)
-        verify(observer).onChanged(HomeViewModel.Result.Success(characters))
+
+        //Then
+        flowOfCharacters.collect {
+            verify(observer).onChanged(HomeViewModel.Result.Loading)
+            verify(observer).onChanged(HomeViewModel.Result.Success(it))
+        }
     }
 
 

@@ -7,6 +7,7 @@ import io.fajarca.todo.domain.model.common.HttpResult
 import io.fajarca.todo.domain.model.common.Result
 import io.fajarca.todo.domain.model.local.Character
 import io.fajarca.todo.domain.model.response.CharacterDto
+import io.fajarca.todo.util.TestUtil
 import io.fajarca.todo.util.provideFakeCoroutinesDispatcherProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -59,10 +60,10 @@ class CharacterRepositoryImplTest {
     }
 
     @Test
-    fun `when get all  characters from remote is success, should insert to db`() =
+    fun `when get all characters from remote is success, should insert the characters to db`() =
         runBlockingTest {
             //Given
-            val characters = listOf<Character>()
+            val characters = TestUtil.generateDummyCharacters(numOfIteration = 0)
             val response = Result.Success(CharacterDto())
 
             `when`(remoteDataSource.getCharacters(testCoroutineDispatcher)).thenReturn(response)
@@ -75,10 +76,10 @@ class CharacterRepositoryImplTest {
         }
 
     @Test
-    fun `when get all  characters from remote is error, dont insert to db`() =
+    fun `when get all characters from remote is error, insert character to db won't executed`() =
         runBlockingTest {
             //Given
-            val characters = listOf<Character>()
+            val characters = TestUtil.generateDummyCharacters(numOfIteration = 5)
             val response = Result.Error(HttpResult.NO_CONNECTION)
 
             `when`(remoteDataSource.getCharacters(testCoroutineDispatcher)).thenReturn(response)

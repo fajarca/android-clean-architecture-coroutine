@@ -16,10 +16,9 @@ class HomeRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val mapper: CharactersMapper,
     private val dao: CharacterDao
-) :
-    HomeRepository {
+) : HomeRepository {
 
-    override suspend fun insertAllCharacter(characters : List<Character>) {
+    override suspend fun insertAllCharacter(characters: List<Character>) {
         dao.insertAll(characters)
     }
 
@@ -30,8 +29,8 @@ class HomeRepositoryImpl @Inject constructor(
     override suspend fun getAllCharacter(): Flow<List<Character>> {
         val apiResult = getAllCharactersFromApi()
 
-        when(apiResult) {
-            is Result.Success -> insertAllCharacter(apiResult.data)
+        if (apiResult is Result.Success) {
+            insertAllCharacter(apiResult.data)
         }
 
         return dao.findAll()
@@ -39,9 +38,8 @@ class HomeRepositoryImpl @Inject constructor(
 
 
     override suspend fun getAllCharactersFromApi(): Result<List<Character>> {
-        return safeApiCall(dispatcher.io) {mapper.map(apiService.getCharacters())}
+        return safeApiCall(dispatcher.io) { mapper.mapToCharacterEntity(apiService.getCharacters()) }
     }
-
 
 
 }

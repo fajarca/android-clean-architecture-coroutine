@@ -28,16 +28,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         vm.characters.observe(this, Observer { subscribeCharacters(it) })
     }
 
-    private fun subscribeCharacters(it: Result<List<Character>>) {
+    private fun subscribeCharacters(it: HomeViewModel.Result<List<Character>>) {
         when(it) {
-            is Result.Loading-> {
+            is HomeViewModel.Result.Loading-> {
                 showLoading(true)
             }
-            is Result.Success-> {
+            is HomeViewModel. Result.Success-> {
                 showLoading(false)
                 refreshData(it.data)
             }
-            is Result.Error -> {
+            is HomeViewModel.Result.Error -> {
                 showLoading(false)
             }
         }

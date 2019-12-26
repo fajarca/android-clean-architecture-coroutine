@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.fajarca.todo.domain.model.common.Result
 import io.fajarca.todo.domain.model.local.Character
 import io.fajarca.todo.domain.usecase.GetCharactersUseCase
 import kotlinx.coroutines.flow.collect
@@ -18,6 +17,12 @@ class HomeViewModel @Inject constructor(
     private val _characters = MutableLiveData<Result<List<Character>>>()
     val characters: LiveData<Result<List<Character>>>
         get() = _characters
+
+    sealed class Result<out T> {
+        object Loading : Result<Nothing>()
+        data class Success<out T>(val data : T): Result<T>()
+        data class Error(val throwable: Throwable) : Result<Nothing>()
+    }
 
     fun getAllCharacters() {
         _characters.postValue(Result.Loading)

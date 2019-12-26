@@ -1,24 +1,29 @@
 package io.fajarca.todo.ui.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
-import io.fajarca.todo.domain.model.local.Todo
-import io.fajarca.todo.domain.repository.HomeRepository
+import io.fajarca.todo.domain.model.local.Character
+import io.fajarca.todo.domain.usecase.GetCharactersUseCase
 import io.fajarca.todo.util.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
 class HomeViewModelTest {
-/*
+
     // Run tasks synchronously
     @Rule
     @JvmField
@@ -29,104 +34,50 @@ class HomeViewModelTest {
 
     private lateinit var viewModel: HomeViewModel
 
-    @Mock
-    lateinit var repository: HomeRepository
+
 
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
     @Mock
-    private lateinit var observer : Observer<Result<List<Todo>>>
+    private lateinit var observer : Observer<HomeViewModel.Result<List<Character>>>
 
-    companion object {
-        private const val EMPTY_STRING_TITLE = ""
-        private const val EMPTY_STRING_DESCRIPTION = ""
-        private const val TITLE = "Title"
-        private const val DESCRIPTION = "Description"
-    }
+
+    @Mock
+    private lateinit var useCase: GetCharactersUseCase
+
+    @Mock
+    lateinit var lifeCycleOwner: LifecycleOwner
+    lateinit var lifeCycle: LifecycleRegistry
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        viewModel = HomeViewModel(
-            repository, provideFakeCoroutinesDispatcherProvider(
-                testCoroutineDispatcher,
-                testCoroutineDispatcher,
-                testCoroutineDispatcher
-            )
-        )
+        viewModel = HomeViewModel(useCase)
 
-        viewModel.todo.observeForever(observer)
+        lifeCycle = LifecycleRegistry(lifeCycleOwner)
+        `when` (lifeCycleOwner.lifecycle).thenReturn(lifeCycle)
+        lifeCycle.handleLifecycleEvent(Lifecycle.Event.ON_START)
 
-    }
-
-
-    @Test
-    fun shouldProduceTrue_WhenTitleIsNotEmptyOrNull() {
-        val actual = viewModel.isTitleValid("Title")
-        assertEquals(true, actual)
+        viewModel.characters.observe(lifeCycleOwner, observer)
 
 
     }
 
     @Test
-    fun shouldProduceFalse_WhenTitleIsEmptyOrNull() {
-        val actual = viewModel.isTitleValid("")
-        assertEquals(false, actual)
-    }
-
-    @Test
-    fun shouldProduceTrue_WhenDescriptionIsNotEmptyOrNull() {
-        val actual = viewModel.isDescriptionValid("Description")
-        assertEquals(true, actual)
-
-
-    }
-
-    @Test
-    fun shouldProduceFalse_WhenDescriptionIsEmptyOrNull() {
-        val output = viewModel.isDescriptionValid("")
-        assertEquals(false, output)
-    }
-
-
-    @Test
-    fun `When title or description is empty string, insert should not invoked `() =
-        testCoroutineRule.runBlockingTest {
-            viewModel.validateInput(EMPTY_STRING_TITLE, EMPTY_STRING_DESCRIPTION)
-            verify(repository, never()).insert(
-                Todo(
-                    EMPTY_STRING_TITLE,
-                    EMPTY_STRING_DESCRIPTION
-                )
-            )
+    fun a() = runBlocking {
+        val data = flowOf(emptyList<Character>())
+        var contain = emptyList<Character>()
+        data.collect {
+            contain = it
         }
 
-    @Test
-    fun `When title or description is valid, insert should be invoked `() =
-        testCoroutineRule.runBlockingTest {
-            viewModel.validateInput(TITLE, DESCRIPTION)
-            verify(repository).insert(Todo(TITLE, DESCRIPTION))
-        }
+        `when`(useCase.execute()).thenReturn(data)
 
+        viewModel.getAllCharacters()
+        verify(observer).onChanged(HomeViewModel.Result.Loading)
+        verify(observer).onChanged(HomeViewModel.Result.Success(contain))
+    }
 
-    @Test
-    fun `When request all todo, should return all record`() = testCoroutineRule.runBlockingTest {
-
-        val data = flow {
-            emit(emptyList<Todo>())
-        }
-
-        `when`(repository.findAll()).thenReturn(data)
-
-
-        val firstResult = viewModel.todo.value
-        assertEquals(0, firstResult?.data?.size ?: 0)
-
-        viewModel.getTodo()
-
-        val secondResult = viewModel.todo.value
-        assertEquals(2, secondResult?.data?.size)
-    }*/
 
 
 }

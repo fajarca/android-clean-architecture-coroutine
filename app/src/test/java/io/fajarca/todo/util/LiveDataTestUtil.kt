@@ -71,7 +71,6 @@ fun <T> LiveData<T>.observeForTesting(block: () -> Unit) {
         removeObserver(observer)
     }
 }
-/*
 
 @ExperimentalCoroutinesApi
 fun provideFakeCoroutinesDispatcherProvider(
@@ -92,10 +91,9 @@ fun provideFakeCoroutinesDispatcherProvider(
     io: CoroutineDispatcher? = null
 ): CoroutinesDispatcherProvider {
     val sharedTestCoroutineDispatcher = TestCoroutineDispatcher()
-    return io.fajarca.todo.ui.CoroutinesDispatcherProvider(
+    return CoroutinesDispatcherProvider(
         main ?: sharedTestCoroutineDispatcher,
         computation ?: sharedTestCoroutineDispatcher,
         io ?: sharedTestCoroutineDispatcher
     )
 }
-*/

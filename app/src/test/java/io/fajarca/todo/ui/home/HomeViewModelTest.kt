@@ -12,7 +12,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -33,10 +32,7 @@ class HomeViewModelTest {
     val testCoroutineRule = TestCoroutineRule()
 
     private lateinit var viewModel: HomeViewModel
-
-
-
-    private val testCoroutineDispatcher = TestCoroutineDispatcher()
+    
 
     @Mock
     private lateinit var observer : Observer<HomeViewModel.Result<List<Character>>>
@@ -64,18 +60,19 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun a() = runBlocking {
-        val data = flowOf(emptyList<Character>())
-        var contain = emptyList<Character>()
-        data.collect {
-            contain = it
+    fun `when get all all character is success, observer should receive success result`() = runBlocking {
+        val flowOfCharacters = flowOf(emptyList<Character>())
+
+        var characters = emptyList<Character>()
+        flowOfCharacters.collect {
+            characters = it
         }
 
-        `when`(useCase.execute()).thenReturn(data)
+        `when`(useCase.execute()).thenReturn(flowOfCharacters)
 
         viewModel.getAllCharacters()
         verify(observer).onChanged(HomeViewModel.Result.Loading)
-        verify(observer).onChanged(HomeViewModel.Result.Success(contain))
+        verify(observer).onChanged(HomeViewModel.Result.Success(characters))
     }
 
 

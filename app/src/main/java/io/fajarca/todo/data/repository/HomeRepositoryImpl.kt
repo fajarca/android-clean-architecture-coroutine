@@ -1,11 +1,11 @@
 package io.fajarca.todo.data.repository
 
 import io.fajarca.todo.data.mapper.CharactersMapper
-import io.fajarca.todo.data.service.ApiService
 import io.fajarca.todo.data.source.local.CharacterDao
-import io.fajarca.todo.data.source.remote.safeApiCall
+import io.fajarca.todo.data.source.remote.CharacterRemoteDataSource
 import io.fajarca.todo.domain.model.common.Result
 import io.fajarca.todo.domain.model.local.Character
+import io.fajarca.todo.domain.model.response.CharacterDto
 import io.fajarca.todo.domain.repository.HomeRepository
 import io.fajarca.todo.ui.CoroutinesDispatcherProvider
 import kotlinx.coroutines.flow.Flow
@@ -13,9 +13,9 @@ import javax.inject.Inject
 
 class HomeRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutinesDispatcherProvider,
-    private val apiService: ApiService,
     private val mapper: CharactersMapper,
-    private val dao: CharacterDao
+    private val dao: CharacterDao,
+    private val remoteDataSource: CharacterRemoteDataSource
 ) : HomeRepository {
 
     override suspend fun insertAllCharacter(characters: List<Character>) {
@@ -30,15 +30,15 @@ class HomeRepositoryImpl @Inject constructor(
         val apiResult = getAllCharactersFromApi()
 
         if (apiResult is Result.Success) {
-            insertAllCharacter(apiResult.data)
+            insertAllCharacter(mapper.map(apiResult.data))
         }
 
         return dao.findAll()
     }
 
 
-    override suspend fun getAllCharactersFromApi(): Result<List<Character>> {
-        return safeApiCall(dispatcher.io) { mapper.mapToCharacterEntity(apiService.getCharacters()) }
+    override suspend fun getAllCharactersFromApi(): Result<CharacterDto> {
+        return remoteDataSource.getCharacters(dispatcher.io)
     }
 
 

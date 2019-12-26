@@ -4,6 +4,8 @@ import io.fajarca.todo.data.mapper.CharactersMapper
 import io.fajarca.todo.data.repository.HomeRepositoryImpl
 import io.fajarca.todo.data.service.ApiService
 import io.fajarca.todo.data.source.local.CharacterDao
+import io.fajarca.todo.data.source.remote.CharacterRemoteDataSource
+import io.fajarca.todo.domain.model.common.HttpResult
 import io.fajarca.todo.domain.model.common.Result
 import io.fajarca.todo.domain.model.local.Character
 import io.fajarca.todo.domain.model.response.CharacterDto
@@ -18,6 +20,7 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
+import java.lang.IllegalArgumentException
 
 @ExperimentalCoroutinesApi
 class HomeRepositoryTest {
@@ -30,12 +33,11 @@ class HomeRepositoryTest {
     @Mock
     lateinit var dao: CharacterDao
     @Mock
-    lateinit var apiService: ApiService
-    @Mock
     lateinit var mapper: CharactersMapper
+    @Mock
+    lateinit var remoteDataSource: CharacterRemoteDataSource
 
     private lateinit var repository: HomeRepositoryImpl
-
 
 
     @Before
@@ -43,10 +45,14 @@ class HomeRepositoryTest {
         MockitoAnnotations.initMocks(this)
 
         repository = HomeRepositoryImpl(
-            provideFakeCoroutinesDispatcherProvider(testCoroutineDispatcher, testCoroutineDispatcher, testCoroutineDispatcher),
-            apiService,
+            provideFakeCoroutinesDispatcherProvider(
+                testCoroutineDispatcher,
+                testCoroutineDispatcher,
+                testCoroutineDispatcher
+            ),
             mapper,
-            dao
+            dao,
+            remoteDataSource
         )
     }
 
@@ -59,22 +65,41 @@ class HomeRepositoryTest {
 
 
     @Test
-    fun `when get all  characters, should call dao find all method`() = runBlockingTest {
+    fun `when get all characters from db, should invoke dao find all method`() = runBlockingTest {
         repository.getAllCharactersFromDb()
         verify(dao).findAll()
     }
 
     @Test
-    fun `when get all  characters from remote, should call dao find all method`() = testCoroutineRule.runBlockingTest {
-       val out = listOf<Character>()
-        val dto = CharacterDto()
+    fun `when get all  characters from remote is success, should insert to db`() =
+        testCoroutineRule.runBlockingTest {
+            //Given
+            val characters = listOf<Character>()
+            val response = Result.Success(CharacterDto())
 
-        `when`(mapper.mapToEntity(dto)).thenReturn(out)
+            `when`(remoteDataSource.getCharacters(testCoroutineDispatcher)).thenReturn(response)
 
-        repository.getAllCharacter()
+            //When
+            repository.getAllCharacter()
 
-        verify(dao).insertAll(out)
-    }
+            //Then
+            verify(dao).insertAll(characters)
+        }
 
+    @Test
+    fun `when get all  characters from remote is error, dont insert to db`() =
+        testCoroutineRule.runBlockingTest {
+            //Given
+            val characters = listOf<Character>()
+            val response = Result.Error(HttpResult.NO_CONNECTION)
+
+            `when`(remoteDataSource.getCharacters(testCoroutineDispatcher)).thenReturn(response)
+
+            //When
+            repository.getAllCharacter()
+
+            //Then
+            verify(dao, never()).insertAll(characters)
+        }
 
 }

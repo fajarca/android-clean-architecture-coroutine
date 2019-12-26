@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.fajarca.todo.domain.model.local.Character
 import io.fajarca.todo.domain.usecase.GetCharactersUseCase
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,6 +29,9 @@ class HomeViewModel @Inject constructor(
         _characters.postValue(Result.Loading)
         viewModelScope.launch {
             getCharactersUseCase.execute()
+                .catch {
+                    _characters.postValue(Result.Error(it))
+                }
                 .collect {
                     _characters.postValue(Result.Success(it))
                 }

@@ -1,29 +1,24 @@
 package io.fajarca.todo.data.repository
 
 import io.fajarca.todo.data.mapper.CharactersMapper
-import io.fajarca.todo.data.repository.HomeRepositoryImpl
-import io.fajarca.todo.data.service.ApiService
 import io.fajarca.todo.data.source.local.CharacterDao
 import io.fajarca.todo.data.source.remote.CharacterRemoteDataSource
 import io.fajarca.todo.domain.model.common.HttpResult
 import io.fajarca.todo.domain.model.common.Result
 import io.fajarca.todo.domain.model.local.Character
 import io.fajarca.todo.domain.model.response.CharacterDto
-import io.fajarca.todo.util.TestCoroutineRule
 import io.fajarca.todo.util.provideFakeCoroutinesDispatcherProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
-import java.lang.IllegalArgumentException
 
 @ExperimentalCoroutinesApi
-class HomeRepositoryImplTest {
+class CharacterRepositoryImplTest {
 
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
@@ -34,14 +29,14 @@ class HomeRepositoryImplTest {
     @Mock
     lateinit var remoteDataSource: CharacterRemoteDataSource
 
-    private lateinit var repository: HomeRepositoryImpl
+    private lateinit var repository: CharacterRepositoryImpl
 
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
 
-        repository = HomeRepositoryImpl(
+        repository = CharacterRepositoryImpl(
             provideFakeCoroutinesDispatcherProvider(testCoroutineDispatcher),
             mapper,
             dao,

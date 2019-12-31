@@ -1,28 +1,28 @@
 package io.fajarca.marvel.domain.model.response
 
+import com.squareup.moshi.Json
 
-import com.google.gson.annotations.SerializedName
 
 data class CharacterDto(
-    @SerializedName("data")
+    @Json(name = "data")
     val `data`: Data = Data()
 ) {
     data class Data(
-        @SerializedName("results")
+        @Json(name ="results")
         val results: List<Result> = listOf()
     ) {
         data class Result(
-            @SerializedName("id")
+            @Json(name ="id")
             val id: Long = 0,
-            @SerializedName("name")
+            @Json(name ="name")
             val name: String = "",
-            @SerializedName("thumbnail")
+            @Json(name ="thumbnail")
             val thumbnail: Thumbnail = Thumbnail()
         ) {
             data class Thumbnail(
-                @SerializedName("extension")
+                @Json(name ="extension")
                 val extension: String = "",
-                @SerializedName("path")
+                @Json(name ="path")
                 val path: String = ""
             )
         }

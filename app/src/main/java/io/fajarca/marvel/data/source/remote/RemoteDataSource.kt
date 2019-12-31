@@ -1,11 +1,11 @@
 package io.fajarca.marvel.data.source.remote
 
-import com.google.gson.Gson
-import com.google.gson.JsonObject
+import com.squareup.moshi.Moshi
 import io.fajarca.marvel.domain.model.common.HttpResult
 import io.fajarca.marvel.domain.model.common.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.SocketTimeoutException
@@ -40,7 +40,9 @@ open class RemoteDataSource {
     private fun parseHttpError(throwable: HttpException) : Result<Nothing> {
         return try {
             val errorBody = throwable.response()?.errorBody()?.string() ?: "Unknown HTTP error"
-            val errorMessage = Gson().fromJson(errorBody, JsonObject::class.java)
+            val moshi = Moshi.Builder().build()
+            val adapter = moshi.adapter(JSONObject::class.java)
+            val errorMessage = adapter.fromJson(errorBody)
             Result.Error(HttpResult.CLIENT_ERROR, throwable.code(), errorMessage.toString())
         } catch (exception : Exception) {
             Result.Error(HttpResult.CLIENT_ERROR)

@@ -17,7 +17,7 @@ package io.fajarca.marvel.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import io.fajarca.marvel.ui.CoroutinesDispatcherProvider
+import io.fajarca.marvel.data.CoroutinesDispatcherProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import java.util.concurrent.CountDownLatch

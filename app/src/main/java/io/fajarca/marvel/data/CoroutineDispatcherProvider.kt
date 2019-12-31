@@ -1,4 +1,4 @@
-package io.fajarca.marvel.ui
+package io.fajarca.marvel.data
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers.Default

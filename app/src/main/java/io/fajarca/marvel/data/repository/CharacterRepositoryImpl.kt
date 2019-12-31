@@ -7,7 +7,7 @@ import io.fajarca.marvel.domain.model.common.Result
 import io.fajarca.marvel.domain.model.local.Character
 import io.fajarca.marvel.domain.model.response.CharacterDto
 import io.fajarca.marvel.domain.repository.CharacterRepository
-import io.fajarca.marvel.ui.CoroutinesDispatcherProvider
+import io.fajarca.marvel.data.CoroutinesDispatcherProvider
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

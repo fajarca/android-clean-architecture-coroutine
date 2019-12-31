@@ -9,13 +9,13 @@ android {
     dataBinding {
         enabled = true
     }
-    compileSdkVersion 28
+    compileSdkVersion ApplicationConfig.compileSdk
     defaultConfig {
-        applicationId "io.fajarca.todo"
-        minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        applicationId ApplicationConfig.id
+        minSdkVersion ApplicationConfig.minSdk
+        targetSdkVersion ApplicationConfig.targetSdk
+        versionCode ApplicationConfig.versionCode
+        versionName ApplicationConfig.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -32,65 +32,58 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    //Test suite
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
+    implementation Libraries.kotlin
+    implementation Libraries.ktx
 
+    implementation Libraries.room_ktx
+    implementation Libraries.room_runtime
+    implementation Libraries.timber
+    implementation Libraries.retrofit
+    implementation Libraries.moshiConverter
+    implementation Libraries.loggingInterceptor
+    implementation Libraries.glide
+    implementation Libraries.moshi
+    implementation Libraries.lifecycleExtensions
+    implementation Libraries.dagger
+    implementation Libraries.daggerAndroid
+    implementation Libraries.daggerAndroidSupport
 
+    kapt Libraries.daggerCompiler
+    kapt Libraries.daggerProcessor
+    kapt Libraries.room_compiler
+    kapt Libraries.glideCompiler
+    kapt Libraries.lifecycleCompiler
 
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.paging:paging-runtime:2.0.0'
+    implementation SupportLibraries.appcompat
+    implementation SupportLibraries.design
+    implementation SupportLibraries.cardview
+    implementation SupportLibraries.recyclerview
+    implementation SupportLibraries.navigation_fragment_ktx
+    implementation SupportLibraries.navigation_ktx
+    implementation SupportLibraries.paging
+    implementation SupportLibraries.constraintLayout
 
-    //Support Library
-    implementation "androidx.appcompat:appcompat:$support_library_version"
-    implementation "com.google.android.material:material:$support_library_version"
+    testImplementation TestLibraries.junit
+    testImplementation TestLibraries.lifecycleTesting
+    testImplementation TestLibraries.coroutine
+    testImplementation TestLibraries.mockito
 
-    //Navigation Component
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_component_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_component_version"
+    androidTestImplementation TestLibraries.espresso_runner
+    androidTestImplementation TestLibraries.espresso
+    androidTestImplementation TestLibraries.espresso_runner
+    androidTestImplementation TestLibraries.espresso
 
-    //Room
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-
-    //Lifecycle aware component
-    // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_component_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_component_version"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_component_version"
-
-    //Dagger2
-    implementation "com.google.dagger:dagger:$dagger_version"
-    implementation "com.google.dagger:dagger-android:$dagger_version"
-    implementation "com.google.dagger:dagger-android-support:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-
-    //Retrofit2
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:$retrofit_logging_interceptor_version"
-
-    //Glide
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
-
-    //Timber
-    implementation "com.jakewharton.timber:timber:$timber_version"
-
-    //Unit test
-    testImplementation "org.mockito:mockito-core:$mockito_version"
-    testImplementation "junit:junit:$junit_version"
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutine_test_version"
 }

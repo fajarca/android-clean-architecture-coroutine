@@ -32,7 +32,11 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor, cache: Cache, authInterceptor: Interceptor): OkHttpClient {
+    fun provideOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        cache: Cache,
+        authInterceptor: Interceptor
+    ): OkHttpClient {
         val client = OkHttpClient.Builder()
         client.cache(cache)
         client.addInterceptor(loggingInterceptor)
@@ -43,23 +47,24 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideAuthInterceptor(): Interceptor {
-
         return Interceptor { chain ->
 
-            val request = chain.request()
-                .url()
+            var request = chain.request()
+
+            val url = request
+                .url
                 .newBuilder()
                 .addQueryParameter("apikey", BuildConfig.API_KEY)
-                .addQueryParameter("ts","1576669205601")
+                .addQueryParameter("ts", "1576669205601")
                 .addQueryParameter("hash", BuildConfig.API_HASH)
                 .build()
 
-            val newRequest = chain.request()
+            request = request
                 .newBuilder()
-                .url(request)
+                .url(url)
                 .build()
 
-            chain.proceed(newRequest)
+            chain.proceed(request)
         }
     }
 

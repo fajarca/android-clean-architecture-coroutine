@@ -5,11 +5,11 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
+import io.fajarca.feature.OrdinaryClass
 import io.fajarca.marvel.R
 import io.fajarca.marvel.databinding.FragmentHomeBinding
 import io.fajarca.marvel.domain.model.local.Character
 import io.fajarca.marvel.ui.BaseFragment
-
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     CharactersRecyclerAdapter.CharacterClickListener {

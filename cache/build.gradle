@@ -1,45 +1,30 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-//Apply Safe Args Plugin for Navigation Component
-apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'kotlin-kapt'
 
 android {
-    dataBinding {
-        enabled = true
-    }
-    compileSdkVersion ApplicationConfig.compileSdk
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+
     defaultConfig {
-        applicationId ApplicationConfig.id
-        minSdkVersion ApplicationConfig.minSdk
-        targetSdkVersion ApplicationConfig.targetSdk
-        versionCode ApplicationConfig.versionCode
-        versionName ApplicationConfig.versionName
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
+
     buildTypes {
-        debug {
-            buildConfigField "String", "BASE_URL", BASE_URL
-            buildConfigField "String", "API_KEY", API_KEY
-            buildConfigField "String", "API_HASH", API_HASH
-        }
         release {
-            buildConfigField "String", "BASE_URL", BASE_URL
-            buildConfigField "String", "API_KEY", API_KEY
-            buildConfigField "String", "API_HASH", API_HASH
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
 }
 
 dependencies {
@@ -61,6 +46,11 @@ dependencies {
     implementation Libraries.daggerAndroid
     implementation Libraries.daggerAndroidSupport
 
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     kapt Libraries.daggerCompiler
     kapt Libraries.daggerProcessor
     kapt Libraries.room_compiler
@@ -76,15 +66,4 @@ dependencies {
     implementation SupportLibraries.paging
     implementation SupportLibraries.constraintLayout
 
-    testImplementation TestLibraries.junit
-    testImplementation TestLibraries.lifecycleTesting
-    testImplementation TestLibraries.coroutine
-    testImplementation TestLibraries.mockito
-
-    androidTestImplementation TestLibraries.espresso_runner
-    androidTestImplementation TestLibraries.espresso
-    androidTestImplementation TestLibraries.espresso_runner
-    androidTestImplementation TestLibraries.espresso
-
-    implementation project(':feature')
 }

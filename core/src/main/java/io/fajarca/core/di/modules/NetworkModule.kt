@@ -1,10 +1,10 @@
-package io.fajarca.marvel.di.module
+package io.fajarca.core.di.modules
 
-import android.app.Application
+import android.content.Context
 import dagger.Module
 import dagger.Provides
-import io.fajarca.marvel.BuildConfig
-import io.fajarca.marvel.data.service.ApiService
+import io.fajarca.core.BuildConfig
+import io.fajarca.core.network.service.ApiService
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -15,11 +15,12 @@ import javax.inject.Singleton
 
 @Module
 class NetworkModule {
+
     @Provides
     @Singleton
-    fun provideHttpCache(application: Application): Cache {
+    fun provideHttpCache(context: Context): Cache {
         val cacheSize: Long = 10 * 10 * 1024
-        return Cache(application.cacheDir, cacheSize)
+        return Cache(context.cacheDir, cacheSize)
     }
 
     @Provides

@@ -1,7 +1,5 @@
 package io.fajarca.marvel.util
 
-import io.fajarca.marvel.domain.model.local.Character
-
 object TestUtil {
 
     fun generateDummyCharacter(id : Long, title : String = "Title", imageUrl : String = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg" ) : Character {

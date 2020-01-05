@@ -4,7 +4,7 @@ import dagger.Component
 import dagger.android.AndroidInjectionModule
 import io.fajarca.core.di.CoreComponent
 import io.fajarca.core.di.scope.AppScope
-import io.fajarca.marvel.core.MarvelApp
+import io.fajarca.marvel.MarvelApp
 import io.fajarca.marvel.di.builder.ActivityBuilder
 import io.fajarca.marvel.di.module.DataModule
 import io.fajarca.marvel.di.module.FragmentModule

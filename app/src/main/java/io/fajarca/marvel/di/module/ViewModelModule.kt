@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import io.fajarca.marvel.ui.home.HomeViewModel
+import io.fajarca.feature.ui.home.HomeViewModel
 import io.fajarca.marvel.ui.ViewModelFactory
 import io.fajarca.marvel.di.qualifier.ViewModelKey
 

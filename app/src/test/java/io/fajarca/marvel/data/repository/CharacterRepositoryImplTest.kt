@@ -1,10 +1,11 @@
 package io.fajarca.marvel.data.repository
 
-import io.fajarca.marvel.data.mapper.CharactersMapper
+import io.fajarca.feature.data.mapper.CharactersMapper
+import io.fajarca.feature.data.repository.CharacterRepositoryImpl
 import io.fajarca.marvel.data.source.local.CharacterDao
-import io.fajarca.marvel.data.source.remote.CharacterRemoteDataSource
-import io.fajarca.marvel.domain.model.common.HttpResult
-import io.fajarca.marvel.domain.model.common.Result
+import io.fajarca.feature.data.source.remote.CharacterRemoteDataSource
+import io.fajarca.feature.domain.model.common.HttpResult
+import io.fajarca.feature.domain.model.common.Result
 import io.fajarca.marvel.domain.model.response.CharacterDto
 import io.fajarca.marvel.util.TestUtil
 import io.fajarca.marvel.util.provideFakeCoroutinesDispatcherProvider

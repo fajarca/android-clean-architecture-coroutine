@@ -2,7 +2,7 @@ package io.fajarca.marvel.di.module
 
 import dagger.Module
 import dagger.Provides
-import io.fajarca.marvel.data.mapper.CharactersMapper
+import io.fajarca.feature.data.mapper.CharactersMapper
 
 @Module
 class DataModule {

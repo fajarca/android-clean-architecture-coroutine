@@ -2,7 +2,7 @@ package io.fajarca.marvel.di.builder
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import io.fajarca.marvel.ui.MainActivity
+import io.fajarca.feature.ui.MainActivity
 
 @Module
 abstract class ActivityBuilder {

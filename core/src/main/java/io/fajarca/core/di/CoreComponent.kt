@@ -1,9 +1,11 @@
 package io.fajarca.core.di
 
 import android.app.Application
+import android.content.SharedPreferences
 import dagger.BindsInstance
 import dagger.Component
 import io.fajarca.core.database.CharacterDao
+import io.fajarca.core.database.MarvelDatabase
 import io.fajarca.core.di.modules.ContextModule
 import io.fajarca.core.di.modules.DatabaseModule
 import io.fajarca.core.di.modules.NetworkModule
@@ -22,8 +24,13 @@ import javax.inject.Singleton
     ]
 )
 interface CoreComponent {
-    fun apiService() : ApiService
+    fun sharedPreference() : SharedPreferences
+    fun sharedPreferenceEditor() : SharedPreferences.Editor
+
+    fun marvelDatabase() : MarvelDatabase
+
     fun characterDao() : CharacterDao
+    fun apiService() : ApiService
 
     @Component.Builder
     interface Builder {

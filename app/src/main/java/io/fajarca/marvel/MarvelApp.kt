@@ -1,25 +1,23 @@
 package io.fajarca.marvel
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
 import io.fajarca.core.di.CoreComponent
 import io.fajarca.core.di.DaggerCoreComponent
 import io.fajarca.marvel.di.component.DaggerAppComponent
 import timber.log.Timber
-import javax.inject.Inject
 
-class MarvelApp : Application(), HasActivityInjector {
-    @Inject
-    lateinit var activityInjector: DispatchingAndroidInjector<Activity>
+class MarvelApp : Application() {
+
+
 
     lateinit var coreComponent: CoreComponent
 
     companion object {
 
+        val core by lazy {
+
+        }
         /**
          * Obtain core dagger component.
          *
@@ -39,7 +37,7 @@ class MarvelApp : Application(), HasActivityInjector {
         initTimber()
     }
 
-    override fun activityInjector(): AndroidInjector<Activity> = activityInjector
+
 
     private fun initTimber() {
         if (BuildConfig.DEBUG) {

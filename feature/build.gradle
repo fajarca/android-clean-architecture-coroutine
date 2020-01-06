@@ -47,8 +47,6 @@ dependencies {
     implementation Libraries.moshi
     implementation Libraries.lifecycleExtensions
     implementation Libraries.dagger
-    implementation Libraries.daggerAndroid
-    implementation Libraries.daggerAndroidSupport
 
     kapt Libraries.daggerCompiler
     kapt Libraries.daggerProcessor

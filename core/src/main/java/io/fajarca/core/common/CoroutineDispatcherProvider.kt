@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * Provide coroutines context.
  */
-data class CoroutinesDispatcherProvider(
+data class CoroutineDispatcherProvider(
     val main: CoroutineDispatcher,
     val computation: CoroutineDispatcher,
     val io: CoroutineDispatcher

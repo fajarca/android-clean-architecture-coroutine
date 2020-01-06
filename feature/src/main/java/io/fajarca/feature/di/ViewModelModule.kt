@@ -7,18 +7,18 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import io.fajarca.feature.ui.home.HomeViewModel
 import io.fajarca.core.common.ViewModelFactory
-import io.fajarca.core.qualifier.ViewModelKey
+import io.fajarca.core.di.qualifier.ViewModelKey
 
 @Module
 abstract class ViewModelModule {
 
     @Binds
-    internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
     @Binds
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
-    internal abstract fun providesHomeViewModel(viewModel: HomeViewModel): ViewModel
+     abstract fun providesHomeViewModel(viewModel: HomeViewModel): ViewModel
 
 
 }

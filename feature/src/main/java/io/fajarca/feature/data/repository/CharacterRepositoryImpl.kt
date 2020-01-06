@@ -1,10 +1,10 @@
 package io.fajarca.feature.data.repository
 
+import io.fajarca.core.common.CoroutineDispatcherProvider
 import io.fajarca.feature.data.mapper.CharactersMapper
 import io.fajarca.feature.data.source.remote.CharacterRemoteDataSource
 import io.fajarca.core.common.Result
 import io.fajarca.feature.domain.repository.CharacterRepository
-import io.fajarca.core.common.CoroutinesDispatcherProvider
 import io.fajarca.core.database.CharacterDao
 import kotlinx.coroutines.flow.Flow
 import io.fajarca.core.database.Character
@@ -12,7 +12,7 @@ import javax.inject.Inject
 import io.fajarca.core.network.CharacterDto
 
 class CharacterRepositoryImpl @Inject constructor(
-    private val dispatcher: CoroutinesDispatcherProvider,
+    private val dispatcher: CoroutineDispatcherProvider,
     private val mapper: CharactersMapper,
     private val dao: CharacterDao,
     private val remoteDataSource: CharacterRemoteDataSource

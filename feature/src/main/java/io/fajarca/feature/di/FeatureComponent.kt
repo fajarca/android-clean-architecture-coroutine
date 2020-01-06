@@ -8,7 +8,6 @@ import io.fajarca.core.di.CoreComponent
     dependencies = [CoreComponent::class],
     modules = [
         FeatureModule::class,
-        FragmentModule::class,
         RepositoryModule::class,
         ViewModelModule::class
     ]

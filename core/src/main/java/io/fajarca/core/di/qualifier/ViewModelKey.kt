@@ -1,4 +1,4 @@
-package io.fajarca.core.qualifier
+package io.fajarca.core.di.qualifier
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

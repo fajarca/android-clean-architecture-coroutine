@@ -49,6 +49,8 @@ dependencies {
     implementation Libraries.retrofit
     implementation Libraries.moshiConverter
     implementation Libraries.loggingInterceptor
+
+    implementation Libraries.timber
     
     implementation Libraries.dagger
     kapt Libraries.daggerCompiler

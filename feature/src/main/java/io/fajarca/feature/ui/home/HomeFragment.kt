@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
+import io.fajarca.core.MarvelApp
 import io.fajarca.feature.R
 import io.fajarca.feature.ui.BaseFragment
 import io.fajarca.feature.databinding.FragmentHomeBinding
@@ -29,7 +30,11 @@ class HomeFragment : Fragment(),
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerFeatureComponent.builder().build().inject(this)
+        DaggerFeatureComponent
+            .builder()
+            .coreComponent(MarvelApp.coreComponent(requireContext()))
+            .build()
+            .inject(this)
     }
 
     override fun onCreateView(

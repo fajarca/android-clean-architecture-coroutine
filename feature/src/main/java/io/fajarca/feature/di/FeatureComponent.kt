@@ -2,7 +2,6 @@ package io.fajarca.feature.di
 
 import dagger.Component
 import io.fajarca.core.di.CoreComponent
-import io.fajarca.feature.domain.repository.CharacterRepository
 import io.fajarca.feature.ui.home.HomeFragment
 
 @FeatureScope

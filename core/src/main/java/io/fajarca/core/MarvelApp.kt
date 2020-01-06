@@ -1,10 +1,9 @@
-package io.fajarca.marvel
+package io.fajarca.core
 
 import android.app.Application
 import android.content.Context
 import io.fajarca.core.di.CoreComponent
 import io.fajarca.core.di.DaggerCoreComponent
-import io.fajarca.marvel.di.component.DaggerAppComponent
 import timber.log.Timber
 
 class MarvelApp : Application() {
@@ -15,9 +14,6 @@ class MarvelApp : Application() {
 
     companion object {
 
-        val core by lazy {
-
-        }
         /**
          * Obtain core dagger component.
          *
@@ -31,7 +27,6 @@ class MarvelApp : Application() {
         super.onCreate()
 
         initCoreDependencyInjection()
-        initAppDependencyInjection()
 
 
         initTimber()
@@ -55,11 +50,11 @@ class MarvelApp : Application() {
             .build()
     }
 
-    private fun initAppDependencyInjection() {
+  /*  private fun initAppDependencyInjection() {
         DaggerAppComponent
             .builder()
             .coreComponent(coreComponent)
             .build()
             .inject(this)
-    }
+    }*/
 }

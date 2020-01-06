@@ -1,4 +1,4 @@
-package io.fajarca.marvel.di.module
+package io.fajarca.feature.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -6,8 +6,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import io.fajarca.feature.ui.home.HomeViewModel
-import io.fajarca.marvel.ui.ViewModelFactory
-import io.fajarca.marvel.di.qualifier.ViewModelKey
+import io.fajarca.core.common.ViewModelFactory
+import io.fajarca.core.qualifier.ViewModelKey
 
 @Module
 abstract class ViewModelModule {

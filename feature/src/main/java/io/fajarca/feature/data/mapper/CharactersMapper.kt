@@ -1,6 +1,7 @@
 package io.fajarca.feature.data.mapper
 
-import io.fajarca.core.network.response.CharacterDto
+import io.fajarca.core.common.Mapper
+import io.fajarca.core.network.CharacterDto
 import io.fajarca.core.database.Character
 
 class CharactersMapper : Mapper<CharacterDto, List<Character>>(){

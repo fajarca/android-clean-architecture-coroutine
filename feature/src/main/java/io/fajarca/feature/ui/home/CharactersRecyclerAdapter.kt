@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import io.fajarca.core.database.Character
 import io.fajarca.feature.databinding.ItemCharacterBinding
+import io.fajarca.core.database.Character
 
 class CharactersRecyclerAdapter(private val listener: CharacterClickListener) : androidx.recyclerview.widget.ListAdapter<Character, CharactersRecyclerAdapter.CharacterViewHolder>(
     diffCallback

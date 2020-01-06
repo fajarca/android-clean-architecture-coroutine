@@ -1,15 +1,15 @@
 package io.fajarca.feature.data.repository
 
-import io.fajarca.core.database.CharacterDao
 import io.fajarca.feature.data.mapper.CharactersMapper
 import io.fajarca.feature.data.source.remote.CharacterRemoteDataSource
-import io.fajarca.feature.domain.model.common.Result
+import io.fajarca.core.common.Result
 import io.fajarca.feature.domain.repository.CharacterRepository
-import io.fajarca.feature.data.CoroutinesDispatcherProvider
+import io.fajarca.core.common.CoroutinesDispatcherProvider
+import io.fajarca.core.database.CharacterDao
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 import io.fajarca.core.database.Character
-import io.fajarca.core.network.response.CharacterDto
+import javax.inject.Inject
+import io.fajarca.core.network.CharacterDto
 
 class CharacterRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutinesDispatcherProvider,

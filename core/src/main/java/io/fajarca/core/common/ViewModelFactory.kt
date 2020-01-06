@@ -1,4 +1,4 @@
-package io.fajarca.marvel.ui
+package io.fajarca.core.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

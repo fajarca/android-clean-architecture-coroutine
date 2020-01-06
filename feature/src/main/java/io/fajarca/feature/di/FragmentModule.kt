@@ -1,4 +1,4 @@
-package io.fajarca.marvel.di.module
+package io.fajarca.feature.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

@@ -6,9 +6,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.feature.R
-import io.fajarca.marvel.ui.BaseFragment
-import io.fajarca.core.database.Character
+import io.fajarca.feature.ui.BaseFragment
 import io.fajarca.feature.databinding.FragmentHomeBinding
+import io.fajarca.core.database.Character
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     CharactersRecyclerAdapter.CharacterClickListener {
@@ -24,6 +24,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         vm.getAllCharacters()
 
         vm.characters.observe(viewLifecycleOwner, Observer { subscribeCharacters(it) })
+
     }
 
     private fun subscribeCharacters(it: HomeViewModel.Result<List<Character>>) {

@@ -1,4 +1,4 @@
-package io.fajarca.feature.domain.model.common
+package io.fajarca.core.common
 
 sealed class Result<out T> {
     object Loading : Result<Nothing>()

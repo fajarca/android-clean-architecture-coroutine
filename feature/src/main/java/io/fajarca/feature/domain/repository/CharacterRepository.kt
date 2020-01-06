@@ -1,8 +1,8 @@
 package io.fajarca.feature.domain.repository
 
-import io.fajarca.core.network.response.CharacterDto
-import io.fajarca.feature.domain.model.common.Result
+import io.fajarca.core.common.Result
 import kotlinx.coroutines.flow.Flow
+import io.fajarca.core.network.CharacterDto
 import io.fajarca.core.database.Character
 
 interface CharacterRepository {

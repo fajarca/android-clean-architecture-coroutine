@@ -1,4 +1,4 @@
-package io.fajarca.feature.ui
+package io.fajarca.marvel
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

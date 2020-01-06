@@ -1,8 +1,7 @@
 package io.fajarca.marvel.data.source.remote
 
-import io.fajarca.feature.data.source.remote.RemoteDataSource
-import io.fajarca.feature.domain.model.common.HttpResult
-import io.fajarca.feature.domain.model.common.Result
+import io.fajarca.core.common.HttpResult
+import io.fajarca.core.common.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest

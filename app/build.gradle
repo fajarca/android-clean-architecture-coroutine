@@ -84,6 +84,6 @@ dependencies {
     androidTestImplementation TestLibraries.espresso_runner
     androidTestImplementation TestLibraries.espresso
 
-    implementation project(':feature')
+    implementation project(':feature:home')
     implementation project(':core')
 }

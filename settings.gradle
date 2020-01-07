@@ -1,2 +1,2 @@
-include ':app', ':feature', ':core'
+include ':app', 'feature:home', ':core', 'feature:characterdetail'
 rootProject.name='Marvel'

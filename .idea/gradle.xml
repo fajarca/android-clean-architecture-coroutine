@@ -12,6 +12,8 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/characterdetail" />
+            <option value="$PROJECT_DIR$/feature/home" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

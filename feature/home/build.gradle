@@ -32,10 +32,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation project(':core')
 
     implementation Libraries.kotlin
-    implementation Libraries.ktx
 
     implementation Libraries.room_ktx
     implementation Libraries.room_runtime

@@ -18,7 +18,6 @@ object Versions {
     val cardview = "1.0.0"
     val recyclerview = "1.2.0-alpha01"
     val paging = "2.1.1"
-    val ktx = "1.0.0-alpha1"
     val room = "2.2.3"
     val kotlin = "1.3.61"
     val timber = "4.7.1"
@@ -39,8 +38,6 @@ object Versions {
 
 object Libraries {
     val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-
-    val ktx = "androidx.core:core-ktx:${Versions.ktx}"
 
     val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 

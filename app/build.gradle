@@ -45,23 +45,15 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation Libraries.kotlin
-    implementation Libraries.ktx
+    implementation project(':feature:home')
 
-    implementation Libraries.room_ktx
-    implementation Libraries.room_runtime
-    implementation Libraries.timber
-    implementation Libraries.retrofit
-    implementation Libraries.moshiConverter
-    implementation Libraries.loggingInterceptor
+    implementation Libraries.kotlin
     implementation Libraries.glide
-    implementation Libraries.moshi
     implementation Libraries.lifecycleExtensions
     implementation Libraries.dagger
 
     kapt Libraries.daggerCompiler
     kapt Libraries.daggerProcessor
-    kapt Libraries.room_compiler
     kapt Libraries.glideCompiler
     kapt Libraries.lifecycleCompiler
 
@@ -73,17 +65,4 @@ dependencies {
     implementation SupportLibraries.navigation_ktx
     implementation SupportLibraries.paging
     implementation SupportLibraries.constraintLayout
-
-    testImplementation TestLibraries.junit
-    testImplementation TestLibraries.lifecycleTesting
-    testImplementation TestLibraries.coroutine
-    testImplementation TestLibraries.mockito
-
-    androidTestImplementation TestLibraries.espresso_runner
-    androidTestImplementation TestLibraries.espresso
-    androidTestImplementation TestLibraries.espresso_runner
-    androidTestImplementation TestLibraries.espresso
-
-    implementation project(':feature:home')
-    implementation project(':core')
 }

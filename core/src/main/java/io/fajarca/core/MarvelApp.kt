@@ -27,8 +27,6 @@ class MarvelApp : Application() {
         super.onCreate()
 
         initCoreDependencyInjection()
-
-
         initTimber()
     }
 
@@ -50,11 +48,4 @@ class MarvelApp : Application() {
             .build()
     }
 
-  /*  private fun initAppDependencyInjection() {
-        DaggerAppComponent
-            .builder()
-            .coreComponent(coreComponent)
-            .build()
-            .inject(this)
-    }*/
 }

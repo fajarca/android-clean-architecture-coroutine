@@ -1,8 +1,6 @@
-package io.fajarca.home.data.repository
+package io.fajarca.home.data
 
 import io.fajarca.core.common.CoroutineDispatcherProvider
-import io.fajarca.home.data.mapper.CharactersMapper
-import io.fajarca.home.data.source.remote.CharacterRemoteDataSource
 import io.fajarca.core.common.Result
 import io.fajarca.home.domain.repository.CharacterRepository
 import io.fajarca.core.database.CharacterDao

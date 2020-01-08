@@ -59,13 +59,10 @@ object Libraries {
     val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
 
     val dagger = "com.google.dagger:dagger:${Versions.dagger}"
-    val daggerAndroid = "com.google.dagger:dagger-android:${Versions.dagger}"
-    val daggerAndroidSupport = "com.google.dagger:dagger-android-support:${Versions.dagger}"
     val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
-    val daggerProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
 }
 
-object SupportLibraries {
+object AndroidXLibraries {
     val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     val design = "com.google.android.material:material:${Versions.design}"
     val cardview = "androidx.cardview:cardview:${Versions.cardview}"

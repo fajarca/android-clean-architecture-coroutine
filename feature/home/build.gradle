@@ -49,19 +49,18 @@ dependencies {
     implementation Libraries.dagger
 
     kapt Libraries.daggerCompiler
-    kapt Libraries.daggerProcessor
     kapt Libraries.room_compiler
     kapt Libraries.glideCompiler
     kapt Libraries.lifecycleCompiler
 
-    implementation SupportLibraries.appcompat
-    implementation SupportLibraries.design
-    implementation SupportLibraries.cardview
-    implementation SupportLibraries.recyclerview
-    implementation SupportLibraries.navigation_fragment_ktx
-    implementation SupportLibraries.navigation_ktx
-    implementation SupportLibraries.paging
-    implementation SupportLibraries.constraintLayout
+    implementation AndroidXLibraries.appcompat
+    implementation AndroidXLibraries.design
+    implementation AndroidXLibraries.cardview
+    implementation AndroidXLibraries.recyclerview
+    implementation AndroidXLibraries.navigation_fragment_ktx
+    implementation AndroidXLibraries.navigation_ktx
+    implementation AndroidXLibraries.paging
+    implementation AndroidXLibraries.constraintLayout
 
     testImplementation TestLibraries.junit
     testImplementation TestLibraries.lifecycleTesting

@@ -1,4 +1,4 @@
-package io.fajarca.home.data.source.remote
+package io.fajarca.home.data
 
 import io.fajarca.core.network.service.ApiService
 import io.fajarca.core.network.CharacterDto

@@ -1,2 +1,0 @@
-package io.fajarca.core
-

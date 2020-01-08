@@ -54,5 +54,4 @@ dependencies {
     
     implementation Libraries.dagger
     kapt Libraries.daggerCompiler
-    kapt Libraries.daggerProcessor
 }

@@ -14,7 +14,7 @@ import io.fajarca.core.MarvelApp
 import io.fajarca.home.R
 import io.fajarca.core.database.Character
 import io.fajarca.home.databinding.FragmentHomeBinding
-import io.fajarca.home.di.DaggerFeatureComponent
+import io.fajarca.home.di.DaggerHomeFeatureComponent
 import javax.inject.Inject
 
 class HomeFragment : Fragment(),
@@ -29,7 +29,7 @@ class HomeFragment : Fragment(),
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerFeatureComponent
+        DaggerHomeFeatureComponent
             .builder()
             .coreComponent(MarvelApp.coreComponent(requireContext()))
             .build()

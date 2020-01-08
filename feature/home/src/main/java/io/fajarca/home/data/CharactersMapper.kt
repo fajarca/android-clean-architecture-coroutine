@@ -1,4 +1,4 @@
-package io.fajarca.home.data.mapper
+package io.fajarca.home.data
 
 import io.fajarca.core.common.Mapper
 import io.fajarca.core.network.CharacterDto

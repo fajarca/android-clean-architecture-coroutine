@@ -1,4 +1,4 @@
-package io.fajarca.home.ui
+package io.fajarca.home.presentation
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

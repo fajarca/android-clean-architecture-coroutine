@@ -1,4 +1,4 @@
-package io.fajarca.home.di
+package io.fajarca.core.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

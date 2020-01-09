@@ -1,4 +1,4 @@
-package io.fajarca.home.ui
+package io.fajarca.home.presentation
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import io.fajarca.home.ui.home.HomeViewModel
 import javax.inject.Inject
 
 abstract class BaseFragment<out B : ViewDataBinding, V : ViewModel> : Fragment() {

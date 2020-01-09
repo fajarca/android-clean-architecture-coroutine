@@ -14,6 +14,8 @@
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/characterdetail" />
             <option value="$PROJECT_DIR$/feature/home" />
+            <option value="$PROJECT_DIR$/libraries" />
+            <option value="$PROJECT_DIR$/libraries/presentation" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

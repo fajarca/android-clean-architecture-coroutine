@@ -11,7 +11,7 @@ import io.fajarca.home.data.CharactersMapper
 import io.fajarca.home.domain.repository.CharacterRepository
 
 @Module
-interface HomeRepositoryModule {
+interface RepositoryModule {
     @Binds
     fun bindProjectRepository(projectRepository: CharacterRepositoryImpl): CharacterRepository
 }

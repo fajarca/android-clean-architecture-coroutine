@@ -3,13 +3,12 @@ package io.fajarca.core.di
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.lifecycle.ViewModelProvider
+import dagger.Binds
 import dagger.BindsInstance
 import dagger.Component
 import io.fajarca.core.database.MarvelDatabase
-import io.fajarca.core.di.modules.ContextModule
-import io.fajarca.core.di.modules.DatabaseModule
-import io.fajarca.core.di.modules.NetworkModule
-import io.fajarca.core.di.modules.SharedPreferenceModule
+import io.fajarca.core.di.modules.*
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -29,6 +28,7 @@ interface CoreComponent {
     fun sharedPreferenceEditor() : SharedPreferences.Editor
     fun marvelDatabase() : MarvelDatabase
     fun retrofit() : Retrofit
+
 
     @Component.Builder
     interface Builder {

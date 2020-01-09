@@ -1,4 +1,4 @@
-package io.fajarca.home.ui.home
+package io.fajarca.home.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -35,7 +35,11 @@ class HomeViewModel @Inject constructor(private val getCharactersUseCase: GetCha
                     if (it.isEmpty()) {
                         _characters.postValue(Result.Empty)
                     } else {
-                        _characters.postValue(Result.Success(it))
+                        _characters.postValue(
+                            Result.Success(
+                                it
+                            )
+                        )
                     }
                 }
         }

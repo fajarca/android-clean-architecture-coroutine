@@ -6,9 +6,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
 import io.fajarca.home.domain.usecase.GetCharactersUseCase
-import io.fajarca.home.ui.home.HomeViewModel
+import io.fajarca.home.presentation.HomeViewModel
 import io.fajarca.marvel.util.TestCoroutineRule
-import io.fajarca.marvel.util.TestUtil
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf

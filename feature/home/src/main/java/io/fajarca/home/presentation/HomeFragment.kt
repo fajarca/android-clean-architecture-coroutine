@@ -1,4 +1,4 @@
-package io.fajarca.home.ui.home
+package io.fajarca.home.presentation
 
 import android.os.Bundle
 import android.view.View
@@ -9,10 +9,10 @@ import io.fajarca.core.MarvelApp
 import io.fajarca.core.database.Character
 import io.fajarca.home.R
 import io.fajarca.home.databinding.FragmentHomeBinding
-import io.fajarca.home.di.DaggerHomeFeatureComponent
-import io.fajarca.home.ui.BaseFragment
+import io.fajarca.home.di.DaggerFeatureComponent
 
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), CharactersRecyclerAdapter.CharacterClickListener {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
+    CharactersRecyclerAdapter.CharacterClickListener {
 
     private lateinit var adapter : CharactersRecyclerAdapter
 
@@ -20,7 +20,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), Charact
     override fun getViewModelClass() = HomeViewModel::class.java
 
     override fun initDaggerComponent() {
-        DaggerHomeFeatureComponent
+        DaggerFeatureComponent
             .builder()
             .coreComponent(MarvelApp.coreComponent(requireContext()))
             .build()

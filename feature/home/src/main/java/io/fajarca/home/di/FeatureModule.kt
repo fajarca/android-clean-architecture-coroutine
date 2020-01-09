@@ -13,7 +13,7 @@ import retrofit2.Retrofit
 
 
 @Module
-class HomeFeatureModule {
+class FeatureModule {
 
     @Provides
     @FeatureScope

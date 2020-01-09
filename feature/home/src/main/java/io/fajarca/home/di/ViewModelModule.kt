@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import io.fajarca.home.ui.home.HomeViewModel
+import io.fajarca.core.di.ViewModelFactory
+import io.fajarca.core.di.ViewModelKey
+import io.fajarca.home.presentation.HomeViewModel
 
 @Module
 abstract class ViewModelModule {

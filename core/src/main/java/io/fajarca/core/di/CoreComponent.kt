@@ -10,7 +10,7 @@ import io.fajarca.core.di.modules.ContextModule
 import io.fajarca.core.di.modules.DatabaseModule
 import io.fajarca.core.di.modules.NetworkModule
 import io.fajarca.core.di.modules.SharedPreferenceModule
-import io.fajarca.core.network.service.ApiService
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 
@@ -28,7 +28,7 @@ interface CoreComponent {
     fun sharedPreference() : SharedPreferences
     fun sharedPreferenceEditor() : SharedPreferences.Editor
     fun marvelDatabase() : MarvelDatabase
-    fun apiService() : ApiService
+    fun retrofit() : Retrofit
 
     @Component.Builder
     interface Builder {

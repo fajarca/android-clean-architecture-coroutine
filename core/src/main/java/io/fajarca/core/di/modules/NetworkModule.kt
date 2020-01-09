@@ -4,7 +4,6 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import io.fajarca.core.BuildConfig
-import io.fajarca.core.network.service.ApiService
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -80,7 +79,5 @@ class NetworkModule {
             .build()
     }
 
-    @Provides
-    @Singleton
-    fun provideApiService(retrofit: Retrofit) = retrofit.create(ApiService::class.java)
+
 }

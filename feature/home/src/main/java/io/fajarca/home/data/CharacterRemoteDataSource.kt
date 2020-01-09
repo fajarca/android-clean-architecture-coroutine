@@ -1,7 +1,6 @@
 package io.fajarca.home.data
 
-import io.fajarca.core.network.service.ApiService
-import io.fajarca.core.network.CharacterDto
+
 import io.fajarca.core.common.Result
 import io.fajarca.core.network.RemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher

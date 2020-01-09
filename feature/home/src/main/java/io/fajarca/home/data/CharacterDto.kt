@@ -1,4 +1,4 @@
-package io.fajarca.core.network
+package io.fajarca.home.data
 
 import com.squareup.moshi.Json
 

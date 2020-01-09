@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.core.MarvelApp
 import io.fajarca.home.R
 import io.fajarca.core.database.Character
-import io.fajarca.core.database.MarvelDatabase
 import io.fajarca.home.databinding.FragmentHomeBinding
 import io.fajarca.home.di.DaggerHomeFeatureComponent
 import javax.inject.Inject

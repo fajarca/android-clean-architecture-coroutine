@@ -1,6 +1,5 @@
-package io.fajarca.core.network.service
+package io.fajarca.home.data
 
-import io.fajarca.core.network.CharacterDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -7,7 +7,6 @@ import io.fajarca.core.database.CharacterDao
 import kotlinx.coroutines.flow.Flow
 import io.fajarca.core.database.Character
 import javax.inject.Inject
-import io.fajarca.core.network.CharacterDto
 
 class CharacterRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcherProvider,

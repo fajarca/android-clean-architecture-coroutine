@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import io.fajarca.core.database.Character
 
-class HomeViewModel (private val getCharactersUseCase: GetCharactersUseCase) : ViewModel() {
+class HomeViewModel @Inject constructor(private val getCharactersUseCase: GetCharactersUseCase) : ViewModel() {
 
     private val _characters = MutableLiveData<Result<List<Character>>>()
     val characters: LiveData<Result<List<Character>>>

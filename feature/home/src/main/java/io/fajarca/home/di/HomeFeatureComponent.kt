@@ -10,7 +10,8 @@ import io.fajarca.home.ui.home.HomeFragment
     dependencies = [CoreComponent::class],
     modules = [
         HomeFeatureModule::class,
-        HomeRepositoryModule::class
+        HomeRepositoryModule::class,
+        ViewModelModule::class
     ]
 )
 interface HomeFeatureComponent {

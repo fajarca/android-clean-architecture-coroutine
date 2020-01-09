@@ -54,4 +54,7 @@ dependencies {
     
     implementation Libraries.dagger
     kapt Libraries.daggerCompiler
+
+    implementation Libraries.lifecycleExtensions
+    kapt Libraries.lifecycleCompiler
 }

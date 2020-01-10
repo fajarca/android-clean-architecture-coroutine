@@ -1,9 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
+
+    dataBinding {
+        enabled = true
+    }
 
 
     defaultConfig {
@@ -27,9 +32,33 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+
+    implementation Libraries.kotlin
+
+    implementation Libraries.room_ktx
+    implementation Libraries.room_runtime
+    implementation Libraries.timber
+    implementation Libraries.retrofit
+    implementation Libraries.moshiConverter
+    implementation Libraries.loggingInterceptor
+    implementation Libraries.glide
+    implementation Libraries.moshi
+    implementation Libraries.lifecycleExtensions
+    implementation Libraries.dagger
+
+    kapt Libraries.daggerCompiler
+    kapt Libraries.room_compiler
+    kapt Libraries.glideCompiler
+    kapt Libraries.lifecycleCompiler
+
+    implementation AndroidXLibraries.appcompat
+    implementation AndroidXLibraries.design
+    implementation AndroidXLibraries.cardview
+    implementation AndroidXLibraries.recyclerview
+    implementation AndroidXLibraries.navigation_fragment_ktx
+    implementation AndroidXLibraries.navigation_ktx
+    implementation AndroidXLibraries.paging
+    implementation AndroidXLibraries.constraintLayout
 }

@@ -1,11 +1,11 @@
-package io.fajarca.home.presentation
+package io.fajarca.presentation
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import io.fajarca.home.R
+
 
 @BindingAdapter("loadPortraitImage")
 fun loadPortraitImage(view: ImageView, imageUrl: String?) {
@@ -22,3 +22,5 @@ fun loadPortraitImage(view: ImageView, imageUrl: String?) {
         .apply(requestOptions)
         .into(view)
 }
+
+

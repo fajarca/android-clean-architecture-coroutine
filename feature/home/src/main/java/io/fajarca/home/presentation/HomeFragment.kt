@@ -10,6 +10,7 @@ import io.fajarca.core.database.CharacterEntity
 import io.fajarca.home.R
 import io.fajarca.home.databinding.FragmentHomeBinding
 import io.fajarca.home.di.DaggerFeatureComponent
+import io.fajarca.presentation.BaseFragment
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     CharactersRecyclerAdapter.CharacterClickListener {

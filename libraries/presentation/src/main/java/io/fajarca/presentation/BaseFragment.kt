@@ -1,4 +1,4 @@
-package io.fajarca.home.presentation
+package io.fajarca.presentation
 
 import android.content.Context
 import android.os.Bundle

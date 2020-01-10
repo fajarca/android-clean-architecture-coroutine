@@ -33,11 +33,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-
-
-    implementation Libraries.kotlin
-
-
     api Libraries.timber
     implementation Libraries.retrofit
 
@@ -48,17 +43,16 @@ dependencies {
     kapt Libraries.lifecycleCompiler
 
     implementation Libraries.dagger
-
     kapt Libraries.daggerCompiler
-    kapt Libraries.room_compiler
 
 
-    
-    implementation AndroidXLibraries.design
-    implementation AndroidXLibraries.cardview
+
+    api AndroidXLibraries.design
+    api AndroidXLibraries.cardview
     api AndroidXLibraries.recyclerview
-    implementation AndroidXLibraries.navigation_fragment_ktx
-    implementation AndroidXLibraries.navigation_ktx
-    implementation AndroidXLibraries.paging
-    implementation AndroidXLibraries.constraintLayout
+    api AndroidXLibraries.navigation_fragment_ktx
+    api AndroidXLibraries.navigation_ktx
+    api AndroidXLibraries.paging
+    api AndroidXLibraries.constraintLayout
+
 }

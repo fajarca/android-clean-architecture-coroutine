@@ -36,7 +36,8 @@ dependencies {
     implementation project(':core')
     implementation project(':libraries:presentation')
 
-    implementation Libraries.kotlin
+    implementation Libraries.dagger
+    kapt Libraries.daggerCompiler
 
     implementation Libraries.room_ktx
     implementation Libraries.room_runtime
@@ -45,15 +46,6 @@ dependencies {
     implementation Libraries.retrofit
     implementation Libraries.moshi
 
-
-
-    implementation AndroidXLibraries.design
-    implementation AndroidXLibraries.cardview
-    implementation AndroidXLibraries.recyclerview
-    implementation AndroidXLibraries.navigation_fragment_ktx
-    implementation AndroidXLibraries.navigation_ktx
-    implementation AndroidXLibraries.paging
-    implementation AndroidXLibraries.constraintLayout
 
     testImplementation TestLibraries.junit
     testImplementation TestLibraries.lifecycleTesting
@@ -65,6 +57,5 @@ dependencies {
     androidTestImplementation TestLibraries.espresso_runner
     androidTestImplementation TestLibraries.espresso
 
-    implementation Libraries.dagger
-    kapt Libraries.daggerCompiler
+
 }

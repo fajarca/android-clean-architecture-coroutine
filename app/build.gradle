@@ -47,5 +47,6 @@ dependencies {
 
     implementation project(':feature:home')
 
+    implementation AndroidXLibraries.appcompat
 
 }

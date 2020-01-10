@@ -34,7 +34,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     api Libraries.timber
-    implementation Libraries.retrofit
 
     api Libraries.glide
     kapt Libraries.glideCompiler

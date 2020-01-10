@@ -3,7 +3,6 @@ package io.fajarca.home.data
 import io.fajarca.core.common.Mapper
 import io.fajarca.core.database.CharacterEntity
 import io.fajarca.home.domain.MarvelCharacter
-import kotlinx.coroutines.flow.Flow
 
 class CharactersMapper : Mapper<CharacterDto, List<CharacterEntity>>(){
 

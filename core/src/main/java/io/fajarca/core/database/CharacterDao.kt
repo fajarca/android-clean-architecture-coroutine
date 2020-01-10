@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 abstract class CharacterDao {
 
     @Query("SELECT * FROM marvel_characters")
-    abstract fun findAll(): Flow<List<CharacterEntity>>
+    abstract fun findAll(): List<CharacterEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insert(character: CharacterEntity)

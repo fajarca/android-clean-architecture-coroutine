@@ -10,28 +10,26 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import io.fajarca.core.database.CharacterEntity
+import io.fajarca.home.domain.MarvelCharacter
 
 class HomeViewModel @Inject constructor(private val getCharactersUseCase: GetCharactersUseCase) :
     ViewModel() {
 
-    private val _characters = MutableLiveData<Result<List<CharacterEntity>>>()
-    val characters: LiveData<Result<List<CharacterEntity>>>
+    private val _characters = MutableLiveData<CharacterState<List<MarvelCharacter>>>()
+    val characters: LiveData<CharacterState<List<MarvelCharacter>>>
         get() = _characters
 
-    sealed class Result<out T> {
-        object Empty : Result<Nothing>()
-        object Loading : Result<Nothing>()
-        data class Success<out T>(val data: T) : Result<T>()
-        data class Error(val throwable: Throwable) : Result<Nothing>()
+    sealed class CharacterState<out T> {
+        object Empty : CharacterState<Nothing>()
+        object Loading : CharacterState<Nothing>()
+        data class Success<out T>(val data: T) : CharacterState<T>()
     }
 
     fun getAllCharacters() {
-        _characters.postValue(Result.Loading)
+        _characters.postValue(CharacterState.Loading)
         viewModelScope.launch {
-            getCharactersUseCase.execute(
-                onSuccess = { _characters.value = if (it.isEmpty()) Result.Empty else Result.Success(it) },
-                onError = { throwable ->  _characters.value = Result.Error(throwable) }
-            )
+            val characters = getCharactersUseCase.execute()
+            if (characters.isEmpty()) _characters.value = CharacterState.Empty else _characters.value = CharacterState.Success(characters)
         }
     }
 }

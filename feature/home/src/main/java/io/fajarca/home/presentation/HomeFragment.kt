@@ -6,10 +6,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.core.MarvelApp
-import io.fajarca.core.database.CharacterEntity
 import io.fajarca.home.R
 import io.fajarca.home.databinding.FragmentHomeBinding
 import io.fajarca.home.di.DaggerFeatureComponent
+import io.fajarca.home.domain.MarvelCharacter
 import io.fajarca.presentation.BaseFragment
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
@@ -39,20 +39,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     }
 
-    private fun subscribeCharacters(it: HomeViewModel.Result<List<CharacterEntity>>) {
+    private fun subscribeCharacters(it: HomeViewModel.CharacterState<List<MarvelCharacter>>) {
         when(it) {
-            is HomeViewModel.Result.Loading -> {
+            is HomeViewModel.CharacterState.Loading -> {
                 showLoading(true)
             }
-            is HomeViewModel.Result.Empty -> {
+            is HomeViewModel.CharacterState.Empty -> {
                 showLoading(false)
             }
-            is HomeViewModel.Result.Success -> {
+            is HomeViewModel.CharacterState.Success -> {
                 showLoading(false)
                 refreshData(it.data)
-            }
-            is HomeViewModel.Result.Error -> {
-                showLoading(false)
             }
         }
     }
@@ -67,7 +64,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         binding.recyclerView.adapter = adapter
     }
 
-    private fun refreshData(characters: List<CharacterEntity>) {
+    private fun refreshData(characters: List<MarvelCharacter>) {
         adapter.submitList(characters)
     }
 

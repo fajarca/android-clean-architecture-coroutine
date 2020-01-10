@@ -7,6 +7,7 @@ import io.fajarca.core.database.CharacterEntity
 import io.fajarca.home.domain.MarvelCharacter
 import io.fajarca.home.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
@@ -20,18 +21,20 @@ class CharacterRepositoryImpl @Inject constructor(
         dao.insertAll(characters)
     }
 
-    override suspend fun getAllCharactersFromDb(): Flow<List<CharacterEntity>> {
-        return dao.findAll()
+    override suspend fun getAllCharactersFromDb(): List<CharacterEntity> {
+        return withContext(dispatcher.io) {
+            dao.findAll()
+        }
     }
 
-    override suspend fun getAllCharacter(): Flow<List<CharacterEntity>> {
+    override suspend fun getAllCharacter(): List<MarvelCharacter> {
         val apiResult = getAllCharactersFromApi()
 
         if (apiResult is Result.Success) {
             insertAllCharacter(mapper.map(apiResult.data))
         }
 
-        return dao.findAll()
+        return mapper.mapToDomain(getAllCharactersFromDb())
     }
 
 

@@ -14,4 +14,12 @@ class CharactersMapper : Mapper<CharacterDto, List<CharacterEntity>>(){
         }
         return chars
     }
+
+    fun mapToDomain(characters : List<CharacterEntity>) : List<MarvelCharacter> {
+        val chars = mutableListOf<MarvelCharacter>()
+        characters.map {
+            chars.add(MarvelCharacter(it.id, it.title, it.imageUrl))
+        }
+        return chars
+    }
 }

@@ -9,13 +9,13 @@ import javax.inject.Inject
 
 class GetCharactersUseCase @Inject constructor (private val repository: CharacterRepository) : UseCase<List<CharacterEntity>>() {
 
-    override suspend fun execute(onSuccess : (it : List<CharacterEntity>) -> Unit, onError : (throwable : Throwable) -> Unit, onEmpty : () -> Unit) {
+    override suspend fun execute(onSuccess : (it : List<CharacterEntity>) -> Unit, onError : (throwable : Throwable) -> Unit) {
         return repository.getAllCharacter()
             .catch { throwable ->
                 onError(throwable)
             }
             .collect {
-                if (it.isEmpty()) onEmpty() else onSuccess(it)
+                onSuccess(it)
             }
     }
 

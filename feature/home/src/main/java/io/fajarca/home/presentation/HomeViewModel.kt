@@ -29,9 +29,8 @@ class HomeViewModel @Inject constructor(private val getCharactersUseCase: GetCha
         _characters.postValue(Result.Loading)
         viewModelScope.launch {
             getCharactersUseCase.execute(
-                { _characters.value = Result.Success(it) },
-                { throwable ->  _characters.value = Result.Error(throwable) },
-                { _characters.value = Result.Empty }
+                onSuccess = { _characters.value = if (it.isEmpty()) Result.Empty else Result.Success(it) },
+                onError = { throwable ->  _characters.value = Result.Error(throwable) }
             )
         }
     }

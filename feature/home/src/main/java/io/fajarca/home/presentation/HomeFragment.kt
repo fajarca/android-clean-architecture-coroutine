@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.core.MarvelApp
-import io.fajarca.core.database.Character
+import io.fajarca.core.database.CharacterEntity
 import io.fajarca.home.R
 import io.fajarca.home.databinding.FragmentHomeBinding
 import io.fajarca.home.di.DaggerFeatureComponent
@@ -38,7 +38,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     }
 
-    private fun subscribeCharacters(it: HomeViewModel.Result<List<Character>>) {
+    private fun subscribeCharacters(it: HomeViewModel.Result<List<CharacterEntity>>) {
         when(it) {
             is HomeViewModel.Result.Loading -> {
                 showLoading(true)
@@ -66,7 +66,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         binding.recyclerView.adapter = adapter
     }
 
-    private fun refreshData(characters: List<Character>) {
+    private fun refreshData(characters: List<CharacterEntity>) {
         adapter.submitList(characters)
     }
 

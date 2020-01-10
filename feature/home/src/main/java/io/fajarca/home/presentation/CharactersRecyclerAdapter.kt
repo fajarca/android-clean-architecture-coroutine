@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import io.fajarca.core.database.Character
+import io.fajarca.core.database.CharacterEntity
 import io.fajarca.home.databinding.ItemCharacterBinding
 
-class CharactersRecyclerAdapter(private val listener: CharacterClickListener) : androidx.recyclerview.widget.ListAdapter<Character, CharactersRecyclerAdapter.CharacterViewHolder>(
+class CharactersRecyclerAdapter(private val listener: CharacterClickListener) : androidx.recyclerview.widget.ListAdapter<CharacterEntity, CharactersRecyclerAdapter.CharacterViewHolder>(
     diffCallback
 ) {
 
@@ -24,7 +24,7 @@ class CharactersRecyclerAdapter(private val listener: CharacterClickListener) : 
 
     inner class CharacterViewHolder(val binding: ItemCharacterBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(character: Character, listener: CharacterClickListener) {
+        fun bind(character: CharacterEntity, listener: CharacterClickListener) {
             binding.character = character
             binding.root.setOnClickListener { listener.onCharacterPressed() }
             binding.executePendingBindings()
@@ -36,12 +36,12 @@ class CharactersRecyclerAdapter(private val listener: CharacterClickListener) : 
     }
 
     companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<Character>() {
-            override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
+        val diffCallback = object : DiffUtil.ItemCallback<CharacterEntity>() {
+            override fun areItemsTheSame(oldItem: CharacterEntity, newItem: CharacterEntity): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
+            override fun areContentsTheSame(oldItem: CharacterEntity, newItem: CharacterEntity): Boolean {
                 return oldItem == newItem
             }
 

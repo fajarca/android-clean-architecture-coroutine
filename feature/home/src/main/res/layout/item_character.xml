@@ -7,7 +7,7 @@
 
         <variable
             name="character"
-            type="io.fajarca.core.database.Character" />
+            type="io.fajarca.core.database.CharacterEntity" />
     </data>
 
     <androidx.cardview.widget.CardView

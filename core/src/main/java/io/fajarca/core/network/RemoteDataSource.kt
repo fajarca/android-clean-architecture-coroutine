@@ -1,7 +1,6 @@
 package io.fajarca.core.network
 
 import com.squareup.moshi.Moshi
-import io.fajarca.core.common.HttpResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.json.JSONObject

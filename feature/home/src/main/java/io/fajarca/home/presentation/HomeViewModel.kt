@@ -9,39 +9,30 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import io.fajarca.core.database.Character
+import io.fajarca.core.database.CharacterEntity
 
-class HomeViewModel @Inject constructor(private val getCharactersUseCase: GetCharactersUseCase) : ViewModel() {
+class HomeViewModel @Inject constructor(private val getCharactersUseCase: GetCharactersUseCase) :
+    ViewModel() {
 
-    private val _characters = MutableLiveData<Result<List<Character>>>()
-    val characters: LiveData<Result<List<Character>>>
+    private val _characters = MutableLiveData<Result<List<CharacterEntity>>>()
+    val characters: LiveData<Result<List<CharacterEntity>>>
         get() = _characters
 
     sealed class Result<out T> {
         object Empty : Result<Nothing>()
         object Loading : Result<Nothing>()
-        data class Success<out T>(val data : T): Result<T>()
+        data class Success<out T>(val data: T) : Result<T>()
         data class Error(val throwable: Throwable) : Result<Nothing>()
     }
 
     fun getAllCharacters() {
         _characters.postValue(Result.Loading)
         viewModelScope.launch {
-            getCharactersUseCase.execute()
-                .catch {
-                    _characters.postValue(Result.Error(it))
-                }
-                .collect {
-                    if (it.isEmpty()) {
-                        _characters.postValue(Result.Empty)
-                    } else {
-                        _characters.postValue(
-                            Result.Success(
-                                it
-                            )
-                        )
-                    }
-                }
+            getCharactersUseCase.execute(
+                { _characters.value = Result.Success(it) },
+                { throwable ->  _characters.value = Result.Error(throwable) },
+                { _characters.value = Result.Empty }
+            )
         }
     }
 }

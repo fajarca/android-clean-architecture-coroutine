@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "marvel_characters")
-data class Character(
+data class CharacterEntity(
     @PrimaryKey
     @ColumnInfo(name = "id")
     var id: Long = 0,

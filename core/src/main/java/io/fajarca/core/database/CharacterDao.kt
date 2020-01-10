@@ -7,13 +7,13 @@ import kotlinx.coroutines.flow.Flow
 abstract class CharacterDao {
 
     @Query("SELECT * FROM marvel_characters")
-    abstract fun findAll(): Flow<List<Character>>
+    abstract fun findAll(): Flow<List<CharacterEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insert(character: Character)
+    abstract suspend fun insert(character: CharacterEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insertAll(characters: List<Character>)
+    abstract suspend fun insertAll(characters: List<CharacterEntity>)
 
     @Query("DELETE FROM marvel_characters WHERE id =:id")
     abstract fun deleteById(id: Long)
@@ -23,7 +23,7 @@ abstract class CharacterDao {
      * Execute multiple queries in single transaction
      *//*
     @Transaction
-    open suspend fun deleteAndInsertInTransaction(movieId: Long, casts: List<Character>) {
+    open suspend fun deleteAndInsertInTransaction(movieId: Long, casts: List<CharacterEntity>) {
         deleteById(movieId)
         insertAll(casts)
     }*/

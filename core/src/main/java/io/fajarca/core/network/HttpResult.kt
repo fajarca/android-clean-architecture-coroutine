@@ -1,4 +1,4 @@
-package  io.fajarca.core.common
+package  io.fajarca.core.network
 
 /**
  * various error status to know what happened if something goes wrong with a repository call

@@ -2,10 +2,11 @@ package io.fajarca.home.data
 
 import io.fajarca.core.common.CoroutineDispatcherProvider
 import io.fajarca.core.common.Result
-import io.fajarca.home.domain.repository.CharacterRepository
 import io.fajarca.core.database.CharacterDao
+import io.fajarca.core.database.CharacterEntity
+import io.fajarca.home.domain.MarvelCharacter
+import io.fajarca.home.domain.repository.CharacterRepository
 import kotlinx.coroutines.flow.Flow
-import io.fajarca.core.database.Character
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
@@ -15,15 +16,15 @@ class CharacterRepositoryImpl @Inject constructor(
     private val remoteDataSource: CharacterRemoteDataSource
 ) : CharacterRepository {
 
-    override suspend fun insertAllCharacter(characters: List<Character>) {
+    override suspend fun insertAllCharacter(characters: List<CharacterEntity>) {
         dao.insertAll(characters)
     }
 
-    override suspend fun getAllCharactersFromDb(): Flow<List<Character>> {
+    override suspend fun getAllCharactersFromDb(): Flow<List<CharacterEntity>> {
         return dao.findAll()
     }
 
-    override suspend fun getAllCharacter(): Flow<List<Character>> {
+    override suspend fun getAllCharacter(): Flow<List<CharacterEntity>> {
         val apiResult = getAllCharactersFromApi()
 
         if (apiResult is Result.Success) {

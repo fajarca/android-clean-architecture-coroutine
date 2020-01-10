@@ -47,19 +47,5 @@ dependencies {
 
     implementation project(':feature:home')
 
-    implementation Libraries.kotlin
-    implementation Libraries.glide
-    implementation Libraries.lifecycleExtensions
-    implementation Libraries.dagger
 
-    kapt Libraries.daggerCompiler
-    kapt Libraries.glideCompiler
-    kapt Libraries.lifecycleCompiler
-
-    implementation AndroidXLibraries.appcompat
-    implementation AndroidXLibraries.design
-    implementation AndroidXLibraries.cardview
-    implementation AndroidXLibraries.recyclerview
-    implementation AndroidXLibraries.paging
-    implementation AndroidXLibraries.constraintLayout
 }

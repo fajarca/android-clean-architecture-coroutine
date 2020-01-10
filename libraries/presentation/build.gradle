@@ -54,5 +54,4 @@ dependencies {
     api AndroidXLibraries.navigation_ktx
     api AndroidXLibraries.paging
     api AndroidXLibraries.constraintLayout
-
 }

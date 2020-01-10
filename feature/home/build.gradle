@@ -56,6 +56,4 @@ dependencies {
     androidTestImplementation TestLibraries.espresso
     androidTestImplementation TestLibraries.espresso_runner
     androidTestImplementation TestLibraries.espresso
-
-
 }

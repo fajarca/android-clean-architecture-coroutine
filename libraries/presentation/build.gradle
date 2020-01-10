@@ -37,26 +37,26 @@ dependencies {
 
     implementation Libraries.kotlin
 
-    implementation Libraries.room_ktx
-    implementation Libraries.room_runtime
-    implementation Libraries.timber
+
+    api Libraries.timber
     implementation Libraries.retrofit
-    implementation Libraries.moshiConverter
-    implementation Libraries.loggingInterceptor
-    implementation Libraries.glide
-    implementation Libraries.moshi
-    implementation Libraries.lifecycleExtensions
+
+    api Libraries.glide
+    kapt Libraries.glideCompiler
+
+    api Libraries.lifecycleExtensions
+    kapt Libraries.lifecycleCompiler
+
     implementation Libraries.dagger
 
     kapt Libraries.daggerCompiler
     kapt Libraries.room_compiler
-    kapt Libraries.glideCompiler
-    kapt Libraries.lifecycleCompiler
 
-    implementation AndroidXLibraries.appcompat
+
+    
     implementation AndroidXLibraries.design
     implementation AndroidXLibraries.cardview
-    implementation AndroidXLibraries.recyclerview
+    api AndroidXLibraries.recyclerview
     implementation AndroidXLibraries.navigation_fragment_ktx
     implementation AndroidXLibraries.navigation_ktx
     implementation AndroidXLibraries.paging

@@ -50,7 +50,7 @@ dependencies {
     implementation Libraries.moshiConverter
     implementation Libraries.loggingInterceptor
 
-    implementation Libraries.timber
+    api Libraries.timber
     
     implementation Libraries.dagger
     kapt Libraries.daggerCompiler

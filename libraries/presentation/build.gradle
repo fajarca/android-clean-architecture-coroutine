@@ -33,8 +33,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api Libraries.timber
-
     api Libraries.glide
     kapt Libraries.glideCompiler
 

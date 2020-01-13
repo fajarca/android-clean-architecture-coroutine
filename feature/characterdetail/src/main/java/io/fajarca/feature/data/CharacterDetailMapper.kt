@@ -1,8 +1,8 @@
 package io.fajarca.feature.data
 
-import io.fajarca.core.common.Mapper
+import io.fajarca.core.mapper.Mapper
 import io.fajarca.feature.domain.CharacterDetail
-import io.fajarca.core.common.Result
+import io.fajarca.core.vo.Result
 
 class CharacterDetailMapper : Mapper<Result<CharacterDetailDto>, Result<CharacterDetail>>(){
 

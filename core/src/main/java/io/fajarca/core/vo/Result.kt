@@ -1,4 +1,4 @@
-package io.fajarca.core.common
+package io.fajarca.core.vo
 
 import io.fajarca.core.network.HttpResult
 

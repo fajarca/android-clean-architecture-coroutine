@@ -1,6 +1,6 @@
 package io.fajarca.home.domain.repository
 
-import io.fajarca.core.common.Result
+import io.fajarca.core.vo.Result
 import io.fajarca.core.database.CharacterEntity
 import io.fajarca.home.data.CharacterDto
 import io.fajarca.home.domain.MarvelCharacter

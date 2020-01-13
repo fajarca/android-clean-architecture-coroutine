@@ -1,6 +1,6 @@
 package io.fajarca.feature.domain.repository
 
-import io.fajarca.core.common.Result
+import io.fajarca.core.vo.Result
 import io.fajarca.feature.domain.CharacterDetail
 
 interface CharacterDetailRepository {

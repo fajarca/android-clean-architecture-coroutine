@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import io.fajarca.core.Constant
+import io.fajarca.core.vo.Constant
 import io.fajarca.core.database.MarvelDatabase
 import javax.inject.Singleton
 

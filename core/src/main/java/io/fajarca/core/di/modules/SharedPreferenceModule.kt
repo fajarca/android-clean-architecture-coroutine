@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
-import io.fajarca.core.Constant
+import io.fajarca.core.vo.Constant
 import javax.inject.Singleton
 
 

@@ -1,4 +1,4 @@
-package io.fajarca.core
+package io.fajarca.core.vo
 
 object Constant {
     val DATABASE_NAME = "marvel.db"

@@ -1,8 +1,7 @@
 package io.fajarca.feature.domain.usecase
 
-import io.fajarca.core.common.Result
+import io.fajarca.core.vo.Result
 import io.fajarca.core.network.HttpResult
-import io.fajarca.feature.data.CharacterDetailDto
 import io.fajarca.feature.domain.CharacterDetail
 import io.fajarca.feature.domain.repository.CharacterDetailRepository
 import javax.inject.Inject

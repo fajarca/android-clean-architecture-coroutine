@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import io.fajarca.characterdetail.R
 import io.fajarca.characterdetail.databinding.FragmentCharacterDetailBinding
 import io.fajarca.core.MarvelApp
-import io.fajarca.core.common.Result
+import io.fajarca.core.vo.Result
 import io.fajarca.feature.di.DaggerCharacterDetailFeatureComponent
 import io.fajarca.feature.domain.CharacterDetail
 import io.fajarca.presentation.BaseFragment

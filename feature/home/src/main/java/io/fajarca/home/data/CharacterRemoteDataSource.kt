@@ -1,7 +1,7 @@
 package io.fajarca.home.data
 
 
-import io.fajarca.core.common.Result
+import io.fajarca.core.vo.Result
 import io.fajarca.core.network.RemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject

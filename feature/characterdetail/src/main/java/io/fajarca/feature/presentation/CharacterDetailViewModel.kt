@@ -4,9 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.fajarca.core.common.Result
+import io.fajarca.core.vo.Result
 import io.fajarca.core.network.HttpResult
-import io.fajarca.feature.data.CharacterDetailDto
 import io.fajarca.feature.domain.CharacterDetail
 import io.fajarca.feature.domain.usecase.GetCharactersDetailUseCase
 import kotlinx.coroutines.launch

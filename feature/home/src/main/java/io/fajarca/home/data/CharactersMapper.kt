@@ -1,6 +1,6 @@
 package io.fajarca.home.data
 
-import io.fajarca.core.common.Mapper
+import io.fajarca.core.mapper.Mapper
 import io.fajarca.core.database.CharacterEntity
 import io.fajarca.home.domain.MarvelCharacter
 

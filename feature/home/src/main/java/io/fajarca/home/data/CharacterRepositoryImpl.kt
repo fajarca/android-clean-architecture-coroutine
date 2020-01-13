@@ -1,12 +1,11 @@
 package io.fajarca.home.data
 
-import io.fajarca.core.common.CoroutineDispatcherProvider
-import io.fajarca.core.common.Result
+import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
+import io.fajarca.core.vo.Result
 import io.fajarca.core.database.CharacterDao
 import io.fajarca.core.database.CharacterEntity
 import io.fajarca.home.domain.MarvelCharacter
 import io.fajarca.home.domain.repository.CharacterRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 

@@ -8,7 +8,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import io.fajarca.core.common.Result
+import io.fajarca.core.vo.Result
 
 open class RemoteDataSource {
     open suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): Result<T> {

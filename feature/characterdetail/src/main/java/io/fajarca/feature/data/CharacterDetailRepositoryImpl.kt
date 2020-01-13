@@ -1,7 +1,7 @@
 package io.fajarca.feature.data
 
-import io.fajarca.core.common.CoroutineDispatcherProvider
-import io.fajarca.core.common.Result
+import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
+import io.fajarca.core.vo.Result
 import io.fajarca.feature.domain.CharacterDetail
 import io.fajarca.feature.domain.repository.CharacterDetailRepository
 import javax.inject.Inject

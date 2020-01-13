@@ -1,4 +1,4 @@
-package io.fajarca.core.common
+package io.fajarca.core.dispatcher
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers.Default

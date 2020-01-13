@@ -1,10 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
-
+    dataBinding {
+        enabled = true
+    }
 
     defaultConfig {
         minSdkVersion 21
@@ -28,4 +32,27 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation project(':core')
+    implementation project(':libraries:presentation')
+
+    implementation Libraries.dagger
+    kapt Libraries.daggerCompiler
+
+    implementation Libraries.room_ktx
+    implementation Libraries.room_runtime
+    kapt Libraries.room_compiler
+
+    implementation Libraries.retrofit
+    implementation Libraries.moshi
+
+
+    testImplementation TestLibraries.junit
+    testImplementation TestLibraries.lifecycleTesting
+    testImplementation TestLibraries.coroutine
+    testImplementation TestLibraries.mockito
+
+    androidTestImplementation TestLibraries.espresso_runner
+    androidTestImplementation TestLibraries.espresso
+    androidTestImplementation TestLibraries.espresso_runner
+    androidTestImplementation TestLibraries.espresso
 }

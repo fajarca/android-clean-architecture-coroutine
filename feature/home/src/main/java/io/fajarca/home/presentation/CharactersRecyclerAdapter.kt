@@ -27,13 +27,13 @@ class CharactersRecyclerAdapter(private val listener: CharacterClickListener) : 
 
         fun bind(character: MarvelCharacter, listener: CharacterClickListener) {
             binding.character = character
-            binding.root.setOnClickListener { listener.onCharacterPressed() }
+            binding.root.setOnClickListener { listener.onCharacterPressed(character) }
             binding.executePendingBindings()
         }
     }
 
     interface CharacterClickListener {
-        fun onCharacterPressed()
+        fun onCharacterPressed(character: MarvelCharacter)
     }
 
     companion object {

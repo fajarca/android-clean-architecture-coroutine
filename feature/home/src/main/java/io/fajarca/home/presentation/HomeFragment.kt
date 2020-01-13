@@ -69,7 +69,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     }
 
 
-    override fun onCharacterPressed() {
+    override fun onCharacterPressed(character: MarvelCharacter) {
 
     }
 

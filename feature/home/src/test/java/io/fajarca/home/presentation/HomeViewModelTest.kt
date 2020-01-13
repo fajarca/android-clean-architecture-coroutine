@@ -1,15 +1,15 @@
-package io.fajarca.marvel.ui.home
+package io.fajarca.home.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
+import io.fajarca.home.domain.MarvelCharacter
 import io.fajarca.home.domain.usecase.GetCharactersUseCase
-import io.fajarca.home.presentation.HomeViewModel
-import io.fajarca.marvel.util.TestCoroutineRule
+import io.fajarca.home.util.TestCoroutineRule
+import io.fajarca.home.util.TestUtil
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
 import org.junit.Rule
@@ -34,7 +34,7 @@ class HomeViewModelTest {
     
 
     @Mock
-    private lateinit var observer : Observer<HomeViewModel.Result<List<Character>>>
+    private lateinit var observer : Observer<HomeViewModel.CharacterState<List<MarvelCharacter>>>
 
 
     @Mock
@@ -60,18 +60,7 @@ class HomeViewModelTest {
 
     @Test
     fun `when get all all character is success, observer should receive success result`() = testCoroutineRule.runBlockingTest  {
-        //Given
-        val flowOfCharacters = flowOf(TestUtil.generateDummyCharacters(4))
-        `when`(useCase.execute()).thenReturn(flowOfCharacters)
 
-        //When
-        viewModel.getAllCharacters()
-
-        //Then
-        flowOfCharacters.collect {
-            verify(observer).onChanged(HomeViewModel.Result.Loading)
-            verify(observer).onChanged(HomeViewModel.Result.Success(it))
-        }
     }
 
 

@@ -1,4 +1,4 @@
-package io.fajarca.marvel.util
+package io.fajarca.home.util
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

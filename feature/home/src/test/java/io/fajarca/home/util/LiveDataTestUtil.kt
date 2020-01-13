@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.fajarca.marvel.util
+package io.fajarca.home.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import io.fajarca.core.common.CoroutinesDispatcherProvider
+import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import java.util.concurrent.CountDownLatch
@@ -74,9 +74,9 @@ fun <T> LiveData<T>.observeForTesting(block: () -> Unit) {
 @ExperimentalCoroutinesApi
 fun provideFakeCoroutinesDispatcherProvider(
     dispatcher: TestCoroutineDispatcher?
-): CoroutinesDispatcherProvider {
+): CoroutineDispatcherProvider {
     val sharedTestCoroutineDispatcher = TestCoroutineDispatcher()
-    return CoroutinesDispatcherProvider(
+    return CoroutineDispatcherProvider(
         dispatcher ?: sharedTestCoroutineDispatcher,
         dispatcher ?: sharedTestCoroutineDispatcher,
         dispatcher ?: sharedTestCoroutineDispatcher

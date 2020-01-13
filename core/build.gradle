@@ -57,4 +57,9 @@ dependencies {
 
     implementation Libraries.lifecycleExtensions
     kapt Libraries.lifecycleCompiler
+
+    testImplementation TestLibraries.junit
+    testImplementation TestLibraries.lifecycleTesting
+    testImplementation TestLibraries.coroutine
+    testImplementation TestLibraries.mockito
 }

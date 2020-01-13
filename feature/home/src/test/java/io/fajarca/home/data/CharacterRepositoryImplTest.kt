@@ -1,14 +1,9 @@
-package io.fajarca.marvel.data.repository
+package io.fajarca.home.data
 
-import io.fajarca.home.data.CharactersMapper
-import io.fajarca.home.data.CharacterRepositoryImpl
-import io.fajarca.marvel.data.source.local.CharacterDao
-import io.fajarca.home.data.CharacterRemoteDataSource
-import io.fajarca.core.common.HttpResult
-import io.fajarca.core.common.Result
-import io.fajarca.marvel.domain.model.response.CharacterDto
-import io.fajarca.marvel.util.TestUtil
-import io.fajarca.marvel.util.provideFakeCoroutinesDispatcherProvider
+import io.fajarca.core.database.CharacterDao
+import io.fajarca.core.network.HttpResult
+import io.fajarca.home.util.TestUtil
+import io.fajarca.home.util.provideFakeCoroutinesDispatcherProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
@@ -17,6 +12,8 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
+import io.fajarca.core.vo.Result
+
 
 @ExperimentalCoroutinesApi
 class CharacterRepositoryImplTest {

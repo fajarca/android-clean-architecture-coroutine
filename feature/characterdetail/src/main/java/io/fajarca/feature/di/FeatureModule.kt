@@ -6,7 +6,7 @@ import io.fajarca.core.database.CharacterDao
 import io.fajarca.core.database.MarvelDatabase
 import io.fajarca.core.di.scope.FeatureScope
 import io.fajarca.feature.data.ApiService
-import io.fajarca.feature.data.CharacterMapper
+import io.fajarca.feature.data.CharacterDetailMapper
 import io.fajarca.feature.domain.repository.CharacterDetailRepository
 import io.fajarca.feature.domain.usecase.GetCharactersDetailUseCase
 import retrofit2.Retrofit
@@ -21,7 +21,7 @@ class FeatureModule {
 
     @Provides
     @FeatureScope
-    fun provideMapper() : CharacterMapper = CharacterMapper()
+    fun provideMapper() : CharacterDetailMapper = CharacterDetailMapper()
 
     @Provides
     @FeatureScope

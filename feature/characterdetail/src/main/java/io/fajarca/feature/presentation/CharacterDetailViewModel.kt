@@ -15,14 +15,14 @@ import javax.inject.Inject
 class CharacterDetailViewModel @Inject constructor(private val useCase: GetCharactersDetailUseCase) :
     ViewModel() {
 
-    private val _detail = MutableLiveData<Result<CharacterDetailDto>>()
-    val characters: LiveData<Result<CharacterDetailDto>>
+    private val _detail = MutableLiveData<Result<CharacterDetail>>()
+    val characterDetail: LiveData<Result<CharacterDetail>>
         get() = _detail
 
     fun getCharacterDetail(characterId: Int) {
+        _detail.postValue(Result.Loading)
         viewModelScope.launch {
             useCase.execute(characterId,
-                onLoading = { _detail.postValue(Result.Loading) },
                 onSuccess = { _detail.postValue(Result.Success(it)) },
                 onError = { cause: HttpResult, code: Int?, errorMessage: String? ->
                     _detail.postValue(Result.Error(cause, code, errorMessage))

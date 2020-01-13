@@ -1,10 +1,10 @@
 package io.fajarca.feature.domain.repository
 
 import io.fajarca.core.common.Result
-import io.fajarca.feature.data.CharacterDetailDto
+import io.fajarca.feature.domain.CharacterDetail
 
 interface CharacterDetailRepository {
-    suspend fun getCharacterDetail(characterId : Int) : Result<CharacterDetailDto>
+    suspend fun getCharacterDetail(characterId : Int) : Result<CharacterDetail>
 }
 
 

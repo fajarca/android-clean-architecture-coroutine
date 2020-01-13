@@ -1,10 +1,8 @@
 package io.fajarca.home.presentation
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.core.MarvelApp
@@ -13,6 +11,7 @@ import io.fajarca.home.databinding.FragmentHomeBinding
 import io.fajarca.home.di.DaggerFeatureComponent
 import io.fajarca.home.domain.MarvelCharacter
 import io.fajarca.presentation.BaseFragment
+import io.fajarca.presentation.extension.navigateTo
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     CharactersRecyclerAdapter.CharacterClickListener {
@@ -72,9 +71,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
 
     override fun onCharacterPressed(character: MarvelCharacter) {
-
-        val uri = Uri.parse("app://characterdetail/${character.id}")
-        findNavController().navigate(uri)
+        navigateTo("app://characterdetail/${character.id}")
     }
 
     private fun showLoading(isLoading : Boolean) {

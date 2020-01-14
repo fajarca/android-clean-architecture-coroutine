@@ -1,18 +1,18 @@
 package io.fajarca.home.util
 
-import io.fajarca.home.domain.MarvelCharacter
+import io.fajarca.core.database.CharacterEntity
 
 object TestUtil {
 
-    fun generateDummyCharacter(id : Long, title : String = "Title", imageUrl : String = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg" ) : MarvelCharacter {
-        return MarvelCharacter(
+    fun generateDummyCharacter(id : Long, title : String = "Title", imageUrl : String = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg" ) : CharacterEntity {
+        return CharacterEntity(
             id = id,
             title = title,
             imageUrl = imageUrl
         )
     }
-    fun generateDummyCharacters(numOfIteration : Int): List<MarvelCharacter> {
-        val characters = mutableListOf<MarvelCharacter>()
+    fun generateDummyCharacters(numOfIteration : Int): List<CharacterEntity> {
+        val characters = mutableListOf<CharacterEntity>()
         for (i in 1 .. numOfIteration) {
             characters.add(generateDummyCharacter(i.toLong()))
         }

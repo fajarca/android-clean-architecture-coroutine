@@ -1,2 +1,2 @@
-include ':app',  'libraries:presentation', 'feature:home', ':core', 'feature:characterdetail'
+include ':app', 'libraries:ui-view',  'libraries:presentation', 'feature:home', ':core', 'feature:characterdetail'
 rootProject.name='Marvel'

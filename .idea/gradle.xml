@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/feature/home" />
             <option value="$PROJECT_DIR$/libraries" />
             <option value="$PROJECT_DIR$/libraries/presentation" />
+            <option value="$PROJECT_DIR$/libraries/ui-view" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

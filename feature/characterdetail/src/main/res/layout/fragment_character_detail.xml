@@ -54,14 +54,16 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:text="@string/description_sample" />
 
-        <ProgressBar
-            android:layout_width="match_parent"
+
+        <io.fajarca.uiview.UiStateView
+            android:id="@+id/uiStateView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:text="Load" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,16 +3,16 @@ package io.fajarca.uiview
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 
-class UiStateView : FrameLayout {
+class UiStateView : ConstraintLayout {
 
     private lateinit var tvStatus: TextView
     private lateinit var progressBar: ProgressBar
     private lateinit var ivStatus: ImageView
+    private lateinit var btnRetry: Button
+    private var retryAction : (() -> Unit)? = null
 
     private var initialText: String? = null
 
@@ -40,6 +40,10 @@ class UiStateView : FrameLayout {
         tvStatus = view.findViewById(R.id.tvStatus)
         ivStatus = view.findViewById(R.id.ivStatus)
         progressBar = view.findViewById(R.id.progressBar)
+        btnRetry = view.findViewById(R.id.btnRetry)
+        btnRetry.setOnClickListener {
+            retryAction
+        }
         
         showLoading(initialText ?: "Loading. Please wait")
     }
@@ -48,18 +52,22 @@ class UiStateView : FrameLayout {
         showProgressBar()
         showTextView(loadingMessage)
         hideImageView()
+        hideRetryButton()
     }
 
     fun showEmptyData(emptyMessage: String = "No data found", emptyImageDrawable : Int = R.drawable.ic_no_data) {
         showTextView(emptyMessage)
         showImageView(emptyImageDrawable)
         hideProgressBar()
+        hideRetryButton()
     }
 
-    fun showError(errorMessage: String, errorImageDrawable : Int = R.drawable.ic_error) {
+    fun showError(errorMessage: String, errorImageDrawable : Int = R.drawable.ic_error, retryAction : () -> Unit = {}) {
         showTextView(errorMessage)
         showImageView(errorImageDrawable)
         hideProgressBar()
+        showRetryButton()
+        this.retryAction = retryAction
     }
 
     fun showNoInternetConnection(noConnectionMessage : String = "No internet connection", noConnectionImageDrawable : Int = R.drawable.ic_no_connection) {
@@ -68,7 +76,7 @@ class UiStateView : FrameLayout {
         hideProgressBar()
     }
 
-    fun showSuccess() {
+    fun dismiss() {
         hideProgressBar()
         hideTextView()
         hideImageView()
@@ -108,4 +116,13 @@ class UiStateView : FrameLayout {
 
         typedArray.recycle()
     }
+
+    private fun showRetryButton() {
+        btnRetry.visibility = View.VISIBLE
+    }
+
+    private fun hideRetryButton() {
+        btnRetry.visibility = View.GONE
+    }
+
 }

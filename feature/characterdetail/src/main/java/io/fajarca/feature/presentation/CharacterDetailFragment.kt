@@ -2,10 +2,13 @@ package io.fajarca.feature.presentation
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import io.fajarca.characterdetail.R
 import io.fajarca.characterdetail.databinding.FragmentCharacterDetailBinding
 import io.fajarca.core.MarvelApp
+import io.fajarca.core.network.HttpResult
+import io.fajarca.core.network.HttpResult.*
 import io.fajarca.core.vo.Result
 import io.fajarca.feature.di.DaggerCharacterDetailFeatureComponent
 import io.fajarca.feature.domain.CharacterDetail
@@ -42,13 +45,19 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
         when(it) {
             is Result.Loading-> {
                 showLoading(true)
+                binding.uiStateView.showLoading()
             }
             is Result.Success -> {
                 showLoading(false)
                 refreshData(it.data)
+                binding.uiStateView.dismiss()
             }
             is Result.Error -> {
                 showLoading(false)
+                when(it.cause) {
+                    NO_CONNECTION -> binding.uiStateView.showNoInternetConnection()
+                    else -> binding.uiStateView.showError("Unknown error")
+                }
             }
         }
     }

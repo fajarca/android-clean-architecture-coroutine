@@ -43,13 +43,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     private fun subscribeCharacters(it: HomeViewModel.CharacterState<List<MarvelCharacter>>) {
         when(it) {
             is HomeViewModel.CharacterState.Loading -> {
-                showLoading(true)
+                binding.uiStateView.showLoading()
             }
             is HomeViewModel.CharacterState.Empty -> {
-                showLoading(false)
+                binding.uiStateView.showEmptyData()
             }
             is HomeViewModel.CharacterState.Success -> {
-                showLoading(false)
+                binding.uiStateView.dismiss()
                 refreshData(it.data)
             }
         }
@@ -74,8 +74,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         navigateTo("app://characterdetail/${character.id}")
     }
 
-    private fun showLoading(isLoading : Boolean) {
-        binding.isLoading = isLoading
-    }
+
 
 }

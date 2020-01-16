@@ -56,7 +56,7 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
                 showLoading(false)
                 when(it.cause) {
                     NO_CONNECTION -> binding.uiStateView.showNoInternetConnection("No connection", R.drawable.ic_no_connection) {
-                        Toast.makeText(requireActivity(), "Toast", Toast.LENGTH_LONG).show()}
+                        Toast.makeText(requireActivity(), "Toast", Toast.LENGTH_SHORT).show()}
                     else -> binding.uiStateView.showError("Unknown error")
                 }
             }

@@ -57,7 +57,14 @@ class UiStateView : ConstraintLayout {
         hideRetryButton()
     }
 
-    fun showError(errorMessage: String, errorImageDrawable : Int = R.drawable.ic_error, retryAction : () -> Unit = {}) {
+    fun showError(errorMessage: String, errorImageDrawable : Int = R.drawable.ic_error) {
+        showTextView(errorMessage)
+        showImageView(errorImageDrawable)
+        hideProgressBar()
+    }
+
+
+    fun showErrorWithRetry(errorMessage: String, errorImageDrawable : Int = R.drawable.ic_error, retryAction : () -> Unit = {}) {
         showTextView(errorMessage)
         showImageView(errorImageDrawable)
         hideProgressBar()

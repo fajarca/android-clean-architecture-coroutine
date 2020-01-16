@@ -12,7 +12,7 @@ class UiStateView : ConstraintLayout {
     private lateinit var progressBar: ProgressBar
     private lateinit var ivStatus: ImageView
     private lateinit var btnRetry: Button
-    private var retryAction : (() -> Unit)? = null
+    private var retryAction : () -> Unit = {}
 
     private var initialText: String? = null
 
@@ -42,7 +42,7 @@ class UiStateView : ConstraintLayout {
         progressBar = view.findViewById(R.id.progressBar)
         btnRetry = view.findViewById(R.id.btnRetry)
         btnRetry.setOnClickListener {
-            retryAction
+            retryAction()
         }
         
         showLoading(initialText ?: "Loading. Please wait")
@@ -70,10 +70,12 @@ class UiStateView : ConstraintLayout {
         this.retryAction = retryAction
     }
 
-    fun showNoInternetConnection(noConnectionMessage : String = "No internet connection", noConnectionImageDrawable : Int = R.drawable.ic_no_connection) {
+    fun showNoInternetConnection(noConnectionMessage : String = "No internet connection", noConnectionImageDrawable : Int = R.drawable.ic_no_connection, retryAction : () -> Unit = {}) {
         showTextView(noConnectionMessage)
         showImageView(noConnectionImageDrawable)
         hideProgressBar()
+        showRetryButton()
+        this.retryAction = retryAction
     }
 
     fun dismiss() {

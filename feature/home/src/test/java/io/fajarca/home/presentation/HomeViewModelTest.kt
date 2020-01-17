@@ -60,9 +60,35 @@ class HomeViewModelTest {
 
     @Test
     fun `when get all all character is success, observer should receive success result`() = testCoroutineRule.runBlockingTest  {
+        //Given
+        val marvelCharacters = mutableListOf<MarvelCharacter>()
+        marvelCharacters.add(MarvelCharacter(1, "Marvel", "image-url"))
+
+        `when`(useCase.execute()).thenReturn(marvelCharacters)
+
+        //When
+        viewModel.getAllCharacters()
+
+        //Then
+        verify(observer).onChanged(HomeViewModel.CharacterState.Loading)
+        verify(observer).onChanged(HomeViewModel.CharacterState.Success(marvelCharacters))
 
     }
 
+    @Test
+    fun `when get all all character is empty, observer should receive empty result`() = testCoroutineRule.runBlockingTest  {
+        //Given
+        val marvelCharacters = emptyList<MarvelCharacter>()
 
+        `when`(useCase.execute()).thenReturn(marvelCharacters)
+
+        //When
+        viewModel.getAllCharacters()
+
+        //Then
+        verify(observer).onChanged(HomeViewModel.CharacterState.Loading)
+        verify(observer).onChanged(HomeViewModel.CharacterState.Empty)
+
+    }
 
 }

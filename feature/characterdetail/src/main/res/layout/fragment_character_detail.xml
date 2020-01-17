@@ -23,7 +23,6 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:background="@color/cardview_dark_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"
@@ -62,8 +61,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
-            app:text="Load" />
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

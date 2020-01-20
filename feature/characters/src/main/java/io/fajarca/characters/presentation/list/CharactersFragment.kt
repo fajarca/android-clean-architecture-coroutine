@@ -2,36 +2,42 @@ package io.fajarca.characters.presentation.list
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
-import io.fajarca.core.MarvelApp
 import io.fajarca.characters.R
 import io.fajarca.characters.databinding.FragmentHomeBinding
 import io.fajarca.characters.di.DaggerCharacterListComponent
 import io.fajarca.characters.domain.MarvelCharacter
+import io.fajarca.core.MarvelApp
 import io.fajarca.presentation.BaseFragment
-import io.fajarca.presentation.extension.navigateTo
+import javax.inject.Inject
 
 class CharactersFragment : BaseFragment<FragmentHomeBinding, CharactersViewModel>(),
     CharactersRecyclerAdapter.CharacterClickListener {
 
+    @Inject
+    lateinit var factory: CharactersViewModel.Factory
     private lateinit var adapter : CharactersRecyclerAdapter
+    override val vm: CharactersViewModel by viewModels(factoryProducer = { factory })
 
     override fun getLayoutResourceId() = R.layout.fragment_home
-    override fun getViewModelClass() = CharactersViewModel::class.java
+
 
     override fun initDaggerComponent() {
-        DaggerCharacterListComponent
-            .builder()
-            .coreComponent(MarvelApp.coreComponent(requireContext()))
-            .build()
-            .inject(this)
+
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        DaggerCharacterListComponent
+            .builder()
+            .coreComponent(MarvelApp.coreComponent(requireContext()))
+            .build()
+            .inject(this)
 
         initRecyclerView()
         vm.getAllCharacters()

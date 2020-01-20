@@ -11,11 +11,13 @@ import io.fajarca.characters.data.mapper.CharactersMapper
 import io.fajarca.characters.domain.repository.CharacterRepository
 import io.fajarca.characters.domain.usecase.GetCharactersDetailUseCase
 import io.fajarca.characters.domain.usecase.GetCharactersUseCase
+import io.fajarca.characters.presentation.detail.CharacterDetailViewModel
+import io.fajarca.characters.presentation.list.CharactersViewModel
 import retrofit2.Retrofit
 
 
 @Module
-class FeatureModule {
+class CharacterModule {
 
     @Provides
     @FeatureScope
@@ -33,14 +35,25 @@ class FeatureModule {
 
     @Provides
     @FeatureScope
-    fun provideUseCase(repository: CharacterRepository) : GetCharactersUseCase = GetCharactersUseCase(repository)
+    fun provideCharacterService(retrofit: Retrofit) : CharacterService = retrofit.create(CharacterService::class.java)
 
     @Provides
     @FeatureScope
-    fun provideDetailUseCase(repository: CharacterRepository) : GetCharactersDetailUseCase = GetCharactersDetailUseCase(repository)
+    fun provideCharacterUseCase(repository: CharacterRepository) : GetCharactersUseCase = GetCharactersUseCase(repository)
 
     @Provides
     @FeatureScope
-    fun provideApiService(retrofit: Retrofit) : CharacterService = retrofit.create(CharacterService::class.java)
+    fun provideCharacterDetailUseCase(repository: CharacterRepository) : GetCharactersDetailUseCase = GetCharactersDetailUseCase(repository)
 
+    @Provides
+    @FeatureScope
+    fun provideCharacterDetailsViewModelFactory(
+        useCase: GetCharactersDetailUseCase
+    ) = CharacterDetailViewModel.Factory(useCase)
+
+    @Provides
+    @FeatureScope
+    fun provideCharacterListViewModelFactory(
+        useCase: GetCharactersUseCase
+    ) = CharactersViewModel.Factory(useCase)
 }

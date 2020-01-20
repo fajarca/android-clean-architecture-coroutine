@@ -9,9 +9,8 @@ import io.fajarca.characters.presentation.list.CharactersFragment
 @Component(
     dependencies = [CoreComponent::class],
     modules = [
-        FeatureModule::class,
-        RepositoryModule::class,
-        ViewModelModule::class
+        CharacterModule::class,
+        RepositoryModule::class
     ]
 )
 interface CharacterListComponent {

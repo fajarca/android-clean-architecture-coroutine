@@ -1,6 +1,7 @@
-package io.fajarca.characters.data
+package io.fajarca.characters.data.source
 
 
+import io.fajarca.characters.data.CharacterService
 import io.fajarca.characters.data.response.CharacterDetailDto
 import io.fajarca.characters.data.response.CharacterDto
 import io.fajarca.core.vo.Result

@@ -1,9 +1,6 @@
 package io.fajarca.characters.presentation.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import io.fajarca.characters.domain.CharacterDetail
 import io.fajarca.characters.domain.usecase.GetCharactersDetailUseCase
 import io.fajarca.core.vo.Result
@@ -11,8 +8,18 @@ import io.fajarca.core.network.HttpResult
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CharacterDetailViewModel @Inject constructor(private val useCase: GetCharactersDetailUseCase) :
+class CharacterDetailViewModel (private val useCase: GetCharactersDetailUseCase) :
     ViewModel() {
+
+    class Factory(private val useCase: GetCharactersDetailUseCase) : ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(CharacterDetailViewModel::class.java)) {
+                return CharacterDetailViewModel(useCase) as T
+            }
+            throw IllegalArgumentException("ViewModel not found.")
+        }
+    }
+
 
     private val _detail = MutableLiveData<Result<CharacterDetail>>()
     val characterDetail: LiveData<Result<CharacterDetail>>

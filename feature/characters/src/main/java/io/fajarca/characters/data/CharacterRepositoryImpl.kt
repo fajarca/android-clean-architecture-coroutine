@@ -3,6 +3,7 @@ package io.fajarca.characters.data
 import io.fajarca.characters.data.mapper.CharacterDetailMapper
 import io.fajarca.characters.data.mapper.CharactersMapper
 import io.fajarca.characters.data.response.CharacterDto
+import io.fajarca.characters.data.source.CharacterRemoteDataSource
 import io.fajarca.characters.domain.CharacterDetail
 import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
 import io.fajarca.core.vo.Result

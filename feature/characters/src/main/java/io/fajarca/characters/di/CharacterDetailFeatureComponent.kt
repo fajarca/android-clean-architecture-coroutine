@@ -9,9 +9,8 @@ import io.fajarca.characters.presentation.detail.CharacterDetailFragment
 @Component(
     dependencies = [CoreComponent::class],
     modules = [
-        FeatureModule::class,
-        RepositoryModule::class,
-        ViewModelModule::class
+        CharacterModule::class,
+        RepositoryModule::class
     ]
 )
 interface CharacterDetailFeatureComponent {

@@ -2,6 +2,7 @@ package io.fajarca.characters.presentation.detail
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import io.fajarca.characters.R
 import io.fajarca.characters.databinding.FragmentCharacterDetailBinding
@@ -11,12 +12,16 @@ import io.fajarca.core.MarvelApp
 import io.fajarca.core.network.HttpResult.NO_CONNECTION
 import io.fajarca.core.vo.Result
 import io.fajarca.presentation.BaseFragment
+import javax.inject.Inject
 
 class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, CharacterDetailViewModel>() {
 
+    @Inject
+    lateinit var factory: CharacterDetailViewModel.Factory
+
+    override val vm: CharacterDetailViewModel by viewModels(factoryProducer = { factory })
 
     override fun getLayoutResourceId() = R.layout.fragment_character_detail
-    override fun getViewModelClass() = CharacterDetailViewModel::class.java
 
     override fun initDaggerComponent() {
         DaggerCharacterDetailFeatureComponent

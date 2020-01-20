@@ -29,7 +29,7 @@ object Versions {
     val junit = "4.12"
     val coroutine_test = "1.3.2"
     val mockito = "2.28.2"
-    val dagger = "2.19"
+    val dagger = "2.24"
     val navigationComponentSafeArgsPlugins = "1.0.0"
     val constraintLayout = "1.1.3"
     val espresso = "3.3.0-alpha03"

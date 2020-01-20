@@ -1,16 +1,27 @@
 package io.fajarca.characters.presentation.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import io.fajarca.characters.domain.usecase.GetCharactersUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import io.fajarca.characters.domain.MarvelCharacter
+import io.fajarca.characters.domain.usecase.GetCharactersDetailUseCase
+import io.fajarca.characters.presentation.detail.CharacterDetailViewModel
 
-class CharactersViewModel @Inject constructor(private val getCharactersUseCase: GetCharactersUseCase) :
+class CharactersViewModel ( private val getCharactersUseCase: GetCharactersUseCase) :
     ViewModel() {
+
+    class Factory @Inject constructor(
+        private val useCase: GetCharactersUseCase
+    ) : ViewModelProvider.NewInstanceFactory() {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(CharactersViewModel::class.java)) {
+                return CharactersViewModel(useCase) as T
+            }
+            throw IllegalArgumentException("ViewModel not found")
+        }
+    }
 
     private val _characters = MutableLiveData<CharacterState<List<MarvelCharacter>>>()
     val characters: LiveData<CharacterState<List<MarvelCharacter>>>

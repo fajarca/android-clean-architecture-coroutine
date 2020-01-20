@@ -13,7 +13,7 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_fragmentCharacterDetail"
+            android:id="@+id/action_fragmentCharacterList_to_fragmentCharacterDetail"
             app:destination="@id/fragmentCharacterDetail" />
     </fragment>
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.characters.R
@@ -26,18 +27,16 @@ class CharactersFragment : BaseFragment<FragmentHomeBinding, CharactersViewModel
 
 
     override fun initDaggerComponent() {
-
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         DaggerCharacterListComponent
             .builder()
             .coreComponent(MarvelApp.coreComponent(requireContext()))
             .build()
             .inject(this)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
         vm.getAllCharacters()
@@ -80,7 +79,8 @@ class CharactersFragment : BaseFragment<FragmentHomeBinding, CharactersViewModel
 
 
     override fun onCharacterPressed(character: MarvelCharacter) {
-        //navigateTo("app://characterdetail/${character.id}")
+        val action = CharactersFragmentDirections.actionFragmentCharacterListToFragmentCharacterDetail(character.id)
+        findNavController().navigate(action)
     }
 
     private fun showLoading(isLoading :Boolean) {

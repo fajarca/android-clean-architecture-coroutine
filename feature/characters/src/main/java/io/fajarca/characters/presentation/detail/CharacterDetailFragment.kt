@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import io.fajarca.characters.R
 import io.fajarca.characters.databinding.FragmentCharacterDetailBinding
 import io.fajarca.characters.di.DaggerCharacterDetailFeatureComponent
@@ -23,6 +24,8 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
 
     override fun getLayoutResourceId() = R.layout.fragment_character_detail
 
+    private val args  : CharacterDetailFragmentArgs by navArgs()
+
     override fun initDaggerComponent() {
         DaggerCharacterDetailFeatureComponent
             .builder()
@@ -35,7 +38,8 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val characterId = arguments?.getString("characterId")?.toInt() ?: 0
+        val characterId = args.characterId
+
         vm.getCharacterDetail(characterId)
 
         vm.characterDetail.observe(viewLifecycleOwner, Observer { subscribeCharacters(it) })

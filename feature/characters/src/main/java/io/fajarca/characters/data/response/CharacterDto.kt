@@ -13,7 +13,7 @@ data class CharacterDto(
     ) {
         data class Result(
             @Json(name ="id")
-            val id: Long = 0,
+            val id: Int = 0,
             @Json(name ="name")
             val name: String = "",
             @Json(name ="thumbnail")

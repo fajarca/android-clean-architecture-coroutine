@@ -49,6 +49,8 @@ dependencies {
     api AndroidXLibraries.recyclerview
     api AndroidXLibraries.navigation_fragment_ktx
     api AndroidXLibraries.navigation_ktx
+    api AndroidXLibraries.navigation
+    api AndroidXLibraries.navigation_fragment
     api AndroidXLibraries.paging
     api AndroidXLibraries.constraintLayout
 }

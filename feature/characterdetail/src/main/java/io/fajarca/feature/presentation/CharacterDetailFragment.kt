@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import io.fajarca.characterdetail.R
 import io.fajarca.characterdetail.databinding.FragmentCharacterDetailBinding
 import io.fajarca.core.MarvelApp
@@ -33,9 +34,7 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
         super.onViewCreated(view, savedInstanceState)
 
         val characterId = arguments?.getString("characterId")?.toInt() ?: 0
-
         vm.getCharacterDetail(characterId)
-
 
         vm.characterDetail.observe(viewLifecycleOwner, Observer { subscribeCharacters(it) })
 

@@ -45,7 +45,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':feature:home')
+    implementation project(':feature:characters')
     implementation project(':feature:characterdetail')
 
     implementation AndroidXLibraries.appcompat

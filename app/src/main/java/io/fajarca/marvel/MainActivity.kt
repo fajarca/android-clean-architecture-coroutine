@@ -2,7 +2,7 @@ package io.fajarca.marvel
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import io.fajarca.home.R
+import io.fajarca.characters.R
 
 class MainActivity : AppCompatActivity() {
 

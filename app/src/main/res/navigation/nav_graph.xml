@@ -7,21 +7,26 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="io.fajarca.home.presentation.HomeFragment"
+        android:name="io.fajarca.characters.presentation.list.CharactersFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_fragmentCharacterDetail"
+            app:destination="@id/fragmentCharacterDetail" />
     </fragment>
 
 
     <fragment
-        android:id="@+id/characterDetailFragment"
+        android:id="@+id/fragmentCharacterDetail"
         android:name="io.fajarca.feature.presentation.CharacterDetailFragment"
         android:label="Detail"
         tools:layout="@layout/fragment_character_detail">
 
-        <deepLink
-            app:uri="app://characterdetail/{characterId}" />
+        <argument
+            android:name="characterId"
+            app:argType="integer" />
 
     </fragment>
+
 
 </navigation>

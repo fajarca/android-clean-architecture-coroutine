@@ -1,7 +1,9 @@
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 29
@@ -26,7 +28,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -56,4 +65,9 @@ dependencies {
     androidTestImplementation TestLibraries.espresso
     androidTestImplementation TestLibraries.espresso_runner
     androidTestImplementation TestLibraries.espresso
+
+    implementation AndroidXLibraries.navigation_fragment_ktx
+    implementation AndroidXLibraries.navigation_ktx
+    implementation AndroidXLibraries.navigation
+    implementation AndroidXLibraries.navigation_fragment
 }

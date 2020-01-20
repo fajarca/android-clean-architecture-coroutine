@@ -67,6 +67,8 @@ object AndroidXLibraries {
     val design = "com.google.android.material:material:${Versions.design}"
     val cardview = "androidx.cardview:cardview:${Versions.cardview}"
     val recyclerview = "androidx.recyclerview:recyclerview:${Versions.recyclerview}"
+    val navigation_fragment = "androidx.navigation:navigation-fragment:${Versions.navigation}"
+    val navigation = "androidx.navigation:navigation-ui:${Versions.navigation}"
     val navigation_fragment_ktx = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     val navigation_ktx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     val paging = "androidx.paging:paging-runtime:${Versions.paging}"

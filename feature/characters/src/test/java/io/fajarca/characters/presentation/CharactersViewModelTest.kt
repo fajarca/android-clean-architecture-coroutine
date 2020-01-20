@@ -19,7 +19,7 @@ import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
-class HomeViewModelTest {
+class CharactersViewModelTest {
 
     // Run tasks synchronously
     @Rule

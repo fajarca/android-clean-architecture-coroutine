@@ -1,5 +1,6 @@
 package io.fajarca.characters.data
 
+import io.fajarca.characters.data.mapper.CharacterDetailMapper
 import io.fajarca.characters.data.mapper.CharactersMapper
 import io.fajarca.characters.data.response.CharacterDto
 import io.fajarca.characters.data.source.CharacterRemoteDataSource
@@ -28,6 +29,8 @@ class CharacterRepositoryImplTest {
     @Mock
     lateinit var mapper: CharactersMapper
     @Mock
+    lateinit var detailMapper : CharacterDetailMapper
+    @Mock
     lateinit var remoteDataSource: CharacterRemoteDataSource
 
     private lateinit var repository: CharacterRepositoryImpl
@@ -40,6 +43,7 @@ class CharacterRepositoryImplTest {
         repository = CharacterRepositoryImpl(
             provideFakeCoroutinesDispatcherProvider(testCoroutineDispatcher),
             mapper,
+            detailMapper,
             dao,
             remoteDataSource
         )

@@ -1,12 +1,11 @@
 package io.fajarca.characters.presentation.detail
 
 import androidx.lifecycle.*
-import io.fajarca.characters.domain.CharacterDetail
+import io.fajarca.characters.domain.entities.MarvelCharacterDetail
 import io.fajarca.characters.domain.usecase.GetCharactersDetailUseCase
 import io.fajarca.core.vo.Result
 import io.fajarca.core.network.HttpResult
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class CharacterDetailViewModel (private val useCase: GetCharactersDetailUseCase) :
     ViewModel() {
@@ -21,8 +20,8 @@ class CharacterDetailViewModel (private val useCase: GetCharactersDetailUseCase)
     }
 
 
-    private val _detail = MutableLiveData<Result<CharacterDetail>>()
-    val characterDetail: LiveData<Result<CharacterDetail>>
+    private val _detail = MutableLiveData<Result<MarvelCharacterDetail>>()
+    val characterDetail: LiveData<Result<MarvelCharacterDetail>>
         get() = _detail
 
     fun getCharacterDetail(characterId: Int) {

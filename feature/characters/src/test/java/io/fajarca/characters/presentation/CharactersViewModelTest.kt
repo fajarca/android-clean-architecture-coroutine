@@ -5,7 +5,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
-import io.fajarca.characters.domain.MarvelCharacter
+import io.fajarca.characters.domain.entities.MarvelCharacter
 import io.fajarca.characters.domain.usecase.GetCharactersUseCase
 import io.fajarca.characters.presentation.list.CharactersViewModel
 import io.fajarca.characters.util.TestCoroutineRule
@@ -61,7 +61,13 @@ class CharactersViewModelTest {
     fun `when get all all character is success, observer should receive success result`() = testCoroutineRule.runBlockingTest  {
         //Given
         val marvelCharacters = mutableListOf<MarvelCharacter>()
-        marvelCharacters.add(MarvelCharacter(1, "Marvel", "image-url"))
+        marvelCharacters.add(
+            MarvelCharacter(
+                1,
+                "Marvel",
+                "image-url"
+            )
+        )
 
         `when`(useCase.execute()).thenReturn(marvelCharacters)
 

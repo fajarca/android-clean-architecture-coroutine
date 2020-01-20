@@ -4,12 +4,12 @@ import io.fajarca.characters.data.mapper.CharacterDetailMapper
 import io.fajarca.characters.data.mapper.CharactersMapper
 import io.fajarca.characters.data.response.CharacterDto
 import io.fajarca.characters.data.source.CharacterRemoteDataSource
-import io.fajarca.characters.domain.CharacterDetail
+import io.fajarca.characters.domain.entities.MarvelCharacterDetail
 import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
 import io.fajarca.core.vo.Result
 import io.fajarca.core.database.CharacterDao
 import io.fajarca.core.database.CharacterEntity
-import io.fajarca.characters.domain.MarvelCharacter
+import io.fajarca.characters.domain.entities.MarvelCharacter
 import io.fajarca.characters.domain.repository.CharacterRepository
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -22,7 +22,7 @@ class CharacterRepositoryImpl @Inject constructor(
     private val remoteDataSource: CharacterRemoteDataSource
 ) : CharacterRepository {
 
-    override suspend fun getCharacterDetail(characterId: Int): Result<CharacterDetail> {
+    override suspend fun getCharacterDetail(characterId: Int): Result<MarvelCharacterDetail> {
         val apiResult = remoteDataSource.getCharacterDetail(characterId, dispatcher.io)
         return detailMapper.map(apiResult)
     }

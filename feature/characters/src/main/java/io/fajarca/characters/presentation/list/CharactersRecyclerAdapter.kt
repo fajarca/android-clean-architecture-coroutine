@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.fajarca.characters.databinding.ItemCharacterBinding
-import io.fajarca.characters.domain.MarvelCharacter
+import io.fajarca.characters.domain.entities.MarvelCharacter
 
 class CharactersRecyclerAdapter(private val listener: CharacterClickListener) : ListAdapter<MarvelCharacter, CharactersRecyclerAdapter.CharacterViewHolder>(
     diffCallback

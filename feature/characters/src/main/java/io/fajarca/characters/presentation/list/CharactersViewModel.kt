@@ -4,9 +4,7 @@ import androidx.lifecycle.*
 import io.fajarca.characters.domain.usecase.GetCharactersUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import io.fajarca.characters.domain.MarvelCharacter
-import io.fajarca.characters.domain.usecase.GetCharactersDetailUseCase
-import io.fajarca.characters.presentation.detail.CharacterDetailViewModel
+import io.fajarca.characters.domain.entities.MarvelCharacter
 
 class CharactersViewModel ( private val getCharactersUseCase: GetCharactersUseCase) :
     ViewModel() {

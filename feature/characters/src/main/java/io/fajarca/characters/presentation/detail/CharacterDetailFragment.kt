@@ -8,7 +8,7 @@ import androidx.navigation.fragment.navArgs
 import io.fajarca.characters.R
 import io.fajarca.characters.databinding.FragmentCharacterDetailBinding
 import io.fajarca.characters.di.DaggerCharacterDetailFeatureComponent
-import io.fajarca.characters.domain.CharacterDetail
+import io.fajarca.characters.domain.entities.MarvelCharacterDetail
 import io.fajarca.core.MarvelApp
 import io.fajarca.core.network.HttpResult.NO_CONNECTION
 import io.fajarca.core.vo.Result
@@ -46,7 +46,7 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
 
     }
 
-    private fun subscribeCharacters(it: Result<CharacterDetail>) {
+    private fun subscribeCharacters(it: Result<MarvelCharacterDetail>) {
         when(it) {
             is Result.Loading-> {
                 showLoading(true)
@@ -68,7 +68,7 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
     }
 
 
-    private fun refreshData(character : CharacterDetail) {
+    private fun refreshData(character : MarvelCharacterDetail) {
         binding.character = character
     }
 

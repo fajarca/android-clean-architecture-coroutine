@@ -1,6 +1,6 @@
 package io.fajarca.characters.domain.usecase
 
-import io.fajarca.characters.domain.MarvelCharacter
+import io.fajarca.characters.domain.entities.MarvelCharacter
 import io.fajarca.characters.domain.repository.CharacterRepository
 import javax.inject.Inject
 

@@ -3,7 +3,7 @@ package io.fajarca.characters.data.mapper
 import io.fajarca.characters.data.response.CharacterDto
 import io.fajarca.core.mapper.Mapper
 import io.fajarca.core.database.CharacterEntity
-import io.fajarca.characters.domain.MarvelCharacter
+import io.fajarca.characters.domain.entities.MarvelCharacter
 
 class CharactersMapper : Mapper<CharacterDto, List<CharacterEntity>>(){
 
@@ -18,7 +18,13 @@ class CharactersMapper : Mapper<CharacterDto, List<CharacterEntity>>(){
     fun mapToDomain(characters : List<CharacterEntity>) : List<MarvelCharacter> {
         val chars = mutableListOf<MarvelCharacter>()
         characters.map {
-            chars.add(MarvelCharacter(it.id, it.title, it.imageUrl))
+            chars.add(
+                MarvelCharacter(
+                    it.id,
+                    it.title,
+                    it.imageUrl
+                )
+            )
         }
         return chars
     }

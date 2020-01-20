@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/fragmentCharacterDetail"
-        android:name="io.fajarca.feature.presentation.CharacterDetailFragment"
+        android:name="io.fajarca.characters.presentation.detail.CharacterDetailFragment"
         android:label="Detail"
         tools:layout="@layout/fragment_character_detail">
 

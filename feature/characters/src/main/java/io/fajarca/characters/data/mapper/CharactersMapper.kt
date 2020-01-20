@@ -1,5 +1,6 @@
-package io.fajarca.characters.data
+package io.fajarca.characters.data.mapper
 
+import io.fajarca.characters.data.response.CharacterDto
 import io.fajarca.core.mapper.Mapper
 import io.fajarca.core.database.CharacterEntity
 import io.fajarca.characters.domain.MarvelCharacter

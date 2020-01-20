@@ -1,5 +1,7 @@
 package io.fajarca.characters.data
 
+import io.fajarca.characters.data.mapper.CharactersMapper
+import io.fajarca.characters.data.response.CharacterDto
 import io.fajarca.core.database.CharacterDao
 import io.fajarca.core.network.HttpResult
 import io.fajarca.characters.util.TestUtil

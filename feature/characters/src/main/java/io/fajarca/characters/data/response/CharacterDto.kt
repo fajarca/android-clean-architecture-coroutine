@@ -1,4 +1,4 @@
-package io.fajarca.characters.data
+package io.fajarca.characters.data.response
 
 import com.squareup.moshi.Json
 

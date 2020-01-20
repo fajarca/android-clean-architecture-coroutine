@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.core.MarvelApp
 import io.fajarca.characters.R
 import io.fajarca.characters.databinding.FragmentHomeBinding
-import io.fajarca.characters.di.DaggerFeatureComponent
+import io.fajarca.characters.di.DaggerCharacterListComponent
 import io.fajarca.characters.domain.MarvelCharacter
 import io.fajarca.presentation.BaseFragment
 import io.fajarca.presentation.extension.navigateTo
@@ -22,7 +22,7 @@ class CharactersFragment : BaseFragment<FragmentHomeBinding, CharactersViewModel
     override fun getViewModelClass() = CharactersViewModel::class.java
 
     override fun initDaggerComponent() {
-        DaggerFeatureComponent
+        DaggerCharacterListComponent
             .builder()
             .coreComponent(MarvelApp.coreComponent(requireContext()))
             .build()
@@ -74,7 +74,7 @@ class CharactersFragment : BaseFragment<FragmentHomeBinding, CharactersViewModel
 
 
     override fun onCharacterPressed(character: MarvelCharacter) {
-        navigateTo("app://characterdetail/${character.id}")
+        //navigateTo("app://characterdetail/${character.id}")
     }
 
     private fun showLoading(isLoading :Boolean) {

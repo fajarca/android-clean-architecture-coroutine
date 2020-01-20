@@ -1,18 +1,15 @@
-package io.fajarca.feature.presentation
+package io.fajarca.characters.presentation.detail
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.navArgs
-import io.fajarca.characterdetail.R
-import io.fajarca.characterdetail.databinding.FragmentCharacterDetailBinding
+import io.fajarca.characters.R
+import io.fajarca.characters.databinding.FragmentCharacterDetailBinding
+import io.fajarca.characters.di.DaggerCharacterDetailFeatureComponent
+import io.fajarca.characters.domain.CharacterDetail
 import io.fajarca.core.MarvelApp
-import io.fajarca.core.network.HttpResult
-import io.fajarca.core.network.HttpResult.*
+import io.fajarca.core.network.HttpResult.NO_CONNECTION
 import io.fajarca.core.vo.Result
-import io.fajarca.feature.di.DaggerCharacterDetailFeatureComponent
-import io.fajarca.feature.domain.CharacterDetail
 import io.fajarca.presentation.BaseFragment
 
 class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, CharacterDetailViewModel>() {

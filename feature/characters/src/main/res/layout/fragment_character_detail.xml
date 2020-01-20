@@ -7,7 +7,7 @@
 
         <variable
             name="character"
-            type="io.fajarca.feature.domain.CharacterDetail" />
+            type="io.fajarca.characters.domain.CharacterDetail" />
 
         <variable
             name="isLoading"

@@ -5,18 +5,25 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.fajarca.characters.R
 import io.fajarca.characters.databinding.FragmentCharacterDetailBinding
 import io.fajarca.characters.di.DaggerCharacterDetailFeatureComponent
+import io.fajarca.characters.domain.entities.MarvelCharacter
 import io.fajarca.characters.domain.entities.MarvelCharacterDetail
 import io.fajarca.characters.domain.entities.MarvelCharacterSeries
+import io.fajarca.characters.domain.entities.MarvelCharacterSeriesUiModel
+import io.fajarca.characters.presentation.list.CharactersRecyclerAdapter
 import io.fajarca.core.MarvelApp
 import io.fajarca.core.network.HttpResult.NO_CONNECTION
 import io.fajarca.core.vo.Result
 import io.fajarca.presentation.BaseFragment
 import javax.inject.Inject
 
-class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, CharacterDetailViewModel>() {
+class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, CharacterDetailViewModel>(),
+    CharacterSeriesRecyclerAdapter.SeriesClickListener {
 
     @Inject
     lateinit var factory: CharacterDetailViewModel.Factory
@@ -26,6 +33,8 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
     override fun getLayoutResourceId() = R.layout.fragment_character_detail
 
     private val args  : CharacterDetailFragmentArgs by navArgs()
+
+    private lateinit var adapter: CharacterSeriesRecyclerAdapter
 
     override fun initDaggerComponent() {
         DaggerCharacterDetailFeatureComponent
@@ -40,6 +49,8 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
         super.onViewCreated(view, savedInstanceState)
 
         val characterId = args.characterId
+
+        initRecyclerView()
 
         vm.getCharacterDetail(characterId)
         vm.getCharacterSeries(characterId)
@@ -69,7 +80,7 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
         }
     }
 
-    private fun subscribeCharactersSeries(it: CharacterDetailViewModel.SeriesState<List<MarvelCharacterSeries>>) {
+    private fun subscribeCharactersSeries(it: CharacterDetailViewModel.SeriesState<List<MarvelCharacterSeriesUiModel>>) {
         when(it) {
             is CharacterDetailViewModel.SeriesState.Loading-> {
                 showLoading(true)
@@ -77,6 +88,7 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
             }
             is CharacterDetailViewModel.SeriesState.Success -> {
                 showLoading(false)
+                refreshSeries(it.data)
                 binding.uiStateView.dismiss()
             }
             is CharacterDetailViewModel.SeriesState.Error -> {
@@ -96,5 +108,24 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
     private fun showLoading(isLoading :Boolean) {
         binding.isLoading = isLoading
     }
+
+    private fun initRecyclerView() {
+        adapter = CharacterSeriesRecyclerAdapter(this)
+        val layoutManager = LinearLayoutManager(activity,  LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.itemAnimator = DefaultItemAnimator()
+        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.isNestedScrollingEnabled = false
+        binding.recyclerView.adapter = adapter
+    }
+
+    private fun refreshSeries(series: List<MarvelCharacterSeriesUiModel>) {
+        adapter.submitList(series)
+    }
+
+    override fun onSeriesPressed(character: MarvelCharacterSeriesUiModel) {
+
+    }
+
 
 }

@@ -4,25 +4,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <variable
             name="series"
-            type="io.fajarca.characters.domain.entities.MarvelCharacterSeries" />
+            type="io.fajarca.characters.domain.entities.MarvelCharacterSeriesUiModel" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_margin="8dp"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="0dp"
+                android:layout_width="180dp"
                 android:layout_height="180dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -40,18 +39,35 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:ellipsize="end"
+                android:gravity="center"
                 android:maxLines="1"
                 android:minLines="1"
-                android:gravity="center"
                 android:text="@{series.name}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView"
                 tools:text="Title" />
+
+            <TextView
+                android:id="@+id/tvSeriesCharacter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:minLines="2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintVertical_bias="0.51"
+                tools:text="Capt. America,.... " />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

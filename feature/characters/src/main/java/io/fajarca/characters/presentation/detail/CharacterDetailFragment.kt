@@ -9,6 +9,7 @@ import io.fajarca.characters.R
 import io.fajarca.characters.databinding.FragmentCharacterDetailBinding
 import io.fajarca.characters.di.DaggerCharacterDetailFeatureComponent
 import io.fajarca.characters.domain.entities.MarvelCharacterDetail
+import io.fajarca.characters.domain.entities.MarvelCharacterSeries
 import io.fajarca.core.MarvelApp
 import io.fajarca.core.network.HttpResult.NO_CONNECTION
 import io.fajarca.core.vo.Result
@@ -41,9 +42,10 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
         val characterId = args.characterId
 
         vm.getCharacterDetail(characterId)
+        vm.getCharacterSeries(characterId)
 
         vm.characterDetail.observe(viewLifecycleOwner, Observer { subscribeCharacters(it) })
-
+        vm.series.observe(this, Observer { subscribeCharactersSeries(it) })
     }
 
     private fun subscribeCharacters(it: Result<MarvelCharacterDetail>) {
@@ -67,6 +69,25 @@ class CharacterDetailFragment : BaseFragment<FragmentCharacterDetailBinding, Cha
         }
     }
 
+    private fun subscribeCharactersSeries(it: CharacterDetailViewModel.SeriesState<List<MarvelCharacterSeries>>) {
+        when(it) {
+            is CharacterDetailViewModel.SeriesState.Loading-> {
+                showLoading(true)
+                binding.uiStateView.showLoading()
+            }
+            is CharacterDetailViewModel.SeriesState.Success -> {
+                showLoading(false)
+                binding.uiStateView.dismiss()
+            }
+            is CharacterDetailViewModel.SeriesState.Error -> {
+                showLoading(false)
+                when(it.cause) {
+                    NO_CONNECTION -> binding.uiStateView.showNoInternetConnection()
+                    else -> binding.uiStateView.showError("Unknown error")
+                }
+            }
+        }
+    }
 
     private fun refreshData(character : MarvelCharacterDetail) {
         binding.character = character

@@ -7,9 +7,11 @@ import io.fajarca.core.database.MarvelDatabase
 import io.fajarca.core.di.scope.FeatureScope
 import io.fajarca.characters.data.CharacterService
 import io.fajarca.characters.data.mapper.CharacterDetailMapper
+import io.fajarca.characters.data.mapper.CharacterSeriesMapper
 import io.fajarca.characters.data.mapper.CharactersMapper
 import io.fajarca.characters.domain.repository.CharacterRepository
 import io.fajarca.characters.domain.usecase.GetCharactersDetailUseCase
+import io.fajarca.characters.domain.usecase.GetCharactersSeriesUseCase
 import io.fajarca.characters.domain.usecase.GetCharactersUseCase
 import io.fajarca.characters.presentation.detail.CharacterDetailViewModel
 import io.fajarca.characters.presentation.list.CharactersViewModel
@@ -35,6 +37,10 @@ class CharacterModule {
 
     @Provides
     @FeatureScope
+    fun provideCharacterSeriesMapper() : CharacterSeriesMapper = CharacterSeriesMapper()
+
+    @Provides
+    @FeatureScope
     fun provideCharacterService(retrofit: Retrofit) : CharacterService = retrofit.create(CharacterService::class.java)
 
     @Provides
@@ -47,9 +53,15 @@ class CharacterModule {
 
     @Provides
     @FeatureScope
+    fun provideCharacterSeriesUseCase(repository: CharacterRepository) : GetCharactersSeriesUseCase = GetCharactersSeriesUseCase(repository)
+
+
+    @Provides
+    @FeatureScope
     fun provideCharacterDetailsViewModelFactory(
-        useCase: GetCharactersDetailUseCase
-    ) = CharacterDetailViewModel.Factory(useCase)
+        useCase: GetCharactersDetailUseCase,
+        getCharactersSeriesUseCase: GetCharactersSeriesUseCase
+    ) = CharacterDetailViewModel.Factory(useCase, getCharactersSeriesUseCase)
 
     @Provides
     @FeatureScope

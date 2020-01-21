@@ -19,7 +19,6 @@ open class RemoteDataSource {
                 when (throwable) {
                     is HttpException -> {
                         val result = when(throwable.code()) {
-                            401 -> Result.Error(HttpResult.UNAUTHORIZED)
                             in 400..420 -> parseHttpError(throwable)
                             in 500..599 -> Result.Error(HttpResult.SERVER_ERROR)
                             else -> Result.Error(HttpResult.NOT_DEFINED)

@@ -6,7 +6,6 @@ package  io.fajarca.core.network
 enum class HttpResult {
     NO_CONNECTION,
     TIMEOUT,
-    UNAUTHORIZED,
     CLIENT_ERROR,
     BAD_RESPONSE,
     SERVER_ERROR,

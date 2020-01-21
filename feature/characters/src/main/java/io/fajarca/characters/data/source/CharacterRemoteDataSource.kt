@@ -9,14 +9,14 @@ import io.fajarca.core.network.RemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
-class CharacterRemoteDataSource @Inject constructor(private val apiService: CharacterService) :
+class CharacterRemoteDataSource @Inject constructor(private val characterService: CharacterService) :
     RemoteDataSource() {
 
     suspend fun getCharacters(dispatcher: CoroutineDispatcher): Result<CharacterDto> {
-        return safeApiCall(dispatcher) { apiService.getCharacters() }
+        return safeApiCall(dispatcher) { characterService.getCharacters() }
     }
 
     suspend fun getCharacterDetail(characterId : Int, dispatcher: CoroutineDispatcher): Result<CharacterDetailDto> {
-        return safeApiCall(dispatcher) { apiService.getCharacterDetail(characterId) }
+        return safeApiCall(dispatcher) { characterService.getCharacterDetail(characterId) }
     }
 }

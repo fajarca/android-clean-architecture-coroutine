@@ -2,28 +2,31 @@ package io.fajarca.characters.presentation.list
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.characters.R
-import io.fajarca.characters.databinding.FragmentHomeBinding
+import io.fajarca.characters.databinding.FragmentCharactersBinding
 import io.fajarca.characters.di.DaggerCharacterListComponent
 import io.fajarca.characters.domain.entities.MarvelCharacter
 import io.fajarca.core.MarvelApp
 import io.fajarca.presentation.BaseFragment
 import javax.inject.Inject
 
-class CharactersFragment : BaseFragment<FragmentHomeBinding, CharactersViewModel>(),
+class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>(),
     CharactersRecyclerAdapter.CharacterClickListener {
 
     @Inject
     lateinit var factory: CharactersViewModel.Factory
-    private lateinit var adapter : CharactersRecyclerAdapter
+    private lateinit var adapter: CharactersRecyclerAdapter
     override val vm: CharactersViewModel by viewModels(factoryProducer = { factory })
 
-    override fun getLayoutResourceId() = R.layout.fragment_home
+    override fun getLayoutResourceId() = R.layout.fragment_characters
 
 
     override fun initDaggerComponent() {
@@ -38,6 +41,7 @@ class CharactersFragment : BaseFragment<FragmentHomeBinding, CharactersViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initToolbar()
         initRecyclerView()
         vm.getAllCharacters()
 
@@ -46,7 +50,7 @@ class CharactersFragment : BaseFragment<FragmentHomeBinding, CharactersViewModel
     }
 
     private fun subscribeCharacters(it: CharactersViewModel.CharacterState<List<MarvelCharacter>>) {
-        when(it) {
+        when (it) {
             is CharactersViewModel.CharacterState.Loading -> {
                 showLoading(true)
                 binding.uiStateView.showLoading()
@@ -64,9 +68,15 @@ class CharactersFragment : BaseFragment<FragmentHomeBinding, CharactersViewModel
     }
 
 
+    private fun initToolbar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
+        val appBarConfiguration = AppBarConfiguration(findNavController().graph)
+        binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
+    }
+
     private fun initRecyclerView() {
         adapter = CharactersRecyclerAdapter(this)
-        val layoutManager = GridLayoutManager(activity,2 )
+        val layoutManager = GridLayoutManager(activity, 2)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         binding.recyclerView.setHasFixedSize(true)
@@ -79,11 +89,14 @@ class CharactersFragment : BaseFragment<FragmentHomeBinding, CharactersViewModel
 
 
     override fun onCharacterPressed(character: MarvelCharacter) {
-        val action = CharactersFragmentDirections.actionFragmentCharacterListToFragmentCharacterDetail(character.id)
+        val action =
+            CharactersFragmentDirections.actionFragmentCharacterListToFragmentCharacterDetail(
+                character.id
+            )
         findNavController().navigate(action)
     }
 
-    private fun showLoading(isLoading :Boolean) {
+    private fun showLoading(isLoading: Boolean) {
         binding.isLoading = isLoading
     }
 

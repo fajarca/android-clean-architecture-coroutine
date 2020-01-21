@@ -14,14 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import javax.inject.Inject
 
-abstract class BaseFragment<out B : ViewDataBinding, V : ViewModel> : Fragment() {
+abstract class BaseFragment<out B : ViewDataBinding, out V : ViewModel> : Fragment() {
     val binding: B
         get() = mViewDataBinding
 
     abstract val vm : V
 
     private lateinit var mViewDataBinding: B
-    private lateinit var mViewModel: V
 
     override fun onAttach(context: Context) {
         initDaggerComponent()

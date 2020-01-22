@@ -2,19 +2,20 @@ package io.fajarca.characters.di
 
 import dagger.Module
 import dagger.Provides
-import io.fajarca.core.database.CharacterDao
-import io.fajarca.core.database.MarvelDatabase
-import io.fajarca.core.di.scope.FeatureScope
 import io.fajarca.characters.data.CharacterService
 import io.fajarca.characters.data.mapper.CharacterDetailMapper
 import io.fajarca.characters.data.mapper.CharacterSeriesMapper
 import io.fajarca.characters.data.mapper.CharactersMapper
+import io.fajarca.characters.data.source.CharacterRemoteDataSource
 import io.fajarca.characters.domain.repository.CharacterRepository
 import io.fajarca.characters.domain.usecase.GetCharactersDetailUseCase
 import io.fajarca.characters.domain.usecase.GetCharactersSeriesUseCase
 import io.fajarca.characters.domain.usecase.GetCharactersUseCase
 import io.fajarca.characters.presentation.detail.CharacterDetailViewModel
 import io.fajarca.characters.presentation.list.CharactersViewModel
+import io.fajarca.core.database.CharacterDao
+import io.fajarca.core.database.MarvelDatabase
+import io.fajarca.core.di.scope.FeatureScope
 import retrofit2.Retrofit
 
 
@@ -27,13 +28,11 @@ class CharacterModule {
 
     @Provides
     @FeatureScope
-    fun provideMapper() : CharactersMapper =
-        CharactersMapper()
+    fun provideMapper() : CharactersMapper = CharactersMapper()
 
     @Provides
     @FeatureScope
-    fun provideDetailMapper() : CharacterDetailMapper =
-        CharacterDetailMapper()
+    fun provideDetailMapper() : CharacterDetailMapper = CharacterDetailMapper()
 
     @Provides
     @FeatureScope
@@ -45,16 +44,19 @@ class CharacterModule {
 
     @Provides
     @FeatureScope
-    fun provideCharacterUseCase(repository: CharacterRepository) : GetCharactersUseCase = GetCharactersUseCase(repository)
+    fun provideRemoteDataSource(characterService: CharacterService) = CharacterRemoteDataSource(characterService)
 
     @Provides
     @FeatureScope
-    fun provideCharacterDetailUseCase(repository: CharacterRepository) : GetCharactersDetailUseCase = GetCharactersDetailUseCase(repository)
+    fun provideGetCharactersSeriesUseCase(repository: CharacterRepository) = GetCharactersSeriesUseCase(repository)
 
     @Provides
     @FeatureScope
-    fun provideCharacterSeriesUseCase(repository: CharacterRepository) : GetCharactersSeriesUseCase = GetCharactersSeriesUseCase(repository)
+    fun provideGetCharactersDetailUseCase(repository: CharacterRepository) = GetCharactersDetailUseCase(repository)
 
+    @Provides
+    @FeatureScope
+    fun provideGetCharactersUseCase(repository: CharacterRepository) = GetCharactersUseCase(repository)
 
     @Provides
     @FeatureScope

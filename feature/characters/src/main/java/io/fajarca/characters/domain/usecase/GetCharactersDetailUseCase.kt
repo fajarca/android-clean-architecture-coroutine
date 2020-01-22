@@ -4,9 +4,8 @@ import io.fajarca.characters.domain.entities.MarvelCharacterDetail
 import io.fajarca.characters.domain.repository.CharacterRepository
 import io.fajarca.core.network.HttpResult
 import io.fajarca.core.vo.Result
-import javax.inject.Inject
 
-class GetCharactersDetailUseCase @Inject constructor(private val repository: CharacterRepository)  {
+class GetCharactersDetailUseCase (private val repository: CharacterRepository)  {
 
 
     suspend fun execute(characterId: Int, onSuccess: (detail : MarvelCharacterDetail) -> Unit, onError: (cause: HttpResult, code : Int?, errorMessage : String?) -> Unit){

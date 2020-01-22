@@ -5,12 +5,11 @@ import io.fajarca.characters.data.CharacterService
 import io.fajarca.characters.data.response.CharacterDetailDto
 import io.fajarca.characters.data.response.CharacterDto
 import io.fajarca.characters.data.response.CharacterSeriesDto
-import io.fajarca.core.vo.Result
 import io.fajarca.core.network.RemoteDataSource
+import io.fajarca.core.vo.Result
 import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Inject
 
-class CharacterRemoteDataSource @Inject constructor(private val characterService: CharacterService) :
+class CharacterRemoteDataSource (private val characterService: CharacterService) :
     RemoteDataSource() {
 
     suspend fun getCharacters(dispatcher: CoroutineDispatcher): Result<CharacterDto> {

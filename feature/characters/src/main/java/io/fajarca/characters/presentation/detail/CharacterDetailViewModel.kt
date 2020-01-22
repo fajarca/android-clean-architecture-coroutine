@@ -6,8 +6,8 @@ import io.fajarca.characters.domain.entities.MarvelCharacterSeries
 import io.fajarca.characters.domain.entities.MarvelCharacterSeriesUiModel
 import io.fajarca.characters.domain.usecase.GetCharactersDetailUseCase
 import io.fajarca.characters.domain.usecase.GetCharactersSeriesUseCase
-import io.fajarca.core.vo.Result
 import io.fajarca.core.network.HttpResult
+import io.fajarca.core.vo.Result
 import kotlinx.coroutines.launch
 
 class CharacterDetailViewModel(
@@ -81,7 +81,7 @@ class CharacterDetailViewModel(
                     it.startYear,
                     it.endYear,
                     4f,
-                    mapToCharacterNames(it.seriesCharacters)
+                    concatCharacterName(it.seriesCharacters)
                 )
             )
         }
@@ -89,14 +89,19 @@ class CharacterDetailViewModel(
     }
 
 
-    private fun mapToCharacterNames(characterNames: List<String>): String {
+    private fun concatCharacterName(characterNames: List<String>): String {
         if (characterNames.isNotEmpty()) {
             var names = ""
-            characterNames.map {
-                names += "$it, "
+            characterNames.mapIndexed { index, name ->
+                if (index < characterNames.size -1 ) {
+                    names += "$name, "
+                } else {
+                    names += name
+                }
             }
             return names
         }
+
         return ""
     }
 

@@ -1,6 +1,7 @@
 package io.fajarca.characters.data
 
 import io.fajarca.characters.data.mapper.CharacterDetailMapper
+import io.fajarca.characters.data.mapper.CharacterSeriesMapper
 import io.fajarca.characters.data.mapper.CharactersMapper
 import io.fajarca.characters.data.response.CharacterDto
 import io.fajarca.characters.data.source.CharacterRemoteDataSource
@@ -31,6 +32,8 @@ class CharacterRepositoryImplTest {
     @Mock
     lateinit var detailMapper : CharacterDetailMapper
     @Mock
+    lateinit var seriesMapper : CharacterSeriesMapper
+    @Mock
     lateinit var remoteDataSource: CharacterRemoteDataSource
 
     private lateinit var repository: CharacterRepositoryImpl
@@ -44,6 +47,7 @@ class CharacterRepositoryImplTest {
             provideFakeCoroutinesDispatcherProvider(testCoroutineDispatcher),
             mapper,
             detailMapper,
+            seriesMapper,
             dao,
             remoteDataSource
         )
@@ -94,5 +98,30 @@ class CharacterRepositoryImplTest {
             //Then
             verify(dao, never()).insertAll(characters)
         }
+
+    @Test
+    fun `when get list of series from a character, should fetch from network`() = runBlockingTest {
+        //Given
+        val characterId = 409
+
+        //When
+        repository.getCharacterSeries(characterId)
+
+        //Then
+        verify(remoteDataSource).getCharacterSeries(characterId, testCoroutineDispatcher)
+    }
+
+
+    @Test
+    fun `when get detail of a character, should fetch from network`() = runBlockingTest {
+        //Given
+        val characterId = 409
+
+        //When
+        repository.getCharacterDetail(characterId)
+
+        //Then
+        verify(remoteDataSource).getCharacterDetail(characterId, testCoroutineDispatcher)
+    }
 
 }

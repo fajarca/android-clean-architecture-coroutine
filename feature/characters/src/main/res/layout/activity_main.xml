@@ -17,6 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/home_nav_graph" />
+        app:navGraph="@navigation/nav_characters" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

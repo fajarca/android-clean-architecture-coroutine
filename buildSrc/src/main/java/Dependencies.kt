@@ -30,10 +30,11 @@ object Versions {
     val coroutine_test = "1.3.2"
     val mockito = "2.28.2"
     val dagger = "2.24"
-    val navigationComponentSafeArgsPlugins = "1.0.0"
+    val navigationComponentSafeArgsPlugins = "2.2.0-rc04"
     val constraintLayout = "1.1.3"
     val espresso = "3.3.0-alpha03"
     val testRunner = "1.3.0-alpha03"
+    val jacoco = "0.8.5"
 }
 
 object Libraries {

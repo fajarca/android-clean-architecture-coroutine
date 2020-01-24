@@ -6,16 +6,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.fajarca.characters.R
 import io.fajarca.characters.databinding.FragmentCharacterDetailBinding
 import io.fajarca.characters.di.DaggerCharacterDetailFeatureComponent
-import io.fajarca.characters.domain.entities.MarvelCharacter
 import io.fajarca.characters.domain.entities.MarvelCharacterDetail
-import io.fajarca.characters.domain.entities.MarvelCharacterSeries
 import io.fajarca.characters.domain.entities.MarvelCharacterSeriesUiModel
-import io.fajarca.characters.presentation.list.CharactersRecyclerAdapter
 import io.fajarca.core.MarvelApp
 import io.fajarca.core.network.HttpResult.NO_CONNECTION
 import io.fajarca.core.vo.Result

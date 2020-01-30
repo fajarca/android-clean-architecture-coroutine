@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager.widget.ViewPager
 import io.fajarca.home.R
 import io.fajarca.home.databinding.FragmentCharactersBinding
 import io.fajarca.home.di.DaggerCharacterListComponent
@@ -27,7 +28,8 @@ class HomeFragment : BaseFragment<FragmentCharactersBinding, HomeViewModel>(),
     override val vm: HomeViewModel by viewModels(factoryProducer = { factory })
 
     override fun getLayoutResourceId() = R.layout.fragment_characters
-
+    private lateinit var viewPager : ViewPager
+    private lateinit var topHeadlinePagerAdapter: TopHeadlinePagerAdapter
 
     override fun initDaggerComponent() {
         DaggerCharacterListComponent
@@ -43,6 +45,7 @@ class HomeFragment : BaseFragment<FragmentCharactersBinding, HomeViewModel>(),
 
         initToolbar()
         initRecyclerView()
+        initTopHeadline()
         vm.getTopHeadlines()
 
         vm.topHeadlines.observe(viewLifecycleOwner, Observer { subscribeCharacters(it) })
@@ -62,6 +65,7 @@ class HomeFragment : BaseFragment<FragmentCharactersBinding, HomeViewModel>(),
             is HomeViewModel.TopHeadlinesState.Success -> {
                 showLoading(false)
                 binding.uiStateView.dismiss()
+                refreshTopHeadline(it.data)
             }
         }
     }
@@ -82,8 +86,8 @@ class HomeFragment : BaseFragment<FragmentCharactersBinding, HomeViewModel>(),
         binding.recyclerView.adapter = adapter
     }
 
-    private fun refreshData(characters: List<TopHeadline>) {
-        adapter.submitList(characters)
+    private fun refreshTopHeadline(headlines: List<TopHeadline>) {
+        topHeadlinePagerAdapter.refreshHeadlines(headlines)
     }
 
 
@@ -93,6 +97,16 @@ class HomeFragment : BaseFragment<FragmentCharactersBinding, HomeViewModel>(),
 
     private fun showLoading(isLoading: Boolean) {
         binding.isLoading = isLoading
+    }
+
+
+    private fun initTopHeadline() {
+        viewPager = binding.contentTopHeadline.viewpager
+        val tabLayout = binding.contentTopHeadline.tabLayout
+
+        topHeadlinePagerAdapter = TopHeadlinePagerAdapter(ArrayList(), requireActivity())
+        viewPager.adapter = topHeadlinePagerAdapter
+        tabLayout.setupWithViewPager(viewPager)
     }
 
 }

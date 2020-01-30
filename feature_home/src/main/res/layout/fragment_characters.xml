@@ -18,9 +18,20 @@
         <include
             android:id="@+id/content_toolbar"
             layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/content_top_headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/content_top_headline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content_toolbar"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -31,8 +42,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content_toolbar"
-            tools:listitem="@layout/item_character" />
+            app:layout_constraintTop_toBottomOf="@+id/content_top_headline" />
 
         <io.fajarca.uiview.UiStateView
             android:id="@+id/uiStateView"

@@ -1,2 +1,2 @@
-include ':app', 'libraries:ui-view',  'libraries:presentation', 'feature:characters', ':core',
-rootProject.name='Marvel'
+include ':app', 'libraries:ui-view',  'libraries:presentation', 'feature_home', ':core',
+rootProject.name='BuzzNews'

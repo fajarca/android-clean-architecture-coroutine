@@ -96,7 +96,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':feature:characters')
+    implementation project(':feature_home')
 
     implementation AndroidXLibraries.appcompat
     implementation AndroidXLibraries.navigation_fragment_ktx

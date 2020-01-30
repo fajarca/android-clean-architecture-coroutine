@@ -1,9 +1,8 @@
 package io.fajarca.home.data
 
-import io.fajarca.home.data.mapper.CharactersMapper
-import io.fajarca.home.data.response.CharacterDto
+import io.fajarca.home.data.mapper.TopHeadlineMapper
 import io.fajarca.home.data.source.NewsRemoteDataSource
-import io.fajarca.core.database.CharacterDao
+import io.fajarca.core.database.TopHeadlineDao
 import io.fajarca.core.network.HttpResult
 import io.fajarca.home.util.TestUtil
 import io.fajarca.home.util.provideFakeCoroutinesDispatcherProvider
@@ -24,9 +23,9 @@ class CharacterRepositoryImplTest {
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
     @Mock
-    lateinit var dao: CharacterDao
+    lateinit var dao: TopHeadlineDao
     @Mock
-    lateinit var mapper: CharactersMapper
+    lateinit var mapper: TopHeadlineMapper
     @Mock
     lateinit var detailMapper : CharacterDetailMapper
     @Mock

@@ -1,6 +1,6 @@
 package io.fajarca.home.domain.usecase
 
-import io.fajarca.home.domain.repository.CharacterRepository
+import io.fajarca.home.domain.repository.NewsRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
@@ -14,14 +14,14 @@ import org.mockito.MockitoAnnotations
 class GetCharactersUseCaseTest {
 
 
-    private lateinit var sut : GetCharactersUseCase
+    private lateinit var sut : GetTopHeadlinesUseCase
     @Mock
-    private lateinit var repository: CharacterRepository
+    private lateinit var repository: NewsRepository
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        sut = GetCharactersUseCase(repository)
+        sut = GetTopHeadlinesUseCase(repository)
     }
 
     @Test

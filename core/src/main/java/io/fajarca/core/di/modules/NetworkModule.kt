@@ -4,9 +4,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import io.fajarca.core.BuildConfig
-import okhttp3.Cache
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -30,44 +28,35 @@ class NetworkModule {
         return loggingInterceptor
     }
 
+
+    @Provides
+    @Singleton
+    fun provideAuthenticator() : Authenticator {
+        return object : Authenticator {
+            override fun authenticate(route: Route?, response: Response): Request? {
+                return response
+                    .request
+                    .newBuilder()
+                    .header("Authorization", BuildConfig.API_KEY)
+                    .build()
+            }
+
+        }
+    }
+
     @Provides
     @Singleton
     fun provideOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         cache: Cache,
-        authInterceptor: Interceptor
+        authenticator: Authenticator
     ): OkHttpClient {
         val client = OkHttpClient.Builder()
         client.cache(cache)
         client.addInterceptor(loggingInterceptor)
-        client.addInterceptor(authInterceptor)
+        client.authenticator(authenticator)
         return client.build()
     }
-
-    @Provides
-    @Singleton
-    fun provideAuthInterceptor(): Interceptor {
-        return Interceptor { chain ->
-
-            var request = chain.request()
-
-            val url = request
-                .url
-                .newBuilder()
-                .addQueryParameter("apikey", BuildConfig.API_KEY)
-                .addQueryParameter("ts", "1576669205601")
-                .addQueryParameter("hash", BuildConfig.API_HASH)
-                .build()
-
-            request = request
-                .newBuilder()
-                .url(url)
-                .build()
-
-            chain.proceed(request)
-        }
-    }
-
 
     @Provides
     @Singleton

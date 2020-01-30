@@ -3,7 +3,7 @@ package io.fajarca.home.di
 import dagger.Component
 import io.fajarca.core.di.CoreComponent
 import io.fajarca.core.di.scope.FeatureScope
-import io.fajarca.home.presentation.list.CharactersFragment
+import io.fajarca.home.presentation.list.HomeFragment
 
 @FeatureScope
 @Component(
@@ -14,5 +14,5 @@ import io.fajarca.home.presentation.list.CharactersFragment
     ]
 )
 interface CharacterListComponent {
-    fun inject(homeFragment: CharactersFragment)
+    fun inject(homeFragment: HomeFragment)
 }

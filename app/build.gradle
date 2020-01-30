@@ -65,13 +65,11 @@ android {
         debug {
             buildConfigField "String", "BASE_URL", BASE_URL
             buildConfigField "String", "API_KEY", API_KEY
-            buildConfigField "String", "API_HASH", API_HASH
             testCoverageEnabled true
         }
         release {
             buildConfigField "String", "BASE_URL", BASE_URL
             buildConfigField "String", "API_KEY", API_KEY
-            buildConfigField "String", "API_HASH", API_HASH
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

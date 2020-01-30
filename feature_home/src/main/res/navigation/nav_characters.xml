@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/fragmentCharacterList"
-        android:name="io.fajarca.home.presentation.list.CharactersFragment"
+        android:name="io.fajarca.home.presentation.list.HomeFragment"
         android:label="Characters"
         tools:layout="@layout/fragment_characters">
         <action

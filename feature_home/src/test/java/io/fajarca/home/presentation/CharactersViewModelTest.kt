@@ -5,9 +5,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
-import io.fajarca.home.domain.entities.MarvelCharacter
-import io.fajarca.home.domain.usecase.GetCharactersUseCase
-import io.fajarca.home.presentation.list.CharactersViewModel
+import io.fajarca.home.domain.entities.TopHeadline
+import io.fajarca.home.domain.usecase.GetTopHeadlinesUseCase
+import io.fajarca.home.presentation.list.HomeViewModel
 import io.fajarca.home.util.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
@@ -29,15 +29,15 @@ class CharactersViewModelTest {
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
 
-    private lateinit var viewModel: CharactersViewModel
+    private lateinit var viewModel: HomeViewModel
     
 
     @Mock
-    private lateinit var observer : Observer<CharactersViewModel.CharacterState<List<MarvelCharacter>>>
+    private lateinit var observer : Observer<HomeViewModel.CharacterState<List<TopHeadline>>>
 
 
     @Mock
-    private lateinit var useCase: GetCharactersUseCase
+    private lateinit var useCase: GetTopHeadlinesUseCase
 
     @Mock
     lateinit var lifeCycleOwner: LifecycleOwner
@@ -46,7 +46,7 @@ class CharactersViewModelTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        viewModel = CharactersViewModel(useCase)
+        viewModel = HomeViewModel(useCase)
 
         lifeCycle = LifecycleRegistry(lifeCycleOwner)
         `when` (lifeCycleOwner.lifecycle).thenReturn(lifeCycle)
@@ -60,9 +60,9 @@ class CharactersViewModelTest {
     @Test
     fun `when get all all character is success, observer should receive success result`() = testCoroutineRule.runBlockingTest  {
         //Given
-        val marvelCharacters = mutableListOf<MarvelCharacter>()
+        val marvelCharacters = mutableListOf<TopHeadline>()
         marvelCharacters.add(
-            MarvelCharacter(
+            TopHeadline(
                 1,
                 "Marvel",
                 "image-url"
@@ -75,15 +75,15 @@ class CharactersViewModelTest {
         viewModel.getAllCharacters()
 
         //Then
-        verify(observer).onChanged(CharactersViewModel.CharacterState.Loading)
-        verify(observer).onChanged(CharactersViewModel.CharacterState.Success(marvelCharacters))
+        verify(observer).onChanged(HomeViewModel.CharacterState.Loading)
+        verify(observer).onChanged(HomeViewModel.CharacterState.Success(marvelCharacters))
 
     }
 
     @Test
     fun `when get all all character is empty, observer should receive empty result`() = testCoroutineRule.runBlockingTest  {
         //Given
-        val marvelCharacters = emptyList<MarvelCharacter>()
+        val marvelCharacters = emptyList<TopHeadline>()
 
         `when`(useCase.execute()).thenReturn(marvelCharacters)
 
@@ -91,8 +91,8 @@ class CharactersViewModelTest {
         viewModel.getAllCharacters()
 
         //Then
-        verify(observer).onChanged(CharactersViewModel.CharacterState.Loading)
-        verify(observer).onChanged(CharactersViewModel.CharacterState.Empty)
+        verify(observer).onChanged(HomeViewModel.CharacterState.Loading)
+        verify(observer).onChanged(HomeViewModel.CharacterState.Empty)
 
     }
 

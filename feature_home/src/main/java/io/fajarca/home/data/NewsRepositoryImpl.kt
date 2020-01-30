@@ -1,48 +1,46 @@
 package io.fajarca.home.data
 
-import io.fajarca.core.database.CharacterDao
-import io.fajarca.core.database.CharacterEntity
+import io.fajarca.core.database.TopHeadlineDao
+import io.fajarca.core.database.TopHeadlineEntity
 import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
 import io.fajarca.core.vo.Result
-import io.fajarca.home.data.mapper.CharactersMapper
-import io.fajarca.home.data.response.CharacterDto
+import io.fajarca.home.data.mapper.TopHeadlineMapper
+import io.fajarca.home.data.response.TopHeadlinesDto
 import io.fajarca.home.data.source.NewsRemoteDataSource
-import io.fajarca.home.domain.entities.MarvelCharacter
-import io.fajarca.home.domain.repository.CharacterRepository
+import io.fajarca.home.domain.entities.TopHeadline
+import io.fajarca.home.domain.repository.NewsRepository
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcherProvider,
-    private val mapper: CharactersMapper,
-    private val dao: CharacterDao,
+    private val mapper: TopHeadlineMapper,
+    private val dao: TopHeadlineDao,
     private val remoteDataSource: NewsRemoteDataSource
-) : CharacterRepository {
+) : NewsRepository {
 
-
-    override suspend fun insertAllCharacter(characters: List<CharacterEntity>) {
-        dao.insertAll(characters)
+    override suspend fun getHeadlinesFromApi(): Result<TopHeadlinesDto> {
+        return remoteDataSource.getTopHeadlines(dispatcher.io)
     }
 
-    override suspend fun getAllCharactersFromDb(): List<CharacterEntity> {
+    override suspend fun getHeadlinesFromDb(): List<TopHeadlineEntity> {
         return withContext(dispatcher.io) {
             dao.findAll()
         }
     }
 
-    override suspend fun getAllCharacter(): List<MarvelCharacter> {
-        val apiResult = getAllCharactersFromApi()
+    override suspend fun getHeadlines(): List<TopHeadline> {
+        val apiResult = getHeadlinesFromApi()
 
         if (apiResult is Result.Success) {
-            insertAllCharacter(mapper.map(apiResult.data))
+            insertHeadlines(mapper.map(apiResult.data))
         }
 
-        return mapper.mapToDomain(getAllCharactersFromDb())
+        return mapper.mapToDomain(getHeadlinesFromDb())
     }
 
-
-    override suspend fun getAllCharactersFromApi(): Result<CharacterDto> {
-        return remoteDataSource.getCharacters(dispatcher.io)
+    override suspend fun insertHeadlines(characters: List<TopHeadlineEntity>) {
+        dao.insertAll(characters)
     }
 
 

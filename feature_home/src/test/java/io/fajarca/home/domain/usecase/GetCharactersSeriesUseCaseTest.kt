@@ -1,6 +1,6 @@
 package io.fajarca.home.domain.usecase
 
-import io.fajarca.home.domain.repository.CharacterRepository
+import io.fajarca.home.domain.repository.NewsRepository
 import io.fajarca.core.network.HttpResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -16,7 +16,7 @@ class GetCharactersSeriesUseCaseTest {
 
     private lateinit var sut : GetCharactersSeriesUseCase
     @Mock
-    private lateinit var repository: CharacterRepository
+    private lateinit var repository: NewsRepository
 
     @Before
     fun setUp() {

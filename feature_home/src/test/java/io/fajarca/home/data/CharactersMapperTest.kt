@@ -1,17 +1,16 @@
 package io.fajarca.home.data
 
-import io.fajarca.home.data.mapper.CharactersMapper
-import io.fajarca.home.data.response.CharacterDto
+import io.fajarca.home.data.mapper.TopHeadlineMapper
 import org.junit.Test
 
 import org.junit.Before
 
 class CharactersMapperTest {
 
-    private lateinit var mapper: CharactersMapper
+    private lateinit var mapper: TopHeadlineMapper
     @Before
     fun setup() {
-        mapper = CharactersMapper()
+        mapper = TopHeadlineMapper()
     }
 
 

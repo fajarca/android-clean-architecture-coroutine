@@ -13,18 +13,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.home.R
 import io.fajarca.home.databinding.FragmentCharactersBinding
 import io.fajarca.home.di.DaggerCharacterListComponent
-import io.fajarca.home.domain.entities.MarvelCharacter
+import io.fajarca.home.domain.entities.TopHeadline
 import io.fajarca.core.MarvelApp
 import io.fajarca.presentation.BaseFragment
 import javax.inject.Inject
 
-class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>(),
+class HomeFragment : BaseFragment<FragmentCharactersBinding, HomeViewModel>(),
     CharactersRecyclerAdapter.CharacterClickListener {
 
     @Inject
-    lateinit var factory: CharactersViewModel.Factory
+    lateinit var factory: HomeViewModel.Factory
     private lateinit var adapter: CharactersRecyclerAdapter
-    override val vm: CharactersViewModel by viewModels(factoryProducer = { factory })
+    override val vm: HomeViewModel by viewModels(factoryProducer = { factory })
 
     override fun getLayoutResourceId() = R.layout.fragment_characters
 
@@ -43,26 +43,25 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
 
         initToolbar()
         initRecyclerView()
-        vm.getAllCharacters()
+        vm.getTopHeadlines()
 
-        vm.characters.observe(viewLifecycleOwner, Observer { subscribeCharacters(it) })
+        vm.topHeadlines.observe(viewLifecycleOwner, Observer { subscribeCharacters(it) })
 
     }
 
-    private fun subscribeCharacters(it: CharactersViewModel.CharacterState<List<MarvelCharacter>>) {
+    private fun subscribeCharacters(it: HomeViewModel.TopHeadlinesState<List<TopHeadline>>) {
         when (it) {
-            is CharactersViewModel.CharacterState.Loading -> {
+            is HomeViewModel.TopHeadlinesState.Loading -> {
                 showLoading(true)
                 binding.uiStateView.showLoading()
             }
-            is CharactersViewModel.CharacterState.Empty -> {
+            is HomeViewModel.TopHeadlinesState.Empty -> {
                 showLoading(false)
                 binding.uiStateView.showEmptyData()
             }
-            is CharactersViewModel.CharacterState.Success -> {
+            is HomeViewModel.TopHeadlinesState.Success -> {
                 showLoading(false)
                 binding.uiStateView.dismiss()
-                refreshData(it.data)
             }
         }
     }
@@ -83,17 +82,13 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
         binding.recyclerView.adapter = adapter
     }
 
-    private fun refreshData(characters: List<MarvelCharacter>) {
+    private fun refreshData(characters: List<TopHeadline>) {
         adapter.submitList(characters)
     }
 
 
-    override fun onCharacterPressed(character: MarvelCharacter) {
-        val action =
-            CharactersFragmentDirections.actionFragmentCharacterListToFragmentCharacterDetail(
-                character.id
-            )
-        findNavController().navigate(action)
+    override fun onCharacterPressed(character: TopHeadline) {
+
     }
 
     private fun showLoading(isLoading: Boolean) {

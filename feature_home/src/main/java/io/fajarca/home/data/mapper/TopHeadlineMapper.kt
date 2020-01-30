@@ -10,7 +10,7 @@ class TopHeadlineMapper : Mapper<TopHeadlinesDto, List<TopHeadlineEntity>>(){
     override fun map(input: TopHeadlinesDto): List<TopHeadlineEntity>{
         val headlines = mutableListOf<TopHeadlineEntity>()
         input.articles?.map {
-            headlines.add(TopHeadlineEntity(it?.title ?: "", it?.url ?: "", it?.urlToImage ?: "", it?.publishedAt ?: ""))
+            headlines.add(TopHeadlineEntity(it?.title ?: "", it?.url ?: "", it?.urlToImage ?: "", it?.publishedAt ?: "", it?.source?.id ?: "", it?.source?.name ?: ""))
         }
         return headlines
     }
@@ -18,7 +18,7 @@ class TopHeadlineMapper : Mapper<TopHeadlinesDto, List<TopHeadlineEntity>>(){
     fun mapToDomain(input : List<TopHeadlineEntity>) : List<TopHeadline> {
         val headlines = mutableListOf<TopHeadline>()
         input.map {
-            headlines.add(TopHeadline(it.id, it.title, it.url, it.imageUrl, it.publishedAt))
+            headlines.add(TopHeadline(it.id, it.title, it.url, it.imageUrl, it.publishedAt, it.sourceId, it.sourceName))
         }
         return headlines
     }

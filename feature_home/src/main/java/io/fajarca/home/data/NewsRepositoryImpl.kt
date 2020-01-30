@@ -19,8 +19,8 @@ class NewsRepositoryImpl @Inject constructor(
     private val remoteDataSource: NewsRemoteDataSource
 ) : NewsRepository {
 
-    override suspend fun getHeadlinesFromApi(): Result<TopHeadlinesDto> {
-        return remoteDataSource.getTopHeadlines(dispatcher.io)
+    override suspend fun getHeadlinesFromApi(country : String, page : Int, pageSize : Int): Result<TopHeadlinesDto> {
+        return remoteDataSource.getTopHeadlines(dispatcher.io, country, page, pageSize)
     }
 
     override suspend fun getHeadlinesFromDb(): List<TopHeadlineEntity> {

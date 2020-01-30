@@ -13,7 +13,11 @@ data class TopHeadlineEntity(
     @ColumnInfo(name = "imageUrl")
     var imageUrl: String = "",
     @ColumnInfo(name = "publishedAt")
-    var publishedAt: String = ""
+    var publishedAt: String = "",
+    @ColumnInfo(name = "source_id")
+    var sourceId: String = "",
+    @ColumnInfo(name = "source_name")
+    var sourceName: String = ""
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

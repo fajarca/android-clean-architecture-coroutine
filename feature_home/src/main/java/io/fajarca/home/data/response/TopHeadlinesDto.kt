@@ -15,6 +15,15 @@ data class TopHeadlinesDto(
         @Json(name = "url")
         val url: String? = null,
         @Json(name = "urlToImage")
-        val urlToImage: String? = null
-    )
+        val urlToImage: String? = null,
+        @Json(name = "source")
+        val source : Source? = null
+    ) {
+        data class Source(
+            @Json(name = "id")
+            val id: String? = null,
+            @Json(name = "name")
+            val name : String? = null
+        )
+    }
 }

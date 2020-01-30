@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import io.fajarca.core.MarvelApp
 import io.fajarca.home.R
@@ -20,11 +20,11 @@ import io.fajarca.presentation.BaseFragment
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
-    CharactersRecyclerAdapter.CharacterClickListener {
+    NewsRecyclerAdapter.NewsClickListener {
 
     @Inject
     lateinit var factory: HomeViewModel.Factory
-    private lateinit var adapter: CharactersRecyclerAdapter
+    private lateinit var adapter: NewsRecyclerAdapter
     override val vm: HomeViewModel by viewModels(factoryProducer = { factory })
 
     override fun getLayoutResourceId() = R.layout.fragment_home
@@ -48,11 +48,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         initTopHeadline()
         vm.getTopHeadlines()
 
-        vm.topHeadlines.observe(viewLifecycleOwner, Observer { subscribeCharacters(it) })
+        vm.topHeadlines.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
 
     }
 
-    private fun subscribeCharacters(it: HomeViewModel.TopHeadlinesState<List<TopHeadline>>) {
+    private fun subscribeNews(it: HomeViewModel.TopHeadlinesState<List<TopHeadline>>) {
         when (it) {
             is HomeViewModel.TopHeadlinesState.Loading -> {
                 showLoading(true)
@@ -66,6 +66,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
                 showLoading(false)
                 binding.uiStateView.dismiss()
                 refreshTopHeadline(it.data)
+                refreshNews(it.data)
             }
         }
     }
@@ -78,8 +79,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     }
 
     private fun initRecyclerView() {
-        adapter = CharactersRecyclerAdapter(this)
-        val layoutManager = GridLayoutManager(activity, 2)
+        adapter = NewsRecyclerAdapter(this)
+        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         binding.recyclerView.setHasFixedSize(true)
@@ -90,9 +91,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         topHeadlinePagerAdapter.refreshHeadlines(headlines)
     }
 
-
-    override fun onCharacterPressed(character: TopHeadline) {
-
+    private fun refreshNews(data: List<TopHeadline>) {
+        adapter.submitList(data)
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -107,6 +107,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         topHeadlinePagerAdapter = TopHeadlinePagerAdapter(ArrayList(), requireActivity())
         viewPager.adapter = topHeadlinePagerAdapter
         tabLayout.setupWithViewPager(viewPager)
+    }
+
+    override fun onNewsPressed(news: TopHeadline) {
+
     }
 
 }

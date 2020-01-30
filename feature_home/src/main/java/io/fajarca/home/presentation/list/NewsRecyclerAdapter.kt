@@ -5,35 +5,35 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import io.fajarca.home.databinding.ItemCharacterBinding
+import io.fajarca.home.databinding.ItemNewsBinding
 import io.fajarca.home.domain.entities.TopHeadline
 
-class CharactersRecyclerAdapter(private val listener: CharacterClickListener) : ListAdapter<TopHeadline, CharactersRecyclerAdapter.CharacterViewHolder>(
+class NewsRecyclerAdapter(private val listener: NewsClickListener) : ListAdapter<TopHeadline, NewsRecyclerAdapter.NewsViewHolder>(
     diffCallback
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemCharacterBinding.inflate(layoutInflater, parent,false)
-        return CharacterViewHolder(binding)
+        val binding = ItemNewsBinding.inflate(layoutInflater, parent,false)
+        return NewsViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.bind(getItem(position), listener)
     }
 
 
-    inner class CharacterViewHolder(val binding: ItemCharacterBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class NewsViewHolder(val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(character: TopHeadline, listener: CharacterClickListener) {
-            binding.character = character
-            binding.root.setOnClickListener { listener.onCharacterPressed(character) }
+        fun bind(news: TopHeadline, listener: NewsClickListener) {
+            binding.news = news
+            binding.root.setOnClickListener { listener.onNewsPressed(news) }
             binding.executePendingBindings()
         }
     }
 
-    interface CharacterClickListener {
-        fun onCharacterPressed(character: TopHeadline)
+    interface NewsClickListener {
+        fun onNewsPressed(news: TopHeadline)
     }
 
     companion object {

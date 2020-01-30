@@ -10,7 +10,7 @@ interface NewsService {
     @GET("v2/top-headlines")
     suspend fun getTopHeadlines(@Query("country") country: String = "id",
                                 @Query("page") page: Int = 1,
-                                @Query("pageSize") pageSize: Int = 10): TopHeadlinesDto
+                                @Query("pageSize") pageSize: Int = 25): TopHeadlinesDto
 
 
 }

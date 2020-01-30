@@ -9,7 +9,7 @@ interface NewsRepository {
     suspend fun getHeadlinesFromApi() : Result<TopHeadlinesDto>
     suspend fun getHeadlinesFromDb() : List<TopHeadlineEntity>
     suspend fun getHeadlines() : List<TopHeadline>
-    suspend fun insertHeadlines(characters : List<TopHeadlineEntity>)
+    suspend fun insertHeadlines(topHeadlines : List<TopHeadlineEntity>)
 }
 
 

@@ -11,15 +11,15 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager.widget.ViewPager
+import io.fajarca.core.MarvelApp
 import io.fajarca.home.R
-import io.fajarca.home.databinding.FragmentCharactersBinding
+import io.fajarca.home.databinding.FragmentHomeBinding
 import io.fajarca.home.di.DaggerCharacterListComponent
 import io.fajarca.home.domain.entities.TopHeadline
-import io.fajarca.core.MarvelApp
 import io.fajarca.presentation.BaseFragment
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment<FragmentCharactersBinding, HomeViewModel>(),
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     CharactersRecyclerAdapter.CharacterClickListener {
 
     @Inject
@@ -27,7 +27,7 @@ class HomeFragment : BaseFragment<FragmentCharactersBinding, HomeViewModel>(),
     private lateinit var adapter: CharactersRecyclerAdapter
     override val vm: HomeViewModel by viewModels(factoryProducer = { factory })
 
-    override fun getLayoutResourceId() = R.layout.fragment_characters
+    override fun getLayoutResourceId() = R.layout.fragment_home
     private lateinit var viewPager : ViewPager
     private lateinit var topHeadlinePagerAdapter: TopHeadlinePagerAdapter
 

@@ -39,8 +39,8 @@ class NewsRepositoryImpl @Inject constructor(
         return mapper.mapToDomain(getHeadlinesFromDb())
     }
 
-    override suspend fun insertHeadlines(characters: List<TopHeadlineEntity>) {
-        dao.insertAll(characters)
+    override suspend fun insertHeadlines(topHeadlines: List<TopHeadlineEntity>) {
+        dao.deleteAndInsertInTransaction(topHeadlines)
     }
 
 

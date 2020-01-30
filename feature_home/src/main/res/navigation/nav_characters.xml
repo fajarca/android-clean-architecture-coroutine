@@ -11,7 +11,7 @@
         android:id="@+id/fragmentCharacterList"
         android:name="io.fajarca.home.presentation.list.HomeFragment"
         android:label="Characters"
-        tools:layout="@layout/fragment_characters">
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_fragmentCharacterList_to_fragmentCharacterDetail"
             app:destination="@id/fragmentCharacterDetail" />

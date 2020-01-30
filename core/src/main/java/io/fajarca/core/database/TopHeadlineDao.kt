@@ -10,4 +10,15 @@ abstract class TopHeadlineDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAll(characters: List<TopHeadlineEntity>)
+
+    @Query("DELETE FROM top_headlines")
+    abstract suspend fun deleteAll()
+    /**
+     * Execute multiple queries in single transaction
+     */
+    @Transaction
+    open suspend fun deleteAndInsertInTransaction(topHeadlines : List<TopHeadlineEntity>) {
+        deleteAll()
+        insertAll(topHeadlines)
+    }
 }

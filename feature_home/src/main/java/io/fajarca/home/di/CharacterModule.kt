@@ -7,11 +7,11 @@ import io.fajarca.home.data.mapper.TopHeadlineMapper
 import io.fajarca.home.data.source.NewsRemoteDataSource
 import io.fajarca.home.domain.repository.NewsRepository
 import io.fajarca.home.domain.usecase.GetTopHeadlinesUseCase
-import io.fajarca.home.presentation.list.HomeViewModel
+import io.fajarca.home.presentation.HomeViewModel
 import io.fajarca.core.database.TopHeadlineDao
 import io.fajarca.core.database.NewsDatabase
 import io.fajarca.core.di.scope.FeatureScope
-import io.fajarca.home.presentation.list.mapper.TopHeadlinePresentationMapper
+import io.fajarca.home.presentation.mapper.TopHeadlinePresentationMapper
 import retrofit2.Retrofit
 
 

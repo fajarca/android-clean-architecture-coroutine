@@ -1,4 +1,4 @@
-package io.fajarca.home.presentation.list
+package io.fajarca.home.presentation
 
 import android.os.Bundle
 import android.view.View
@@ -16,6 +16,8 @@ import io.fajarca.home.R
 import io.fajarca.home.databinding.FragmentHomeBinding
 import io.fajarca.home.di.DaggerCharacterListComponent
 import io.fajarca.home.domain.entities.TopHeadline
+import io.fajarca.home.presentation.adapter.NewsRecyclerAdapter
+import io.fajarca.home.presentation.adapter.TopHeadlinePagerAdapter
 import io.fajarca.presentation.BaseFragment
 import javax.inject.Inject
 
@@ -104,7 +106,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         viewPager = binding.contentTopHeadline.viewpager
         val tabLayout = binding.contentTopHeadline.tabLayout
 
-        topHeadlinePagerAdapter = TopHeadlinePagerAdapter(ArrayList(), requireActivity())
+        topHeadlinePagerAdapter =
+            TopHeadlinePagerAdapter(
+                ArrayList(),
+                requireActivity()
+            )
         viewPager.adapter = topHeadlinePagerAdapter
         tabLayout.setupWithViewPager(viewPager)
     }

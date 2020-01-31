@@ -1,4 +1,4 @@
-package io.fajarca.home.presentation.list.mapper
+package io.fajarca.home.presentation.mapper
 
 import io.fajarca.core.mapper.Mapper
 import io.fajarca.home.domain.entities.TopHeadline

@@ -7,7 +7,6 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
 import io.fajarca.home.domain.entities.TopHeadline
 import io.fajarca.home.domain.usecase.GetTopHeadlinesUseCase
-import io.fajarca.home.presentation.list.HomeViewModel
 import io.fajarca.home.util.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before

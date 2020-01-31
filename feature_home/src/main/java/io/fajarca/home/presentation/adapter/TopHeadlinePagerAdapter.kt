@@ -1,4 +1,4 @@
-package io.fajarca.home.presentation.list
+package io.fajarca.home.presentation.adapter
 
 import io.fajarca.home.R
 import io.fajarca.home.domain.entities.TopHeadline

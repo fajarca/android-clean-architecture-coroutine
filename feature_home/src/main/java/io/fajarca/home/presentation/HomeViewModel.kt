@@ -1,7 +1,7 @@
-package io.fajarca.home.presentation.list
+package io.fajarca.home.presentation
 
 import androidx.lifecycle.*
-import io.fajarca.home.presentation.list.mapper.TopHeadlinePresentationMapper
+import io.fajarca.home.presentation.mapper.TopHeadlinePresentationMapper
 import io.fajarca.home.domain.entities.TopHeadline
 import io.fajarca.home.domain.usecase.GetTopHeadlinesUseCase
 import kotlinx.coroutines.launch
@@ -16,7 +16,10 @@ class HomeViewModel (private val getTopHeadlinesUseCase: GetTopHeadlinesUseCase,
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-                return HomeViewModel(getTopHeadlinesUseCase, mapper) as T
+                return HomeViewModel(
+                    getTopHeadlinesUseCase,
+                    mapper
+                ) as T
             }
             throw IllegalArgumentException("ViewModel not found")
         }
@@ -33,10 +36,15 @@ class HomeViewModel (private val getTopHeadlinesUseCase: GetTopHeadlinesUseCase,
     }
 
     fun getTopHeadlines() {
-        _topHeadlines.value = TopHeadlinesState.Loading
+        _topHeadlines.value =
+            TopHeadlinesState.Loading
         viewModelScope.launch {
             val headlines = getTopHeadlinesUseCase.execute()
-            if (headlines.isEmpty()) _topHeadlines.value = TopHeadlinesState.Empty else _topHeadlines.value = TopHeadlinesState.Success(mapper.map(headlines))
+            if (headlines.isEmpty()) _topHeadlines.value =
+                TopHeadlinesState.Empty else _topHeadlines.value =
+                TopHeadlinesState.Success(
+                    mapper.map(headlines)
+                )
         }
     }
 

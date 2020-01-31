@@ -11,6 +11,7 @@ import io.fajarca.home.presentation.list.HomeViewModel
 import io.fajarca.core.database.TopHeadlineDao
 import io.fajarca.core.database.NewsDatabase
 import io.fajarca.core.di.scope.FeatureScope
+import io.fajarca.home.presentation.list.mapper.TopHeadlinePresentationMapper
 import retrofit2.Retrofit
 
 
@@ -40,6 +41,7 @@ class CharacterModule {
     @Provides
     @FeatureScope
     fun provideCharacterListViewModelFactory(
-        useCase: GetTopHeadlinesUseCase
-    ) = HomeViewModel.Factory(useCase)
+        useCase: GetTopHeadlinesUseCase,
+        mapper : TopHeadlinePresentationMapper
+    ) = HomeViewModel.Factory(useCase, mapper)
 }

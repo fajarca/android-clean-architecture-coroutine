@@ -48,6 +48,8 @@ dependencies {
     implementation Libraries.moshiConverter
     implementation Libraries.loggingInterceptor
 
+    implementation AndroidXLibraries.paging
+
     api Libraries.timber
     
     implementation Libraries.dagger

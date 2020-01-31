@@ -1,6 +1,7 @@
 package io.fajarca.home.presentation
 
 import androidx.lifecycle.*
+import androidx.paging.LivePagedListBuilder
 import io.fajarca.home.presentation.mapper.NewsPresentationMapper
 import io.fajarca.home.domain.entities.News
 import io.fajarca.home.domain.usecase.GetNewsUseCase
@@ -42,7 +43,13 @@ class HomeViewModel (private val getTopHeadlinesUseCase: GetTopHeadlinesUseCase,
         data class Success<out T>(val data: T) : TopHeadlinesState<T>()
     }
 
-    fun getNews() {
+    val factory = getNewsUseCase.fetchFromDb()
+    val boundaryCallback = NewsBoundaryCallback(getNewsUseCase, viewModelScope)
+    val data = LivePagedListBuilder(factory, 20)
+        .setBoundaryCallback(boundaryCallback)
+        .build()
+
+   /* fun getNews() {
         _news.value = TopHeadlinesState.Loading
         viewModelScope.launch {
             val news = getNewsUseCase.execute()
@@ -52,7 +59,7 @@ class HomeViewModel (private val getTopHeadlinesUseCase: GetTopHeadlinesUseCase,
                     mapper.map(news)
                 )
         }
-    }
+    }*/
 
     fun getTopHeadlines() {
         _topHeadlines.value = TopHeadlinesState.Loading

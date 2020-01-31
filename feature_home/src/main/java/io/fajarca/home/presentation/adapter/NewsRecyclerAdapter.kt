@@ -2,13 +2,13 @@ package io.fajarca.home.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import io.fajarca.core.database.NewsEntity
 import io.fajarca.home.databinding.ItemNewsBinding
-import io.fajarca.home.domain.entities.News
 
-class NewsRecyclerAdapter(private val listener: NewsClickListener) : ListAdapter<News, NewsRecyclerAdapter.NewsViewHolder>(
+class NewsRecyclerAdapter(private val listener: NewsClickListener) : PagedListAdapter<NewsEntity, NewsRecyclerAdapter.NewsViewHolder>(
     diffCallback
 ) {
 
@@ -19,13 +19,13 @@ class NewsRecyclerAdapter(private val listener: NewsClickListener) : ListAdapter
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind(getItem(position), listener)
+        holder.bind(getItem(position) ?: NewsEntity("", "","","","",""), listener)
     }
 
 
     inner class NewsViewHolder(val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(news: News, listener: NewsClickListener) {
+        fun bind(news: NewsEntity, listener: NewsClickListener) {
             binding.news = news
             binding.root.setOnClickListener { listener.onNewsPressed(news) }
             binding.executePendingBindings()
@@ -33,16 +33,16 @@ class NewsRecyclerAdapter(private val listener: NewsClickListener) : ListAdapter
     }
 
     interface NewsClickListener {
-        fun onNewsPressed(news: News)
+        fun onNewsPressed(news: NewsEntity)
     }
 
     companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<News>() {
-            override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
-                return oldItem.id == newItem.id
+        val diffCallback = object : DiffUtil.ItemCallback<NewsEntity>() {
+            override fun areItemsTheSame(oldItem: NewsEntity, newItem: NewsEntity): Boolean {
+                return oldItem.title == newItem.title
             }
 
-            override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
+            override fun areContentsTheSame(oldItem: NewsEntity, newItem: NewsEntity): Boolean {
                 return oldItem == newItem
             }
 

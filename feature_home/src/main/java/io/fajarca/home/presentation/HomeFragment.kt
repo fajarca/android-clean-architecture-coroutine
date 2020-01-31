@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import io.fajarca.core.MarvelApp
+import io.fajarca.core.database.NewsEntity
 import io.fajarca.home.R
 import io.fajarca.home.databinding.FragmentHomeBinding
 import io.fajarca.home.di.DaggerCharacterListComponent
@@ -44,12 +46,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         initRecyclerView()
         initTopHeadline()
 
-        vm.getNews()
+        //vm.getNews()
         vm.getTopHeadlines()
 
-        vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
+        //vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
+        vm.data.observe(viewLifecycleOwner, Observer { refreshNews(it) })
         vm.topHeadlines.observe(viewLifecycleOwner, Observer { subscribeTopHeadlines(it) })
     }
+
 
     private fun subscribeTopHeadlines(it: HomeViewModel.TopHeadlinesState<List<News>>) {
         when (it) {
@@ -81,7 +85,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             is HomeViewModel.TopHeadlinesState.Success -> {
                 showLoading(false)
                 binding.uiStateView.dismiss()
-                refreshNews(it.data)
+                    // refreshNews(it.data)
             }
         }
     }
@@ -92,7 +96,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
-        binding.recyclerView.isNestedScrollingEnabled = false
         binding.recyclerView.adapter = adapter
     }
 
@@ -100,7 +103,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         topHeadlinePagerAdapter.refreshHeadlines(headlines)
     }
 
-    private fun refreshNews(data: List<News>) {
+    private fun refreshNews(data: PagedList<NewsEntity>) {
         adapter.submitList(data)
     }
 
@@ -126,7 +129,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         tabLayout.setupWithViewPager(viewPager)
     }
 
-    override fun onNewsPressed(news: News) {
+    override fun onNewsPressed(news: NewsEntity) {
 
     }
 

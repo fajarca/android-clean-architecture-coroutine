@@ -1,5 +1,6 @@
 package io.fajarca.home.data
 
+import androidx.paging.DataSource
 import io.fajarca.core.database.NewsDao
 import io.fajarca.core.database.NewsEntity
 import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
@@ -27,23 +28,26 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getNewsFromDb(): List<NewsEntity> {
-        val topHeadlinesIds = withContext(dispatcher.io) { dao.findTopHeadlinesIds(TOP_HEADLINE_COUNT) }
-        val news = withContext(dispatcher.io) { dao.findAllNews(topHeadlinesIds) }
+        val topHeadlinesTitles = withContext(dispatcher.io) { dao.findTopHeadlinesTitle(TOP_HEADLINE_COUNT) }
+        val news = withContext(dispatcher.io) { dao.findAllNews(topHeadlinesTitles) }
         return news
     }
 
-    override suspend fun getNews(): List<News> {
-        val apiResult = getNewsFromApi()
+    override suspend fun getNews(page: Int, pageSize: Int, onSuccess : () -> Unit, onError : () -> Unit): List<News> {
+        val apiResult = getNewsFromApi(page = page, pageSize = pageSize, country = "id")
 
         if (apiResult is Result.Success) {
+            onSuccess()
             insertNews(mapper.map(apiResult.data))
+        } else {
+            onError()
         }
 
         return mapper.mapToDomain(getNewsFromDb())
     }
 
     override suspend fun insertNews(topHeadlines: List<NewsEntity>) {
-        dao.deleteAndInsertInTransaction(topHeadlines)
+        dao.insertAll(topHeadlines)
     }
 
     override suspend fun getTopHeadlines(): List<News> {
@@ -52,6 +56,10 @@ class NewsRepositoryImpl @Inject constructor(
         }
 
         return mapper.mapToDomain(headlines)
+    }
+
+     override fun findAllNews(): DataSource.Factory<Int, NewsEntity> {
+        return dao.findAllNews()
     }
 
 

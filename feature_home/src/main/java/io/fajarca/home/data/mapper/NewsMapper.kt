@@ -18,7 +18,7 @@ class NewsMapper : Mapper<NewsDto, List<NewsEntity>>(){
     fun mapToDomain(input : List<NewsEntity>) : List<News> {
         val headlines = mutableListOf<News>()
         input.map {
-            headlines.add(News(it.id, it.title, it.url, it.imageUrl, it.publishedAt, it.sourceId, it.sourceName))
+            headlines.add(News(it.title, it.url, it.imageUrl, it.publishedAt, it.sourceId, it.sourceName))
         }
         return headlines
     }

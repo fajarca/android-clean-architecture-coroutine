@@ -45,7 +45,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initToolbar()
         initRecyclerView()
         initTopHeadline()
         vm.getTopHeadlines()
@@ -67,18 +66,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             is HomeViewModel.TopHeadlinesState.Success -> {
                 showLoading(false)
                 binding.uiStateView.dismiss()
-                refreshTopHeadline(it.data)
+                refreshTopHeadline(it.data.take(5))
                 refreshNews(it.data)
             }
         }
     }
 
-
-    private fun initToolbar() {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
-        val appBarConfiguration = AppBarConfiguration(findNavController().graph)
-        binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
-    }
 
     private fun initRecyclerView() {
         adapter = NewsRecyclerAdapter(this)
@@ -86,6 +79,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.isNestedScrollingEnabled = false
         binding.recyclerView.adapter = adapter
     }
 
@@ -112,6 +106,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
                 requireActivity()
             )
         viewPager.adapter = topHeadlinePagerAdapter
+        viewPager.clipToPadding = false
+        viewPager.pageMargin = 12
+        viewPager.setPadding(24, 8, 24, 8)
+        viewPager.offscreenPageLimit = 3
         tabLayout.setupWithViewPager(viewPager)
     }
 

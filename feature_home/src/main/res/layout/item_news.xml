@@ -42,7 +42,7 @@
                 android:minLines="3"
                 android:text="@{news.title}"
                 tools:text="Bitcoin whale moves $1.1 billion in bitcoins for an $80 fee"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
                 app:layout_constraintStart_toStartOf="parent"

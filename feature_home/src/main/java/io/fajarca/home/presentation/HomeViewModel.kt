@@ -54,10 +54,10 @@ class HomeViewModel (private val getTopHeadlinesUseCase: GetTopHeadlinesUseCase,
         }
     }
 
-    fun getTopHeadlines(limit : Int = 5) {
+    fun getTopHeadlines() {
         _topHeadlines.value = TopHeadlinesState.Loading
         viewModelScope.launch {
-            val headlines = getTopHeadlinesUseCase.execute(limit)
+            val headlines = getTopHeadlinesUseCase.execute()
             if (headlines.isEmpty()) _topHeadlines.value =
                 TopHeadlinesState.Empty else _topHeadlines.value =
                 TopHeadlinesState.Success(

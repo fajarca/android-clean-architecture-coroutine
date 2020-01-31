@@ -19,14 +19,17 @@ class NewsRepositoryImpl @Inject constructor(
     private val remoteDataSource: NewsRemoteDataSource
 ) : NewsRepository {
 
+    companion object {
+        const val TOP_HEADLINE_COUNT = 5
+    }
     override suspend fun getNewsFromApi(country : String, page : Int, pageSize : Int): Result<NewsDto> {
         return remoteDataSource.getTopHeadlines(dispatcher.io, country, page, pageSize)
     }
 
     override suspend fun getNewsFromDb(): List<NewsEntity> {
-        return withContext(dispatcher.io) {
-            dao.findAllNews()
-        }
+        val topHeadlinesIds = withContext(dispatcher.io) { dao.findTopHeadlinesIds(TOP_HEADLINE_COUNT) }
+        val news = withContext(dispatcher.io) { dao.findAllNews(topHeadlinesIds) }
+        return news
     }
 
     override suspend fun getNews(): List<News> {
@@ -43,9 +46,9 @@ class NewsRepositoryImpl @Inject constructor(
         dao.deleteAndInsertInTransaction(topHeadlines)
     }
 
-    override suspend fun getTopHeadlines(limit: Int): List<News> {
+    override suspend fun getTopHeadlines(): List<News> {
         val headlines  = withContext(dispatcher.io) {
-            dao.findTopHeadlines(limit)
+            dao.findTopHeadlines(TOP_HEADLINE_COUNT)
         }
 
         return mapper.mapToDomain(headlines)

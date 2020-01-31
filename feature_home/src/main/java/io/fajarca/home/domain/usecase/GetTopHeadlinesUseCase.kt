@@ -6,8 +6,8 @@ import javax.inject.Inject
 
 class GetTopHeadlinesUseCase @Inject constructor(private val repository: NewsRepository) {
 
-    suspend fun execute(limit : Int): List<News> {
-        return repository.getTopHeadlines(limit)
+    suspend fun execute(): List<News> {
+        return repository.getTopHeadlines()
     }
 
 }

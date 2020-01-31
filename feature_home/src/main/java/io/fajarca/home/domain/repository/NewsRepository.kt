@@ -10,7 +10,7 @@ interface NewsRepository {
     suspend fun getNewsFromDb() : List<NewsEntity>
     suspend fun getNews() : List<News>
     suspend fun insertNews(topHeadlines : List<NewsEntity>)
-    suspend fun getTopHeadlines(limit : Int) : List<News>
+    suspend fun getTopHeadlines() : List<News>
 }
 
 

@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "top_headlines")
-data class TopHeadlineEntity(
+@Entity(tableName = "news")
+data class NewsEntity(
     @ColumnInfo(name = "title")
     var title: String = "",
     @ColumnInfo(name = "url")

@@ -1,7 +1,7 @@
 package io.fajarca.home.data
 
-import io.fajarca.core.database.TopHeadlineDao
-import io.fajarca.core.database.TopHeadlineEntity
+import io.fajarca.core.database.NewsDao
+import io.fajarca.core.database.NewsEntity
 import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
 import io.fajarca.core.vo.Result
 import io.fajarca.home.data.mapper.NewsMapper
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class NewsRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcherProvider,
     private val mapper: NewsMapper,
-    private val dao: TopHeadlineDao,
+    private val dao: NewsDao,
     private val remoteDataSource: NewsRemoteDataSource
 ) : NewsRepository {
 
@@ -23,7 +23,7 @@ class NewsRepositoryImpl @Inject constructor(
         return remoteDataSource.getTopHeadlines(dispatcher.io, country, page, pageSize)
     }
 
-    override suspend fun getNewsFromDb(): List<TopHeadlineEntity> {
+    override suspend fun getNewsFromDb(): List<NewsEntity> {
         return withContext(dispatcher.io) {
             dao.findAll()
         }
@@ -39,7 +39,7 @@ class NewsRepositoryImpl @Inject constructor(
         return mapper.mapToDomain(getNewsFromDb())
     }
 
-    override suspend fun insertNews(topHeadlines: List<TopHeadlineEntity>) {
+    override suspend fun insertNews(topHeadlines: List<NewsEntity>) {
         dao.deleteAndInsertInTransaction(topHeadlines)
     }
 

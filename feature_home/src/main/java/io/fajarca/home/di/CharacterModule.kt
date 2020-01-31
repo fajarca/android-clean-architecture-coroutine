@@ -8,7 +8,7 @@ import io.fajarca.home.data.source.NewsRemoteDataSource
 import io.fajarca.home.domain.repository.NewsRepository
 import io.fajarca.home.domain.usecase.GetTopHeadlinesUseCase
 import io.fajarca.home.presentation.HomeViewModel
-import io.fajarca.core.database.TopHeadlineDao
+import io.fajarca.core.database.NewsDao
 import io.fajarca.core.database.NewsDatabase
 import io.fajarca.core.di.scope.FeatureScope
 import io.fajarca.home.domain.usecase.GetNewsUseCase
@@ -21,7 +21,7 @@ class CharacterModule {
 
     @Provides
     @FeatureScope
-    fun provideTopHeadlineDao(db: NewsDatabase) : TopHeadlineDao = db.topHeadlineDao()
+    fun provideNewseDao(db: NewsDatabase) : NewsDao = db.newsDao()
 
     @Provides
     @FeatureScope
@@ -29,7 +29,7 @@ class CharacterModule {
 
     @Provides
     @FeatureScope
-    fun provideCharacterService(retrofit: Retrofit) : NewsService = retrofit.create(NewsService::class.java)
+    fun provideNewsService(retrofit: Retrofit) : NewsService = retrofit.create(NewsService::class.java)
 
     @Provides
     @FeatureScope
@@ -37,7 +37,7 @@ class CharacterModule {
 
     @Provides
     @FeatureScope
-    fun provideGetCharactersUseCase(repository: NewsRepository) = GetTopHeadlinesUseCase(repository)
+    fun provideTopHeadlineUseCase(repository: NewsRepository) = GetTopHeadlinesUseCase(repository)
 
     @Provides
     @FeatureScope

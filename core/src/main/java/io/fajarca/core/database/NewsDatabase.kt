@@ -5,8 +5,8 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 
-@Database(entities = [TopHeadlineEntity::class], version = 1)
+@Database(entities = [NewsEntity::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class NewsDatabase : RoomDatabase() {
-    abstract fun topHeadlineDao(): TopHeadlineDao
+    abstract fun newsDao(): NewsDao
 }

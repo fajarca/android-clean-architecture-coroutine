@@ -25,7 +25,7 @@ class NewsRepositoryImpl @Inject constructor(
 
     override suspend fun getNewsFromDb(): List<NewsEntity> {
         return withContext(dispatcher.io) {
-            dao.findAll()
+            dao.findAllNews()
         }
     }
 
@@ -41,6 +41,14 @@ class NewsRepositoryImpl @Inject constructor(
 
     override suspend fun insertNews(topHeadlines: List<NewsEntity>) {
         dao.deleteAndInsertInTransaction(topHeadlines)
+    }
+
+    override suspend fun getTopHeadlines(limit: Int): List<News> {
+        val headlines  = withContext(dispatcher.io) {
+            dao.findTopHeadlines(limit)
+        }
+
+        return mapper.mapToDomain(headlines)
     }
 
 

@@ -4,8 +4,11 @@ import androidx.room.*
 
 @Dao
 abstract class NewsDao {
+    @Query("SELECT * FROM news ORDER BY publishedAt DESC LIMIT :limit")
+    abstract fun findTopHeadlines(limit : Int): List<NewsEntity>
+
     @Query("SELECT * FROM news ORDER BY publishedAt DESC")
-    abstract fun findAll(): List<NewsEntity>
+    abstract fun findAllNews(): List<NewsEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAll(characters: List<NewsEntity>)

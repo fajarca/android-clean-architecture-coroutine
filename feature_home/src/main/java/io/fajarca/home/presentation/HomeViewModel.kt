@@ -45,19 +45,19 @@ class HomeViewModel (private val getTopHeadlinesUseCase: GetTopHeadlinesUseCase,
     fun getNews() {
         _news.value = TopHeadlinesState.Loading
         viewModelScope.launch {
-            val headlines = getNewsUseCase.execute()
-            if (headlines.isEmpty()) _news.value =
+            val news = getNewsUseCase.execute()
+            if (news.isEmpty()) _news.value =
                 TopHeadlinesState.Empty else _news.value =
                 TopHeadlinesState.Success(
-                    mapper.map(headlines)
+                    mapper.map(news)
                 )
         }
     }
 
-    fun getTopHeadlines() {
+    fun getTopHeadlines(limit : Int = 5) {
         _topHeadlines.value = TopHeadlinesState.Loading
         viewModelScope.launch {
-            val headlines = getTopHeadlinesUseCase.execute()
+            val headlines = getTopHeadlinesUseCase.execute(limit)
             if (headlines.isEmpty()) _topHeadlines.value =
                 TopHeadlinesState.Empty else _topHeadlines.value =
                 TopHeadlinesState.Success(

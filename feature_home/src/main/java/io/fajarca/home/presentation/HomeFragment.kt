@@ -92,7 +92,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
-        binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.isNestedScrollingEnabled = false
         binding.recyclerView.adapter = adapter
     }

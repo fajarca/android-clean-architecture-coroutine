@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetNewsUseCase @Inject constructor(private val repository: NewsRepository) {
 
     suspend fun execute(): List<News> {
-        return repository.getNews().subList(6, 25)
+        return repository.getNews()
     }
 
 }

@@ -3,7 +3,7 @@ package io.fajarca.home.data.response
 
 import com.squareup.moshi.Json
 
-data class TopHeadlinesDto(
+data class NewsDto(
     @Json(name = "articles")
     val articles: List<Article?>? = null
 ) {

@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.fajarca.home.databinding.ItemNewsBinding
-import io.fajarca.home.domain.entities.TopHeadline
+import io.fajarca.home.domain.entities.News
 
-class NewsRecyclerAdapter(private val listener: NewsClickListener) : ListAdapter<TopHeadline, NewsRecyclerAdapter.NewsViewHolder>(
+class NewsRecyclerAdapter(private val listener: NewsClickListener) : ListAdapter<News, NewsRecyclerAdapter.NewsViewHolder>(
     diffCallback
 ) {
 
@@ -25,7 +25,7 @@ class NewsRecyclerAdapter(private val listener: NewsClickListener) : ListAdapter
 
     inner class NewsViewHolder(val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(news: TopHeadline, listener: NewsClickListener) {
+        fun bind(news: News, listener: NewsClickListener) {
             binding.news = news
             binding.root.setOnClickListener { listener.onNewsPressed(news) }
             binding.executePendingBindings()
@@ -33,16 +33,16 @@ class NewsRecyclerAdapter(private val listener: NewsClickListener) : ListAdapter
     }
 
     interface NewsClickListener {
-        fun onNewsPressed(news: TopHeadline)
+        fun onNewsPressed(news: News)
     }
 
     companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<TopHeadline>() {
-            override fun areItemsTheSame(oldItem: TopHeadline, newItem: TopHeadline): Boolean {
+        val diffCallback = object : DiffUtil.ItemCallback<News>() {
+            override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: TopHeadline, newItem: TopHeadline): Boolean {
+            override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
                 return oldItem == newItem
             }
 

@@ -1,7 +1,7 @@
 package io.fajarca.home.presentation.adapter
 
 import io.fajarca.home.R
-import io.fajarca.home.domain.entities.TopHeadline
+import io.fajarca.home.domain.entities.News
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 
-class TopHeadlinePagerAdapter(var headlines : List<TopHeadline>, val context : Context) : PagerAdapter() {
+class TopHeadlinePagerAdapter(var headlines : List<News>, val context : Context) : PagerAdapter() {
 
     override fun isViewFromObject(view: View, obj : Any): Boolean {
         return view == obj
@@ -52,7 +52,7 @@ class TopHeadlinePagerAdapter(var headlines : List<TopHeadline>, val context : C
         return view
     }
 
-    fun refreshHeadlines(headlines : List<TopHeadline>) {
+    fun refreshHeadlines(headlines : List<News>) {
         this.headlines = headlines
         notifyDataSetChanged()
     }

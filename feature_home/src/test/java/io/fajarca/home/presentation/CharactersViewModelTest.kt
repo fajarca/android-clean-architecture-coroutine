@@ -5,7 +5,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
-import io.fajarca.home.domain.entities.TopHeadline
+import io.fajarca.home.domain.entities.News
 import io.fajarca.home.domain.usecase.GetTopHeadlinesUseCase
 import io.fajarca.home.util.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,7 +32,7 @@ class CharactersViewModelTest {
     
 
     @Mock
-    private lateinit var observer : Observer<HomeViewModel.CharacterState<List<TopHeadline>>>
+    private lateinit var observer : Observer<HomeViewModel.CharacterState<List<News>>>
 
 
     @Mock
@@ -59,9 +59,9 @@ class CharactersViewModelTest {
     @Test
     fun `when get all all character is success, observer should receive success result`() = testCoroutineRule.runBlockingTest  {
         //Given
-        val marvelCharacters = mutableListOf<TopHeadline>()
+        val marvelCharacters = mutableListOf<News>()
         marvelCharacters.add(
-            TopHeadline(
+            News(
                 1,
                 "Marvel",
                 "image-url"
@@ -82,7 +82,7 @@ class CharactersViewModelTest {
     @Test
     fun `when get all all character is empty, observer should receive empty result`() = testCoroutineRule.runBlockingTest  {
         //Given
-        val marvelCharacters = emptyList<TopHeadline>()
+        val marvelCharacters = emptyList<News>()
 
         `when`(useCase.execute()).thenReturn(marvelCharacters)
 

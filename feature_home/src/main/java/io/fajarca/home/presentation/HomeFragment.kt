@@ -2,12 +2,8 @@ package io.fajarca.home.presentation
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -15,7 +11,7 @@ import io.fajarca.core.MarvelApp
 import io.fajarca.home.R
 import io.fajarca.home.databinding.FragmentHomeBinding
 import io.fajarca.home.di.DaggerCharacterListComponent
-import io.fajarca.home.domain.entities.TopHeadline
+import io.fajarca.home.domain.entities.News
 import io.fajarca.home.presentation.adapter.NewsRecyclerAdapter
 import io.fajarca.home.presentation.adapter.TopHeadlinePagerAdapter
 import io.fajarca.presentation.BaseFragment
@@ -47,13 +43,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
         initRecyclerView()
         initTopHeadline()
+
+        vm.getNews()
         vm.getTopHeadlines()
 
-        vm.topHeadlines.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
-
+        vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
+        vm.topHeadlines.observe(viewLifecycleOwner, Observer { subscribeTopHeadlines(it) })
     }
 
-    private fun subscribeNews(it: HomeViewModel.TopHeadlinesState<List<TopHeadline>>) {
+    private fun subscribeTopHeadlines(it: HomeViewModel.TopHeadlinesState<List<News>>) {
         when (it) {
             is HomeViewModel.TopHeadlinesState.Loading -> {
                 showLoading(true)
@@ -66,7 +64,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             is HomeViewModel.TopHeadlinesState.Success -> {
                 showLoading(false)
                 binding.uiStateView.dismiss()
-                refreshTopHeadline(it.data.take(5))
+                refreshTopHeadline(it.data)
+            }
+        }
+    }
+    private fun subscribeNews(it: HomeViewModel.TopHeadlinesState<List<News>>) {
+        when (it) {
+            is HomeViewModel.TopHeadlinesState.Loading -> {
+                showLoading(true)
+                binding.uiStateView.showLoading()
+            }
+            is HomeViewModel.TopHeadlinesState.Empty -> {
+                showLoading(false)
+                binding.uiStateView.showEmptyData()
+            }
+            is HomeViewModel.TopHeadlinesState.Success -> {
+                showLoading(false)
+                binding.uiStateView.dismiss()
                 refreshNews(it.data)
             }
         }
@@ -83,11 +97,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         binding.recyclerView.adapter = adapter
     }
 
-    private fun refreshTopHeadline(headlines: List<TopHeadline>) {
+    private fun refreshTopHeadline(headlines: List<News>) {
         topHeadlinePagerAdapter.refreshHeadlines(headlines)
     }
 
-    private fun refreshNews(data: List<TopHeadline>) {
+    private fun refreshNews(data: List<News>) {
         adapter.submitList(data)
     }
 
@@ -107,13 +121,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             )
         viewPager.adapter = topHeadlinePagerAdapter
         viewPager.clipToPadding = false
-        viewPager.pageMargin = 12
-        viewPager.setPadding(24, 8, 24, 8)
+        viewPager.pageMargin = 24
+        viewPager.setPadding(48, 8, 48, 8)
         viewPager.offscreenPageLimit = 3
         tabLayout.setupWithViewPager(viewPager)
     }
 
-    override fun onNewsPressed(news: TopHeadline) {
+    override fun onNewsPressed(news: News) {
 
     }
 

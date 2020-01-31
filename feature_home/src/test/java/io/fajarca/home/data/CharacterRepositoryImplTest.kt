@@ -1,6 +1,6 @@
 package io.fajarca.home.data
 
-import io.fajarca.home.data.mapper.TopHeadlineMapper
+import io.fajarca.home.data.mapper.NewsMapper
 import io.fajarca.home.data.source.NewsRemoteDataSource
 import io.fajarca.core.database.TopHeadlineDao
 import io.fajarca.core.network.HttpResult
@@ -25,7 +25,7 @@ class CharacterRepositoryImplTest {
     @Mock
     lateinit var dao: TopHeadlineDao
     @Mock
-    lateinit var mapper: TopHeadlineMapper
+    lateinit var mapper: NewsMapper
     @Mock
     lateinit var detailMapper : CharacterDetailMapper
     @Mock

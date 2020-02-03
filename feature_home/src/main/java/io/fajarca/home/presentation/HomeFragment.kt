@@ -39,10 +39,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initRecyclerView()
-
-
         vm.newsSource.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
         vm.newsSourceState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
     }

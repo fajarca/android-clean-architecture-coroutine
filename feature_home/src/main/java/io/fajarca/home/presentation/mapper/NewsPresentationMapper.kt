@@ -5,14 +5,10 @@ import io.fajarca.home.domain.entities.News
 import io.fajarca.presentation.extension.toLocalTime
 import javax.inject.Inject
 
-class NewsPresentationMapper @Inject constructor(): Mapper<List<News>, List<News>>(){
+class NewsPresentationMapper @Inject constructor(): Mapper<News, News>(){
 
-    override fun map(input: List<News>) : List<News> {
-        val mappedHeadlines = mutableListOf<News>()
-        input.map {
-            mappedHeadlines.add(News(it.title, it.url, it.imageUrl, it.publishedAt.toLocalTime(), it.sourceId, it.sourceName))
-        }
-        return mappedHeadlines
+    override fun map(input: News) : News {
+        return News(input.title, input.url, input.imageUrl, input.publishedAt.toLocalTime(), input.sourceId, input.sourceName)
     }
 
 }

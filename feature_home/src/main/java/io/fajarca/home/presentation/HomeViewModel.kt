@@ -31,32 +31,12 @@ class HomeViewModel (private val getNewsUseCase: GetNewsUseCase, private val map
         const val PAGE_SIZE = 10
     }
 
-    private val factory = getNewsUseCase.getNewsFactory()
-    private val config = PagedList.Config.Builder()
-        .setEnablePlaceholders(true)
-        .setInitialLoadSizeHint(2 * PAGE_SIZE)
-        .setPageSize(PAGE_SIZE)
-        .build()
-
-
+    private val factory = getNewsUseCase.getNewsFactory().map { mapper.map(it) }
     private val boundaryCallback = NewsBoundaryCallback(getNewsUseCase, viewModelScope)
 
     val newsSourceState = boundaryCallback.newsState
     val newsSource = LivePagedListBuilder(factory, PAGE_SIZE)
         .setBoundaryCallback(boundaryCallback)
         .build()
-/*
-    private val newsDataSourceFactory = NewsDataSource.Factory(getNewsUseCase, viewModelScope)
-    private val config = PagedList.Config.Builder()
-        .setEnablePlaceholders(false)
-        .setInitialLoadSizeHint(2 * PAGE_SIZE)
-        .setPageSize(PAGE_SIZE)
-        .build()
-
-    val newsSource : LiveData<PagedList<NewsEntity>> = LivePagedListBuilder(newsDataSourceFactory, config).build()
-    val newsSourceState = Transformations.switchMap(newsDataSourceFactory.sourceLiveData) {it.getNewsState}*/
-
-
-
 
 }

@@ -8,6 +8,7 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.fajarca.core.MarvelApp
+import io.fajarca.core.vo.UiState
 import io.fajarca.home.R
 import io.fajarca.home.databinding.FragmentHomeBinding
 import io.fajarca.home.di.DaggerCharacterListComponent
@@ -47,24 +48,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     }
 
 
-    private fun subscribeNewsState(it: NewsBoundaryCallback.State) {
-        when (it) {
-            is NewsBoundaryCallback.State.Loading -> {
-                showLoading(true)
-            }
-            is NewsBoundaryCallback.State.Success -> {
-                showLoading(false)
-            }
-            is NewsBoundaryCallback.State.Error -> {
-                showLoading(false)
-            }
-        }
+    private fun subscribeNewsState(it: UiState) {
+        adapter.setState(it)
     }
 
 
     private fun initRecyclerView() {
         adapter = NewsRecyclerAdapter(this)
-        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         binding.recyclerView.isNestedScrollingEnabled = false

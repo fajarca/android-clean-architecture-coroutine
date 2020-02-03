@@ -32,7 +32,7 @@ class HomeViewModel (private val getNewsUseCase: GetNewsUseCase, private val map
     }
 
     private val factory = getNewsUseCase.getNewsFactory().map { mapper.map(it) }
-    private val boundaryCallback = NewsBoundaryCallback(getNewsUseCase, viewModelScope)
+    private val boundaryCallback = NewsBoundaryCallback("id", getNewsUseCase, viewModelScope)
 
     val newsSourceState = boundaryCallback.newsState
     val newsSource = LivePagedListBuilder(factory, PAGE_SIZE)

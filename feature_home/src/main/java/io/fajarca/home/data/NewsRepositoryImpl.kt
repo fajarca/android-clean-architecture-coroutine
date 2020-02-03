@@ -18,10 +18,10 @@ class NewsRepositoryImpl @Inject constructor(
     private val remoteDataSource: NewsRemoteDataSource
 ) : NewsRepository {
 
-    override suspend fun getNewsFromApi(country : String, page : Int, pageSize : Int, onSuccess: () -> Unit): List<NewsEntity> {
-        val apiResult = remoteDataSource.getTopHeadlines(dispatcher.io, country, page, pageSize)
+    override suspend fun getNewsFromApi(country : String, page : Int, pageSize : Int, onSuccessAction: () -> Unit): List<NewsEntity> {
+        val apiResult = remoteDataSource.getNews(dispatcher.io, country, page, pageSize)
         if (apiResult is Result.Success) {
-            onSuccess()
+            onSuccessAction()
             return mapper.map(apiResult.data)
         }
 

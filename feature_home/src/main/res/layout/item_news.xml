@@ -7,7 +7,7 @@
 
         <variable
             name="news"
-            type="io.fajarca.core.database.NewsEntity" />
+            type="io.fajarca.home.domain.entities.News" />
     </data>
 
     <androidx.cardview.widget.CardView

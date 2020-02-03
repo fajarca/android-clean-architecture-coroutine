@@ -36,25 +36,25 @@ class NewsDataSource(private val useCase : GetNewsUseCase, private val coroutine
     val getNewsState : LiveData<State> = _getNewsState
     
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, NewsEntity>) {
-        coroutineScope.launch(CoroutineExceptionHandler { _, throwable -> setState(State.Error) }) {
+       /* coroutineScope.launch(CoroutineExceptionHandler { _, throwable -> setState(State.Error) }) {
             setState(State.Loading)
 
-            val apiResult = useCase.execute(1, params.requestedLoadSize)
+            val apiResult = useCase.execute()
             callback.onResult(apiResult, null, 2)
 
             if (apiResult.isEmpty()) setState(State.Empty) else setState(State.Success)
-        }
+        }*/
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, NewsEntity>) {
-        coroutineScope.launch(CoroutineExceptionHandler { _, throwable -> setState(State.Error) }) {
+        /*coroutineScope.launch(CoroutineExceptionHandler { _, throwable -> setState(State.Error) }) {
             setState(State.Loading)
 
-            val apiResult = useCase.execute(params.key, params.requestedLoadSize)
+            val apiResult = useCase.execute()
             callback.onResult(apiResult, params.key + 1)
 
             if (apiResult.isEmpty()) setState(State.Empty) else setState(State.Success)
-        }
+        }*/
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, NewsEntity>) {

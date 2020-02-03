@@ -2,6 +2,8 @@ package io.fajarca.home.presentation
 
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import io.fajarca.core.database.NewsEntity
 import io.fajarca.home.presentation.mapper.NewsPresentationMapper
 import io.fajarca.home.domain.entities.News
 import io.fajarca.home.domain.usecase.GetNewsUseCase
@@ -29,6 +31,10 @@ class HomeViewModel (private val getTopHeadlinesUseCase: GetTopHeadlinesUseCase,
         }
     }
 
+    companion object {
+        const val PAGE_SIZE = 10
+    }
+
     private val _news = MutableLiveData<TopHeadlinesState<List<News>>>()
     val news: LiveData<TopHeadlinesState<List<News>>>
         get() = _news
@@ -43,23 +49,23 @@ class HomeViewModel (private val getTopHeadlinesUseCase: GetTopHeadlinesUseCase,
         data class Success<out T>(val data: T) : TopHeadlinesState<T>()
     }
 
-    val factory = getNewsUseCase.fetchFromDb()
-    val boundaryCallback = NewsBoundaryCallback(getNewsUseCase, viewModelScope)
-    val data = LivePagedListBuilder(factory, 20)
+    /*private val factory = getNewsUseCase.fetchFromDb()
+    private val boundaryCallback = NewsBoundaryCallback(getNewsUseCase, viewModelScope)
+
+    val newsSourceState = boundaryCallback.newsState
+    val newsSource = LivePagedListBuilder(factory, PAGE_SIZE)
         .setBoundaryCallback(boundaryCallback)
+        .build()*/
+
+    private val newsDataSourceFactory = NewsDataSource.Factory(getNewsUseCase, viewModelScope)
+    private val config = PagedList.Config.Builder()
+        .setEnablePlaceholders(false)
+        .setInitialLoadSizeHint(2 * PAGE_SIZE)
+        .setPageSize(PAGE_SIZE)
         .build()
 
-   /* fun getNews() {
-        _news.value = TopHeadlinesState.Loading
-        viewModelScope.launch {
-            val news = getNewsUseCase.execute()
-            if (news.isEmpty()) _news.value =
-                TopHeadlinesState.Empty else _news.value =
-                TopHeadlinesState.Success(
-                    mapper.map(news)
-                )
-        }
-    }*/
+    val newsSource : LiveData<PagedList<NewsEntity>> = LivePagedListBuilder(newsDataSourceFactory, config).build()
+    val newsSourceState = Transformations.switchMap(newsDataSourceFactory.sourceLiveData) {it.getNewsState}
 
     fun getTopHeadlines() {
         _topHeadlines.value = TopHeadlinesState.Loading

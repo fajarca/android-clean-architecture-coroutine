@@ -17,6 +17,7 @@ import io.fajarca.home.domain.entities.News
 import io.fajarca.home.presentation.adapter.NewsRecyclerAdapter
 import io.fajarca.home.presentation.adapter.TopHeadlinePagerAdapter
 import io.fajarca.presentation.BaseFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
@@ -28,7 +29,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     override val vm: HomeViewModel by viewModels(factoryProducer = { factory })
 
     override fun getLayoutResourceId() = R.layout.fragment_home
-    private lateinit var viewPager : ViewPager
     private lateinit var topHeadlinePagerAdapter: TopHeadlinePagerAdapter
 
     override fun initDaggerComponent() {
@@ -44,13 +44,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
-        initTopHeadline()
 
-        //vm.getNews()
         vm.getTopHeadlines()
 
-        //vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
-        vm.data.observe(viewLifecycleOwner, Observer { refreshNews(it) })
+        vm.newsSource.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
+        vm.newsSourceState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
         vm.topHeadlines.observe(viewLifecycleOwner, Observer { subscribeTopHeadlines(it) })
     }
 
@@ -72,20 +70,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             }
         }
     }
-    private fun subscribeNews(it: HomeViewModel.TopHeadlinesState<List<News>>) {
+    private fun subscribeNewsState(it: NewsDataSource.State) {
         when (it) {
-            is HomeViewModel.TopHeadlinesState.Loading -> {
-                showLoading(true)
-                binding.uiStateView.showLoading()
+            is NewsDataSource.State.Loading -> {
+                Timber.v("Loading")
             }
-            is HomeViewModel.TopHeadlinesState.Empty -> {
-                showLoading(false)
-                binding.uiStateView.showEmptyData()
+            is NewsDataSource.State.Empty -> {
+                Timber.v("Empty")
             }
-            is HomeViewModel.TopHeadlinesState.Success -> {
-                showLoading(false)
-                binding.uiStateView.dismiss()
-                    // refreshNews(it.data)
+            is NewsDataSource.State.Success -> {
+                Timber.v("Success")
+            }
+            is NewsDataSource.State.Error -> {
+                Timber.v("Error")
             }
         }
     }
@@ -96,6 +93,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
+        binding.recyclerView.isNestedScrollingEnabled = false
         binding.recyclerView.adapter = adapter
     }
 
@@ -103,31 +101,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         topHeadlinePagerAdapter.refreshHeadlines(headlines)
     }
 
-    private fun refreshNews(data: PagedList<NewsEntity>) {
+    private fun subscribeNews(data: PagedList<NewsEntity>) {
+        showLoading(false)
         adapter.submitList(data)
+        Timber.v("Pagedlist size : ${data.size}")
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.isLoading = isLoading
     }
 
-
-    private fun initTopHeadline() {
-        viewPager = binding.contentTopHeadline.viewpager
-        val tabLayout = binding.contentTopHeadline.tabLayout
-
-        topHeadlinePagerAdapter =
-            TopHeadlinePagerAdapter(
-                ArrayList(),
-                requireActivity()
-            )
-        viewPager.adapter = topHeadlinePagerAdapter
-        viewPager.clipToPadding = false
-        viewPager.pageMargin = 24
-        viewPager.setPadding(48, 8, 48, 8)
-        viewPager.offscreenPageLimit = 3
-        tabLayout.setupWithViewPager(viewPager)
-    }
 
     override fun onNewsPressed(news: NewsEntity) {
 

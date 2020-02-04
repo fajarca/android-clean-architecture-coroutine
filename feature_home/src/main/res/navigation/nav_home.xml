@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/fragmentHome"
+    android:id="@+id/nav_home"
+    tools:ignore="UnusedNavigation">
+
+
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="io.fajarca.home.presentation.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+    </fragment>
+
+
+</navigation>

@@ -94,18 +94,40 @@
             </LayoutPositions>
           </value>
         </entry>
+        <entry key="nav_home.xml">
+          <value>
+            <LayoutPositions>
+              <option name="myPositions">
+                <map>
+                  <entry key="fragmentHome">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </LayoutPositions>
+          </value>
+        </entry>
         <entry key="nav_main.xml">
           <value>
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="nav_characters">
+                  <entry key="nav_home">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-6" />
-                            <option name="y" value="239" />
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>

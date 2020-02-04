@@ -1,8 +1,8 @@
 package io.fajarca.home.data
 
 import androidx.paging.DataSource
-import io.fajarca.core.database.NewsDao
-import io.fajarca.core.database.NewsEntity
+import io.fajarca.core.database.dao.NewsDao
+import io.fajarca.core.database.entity.NewsEntity
 import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
 import io.fajarca.core.vo.Result
 import io.fajarca.home.data.mapper.NewsMapper
@@ -34,8 +34,8 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun findAllNews(country: String, page: Int, pageSize: Int, onSuccess: () -> Unit) {
-        val result = getNewsFromApi(country, page, pageSize, onSuccess)
+    override suspend fun findAllNews(country: String, page: Int, pageSize: Int, onSuccessAction: () -> Unit) {
+        val result = getNewsFromApi(country, page, pageSize, onSuccessAction)
         insertNews(result)
     }
 

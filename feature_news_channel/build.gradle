@@ -1,9 +1,8 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-//Apply Safe Args Plugin for Navigation Component
-apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'jacoco'
 
 jacoco {
@@ -48,32 +47,34 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
 }
 
 
+
 android {
+    compileSdkVersion ApplicationConfig.compileSdk
+    buildToolsVersion "29.0.2"
+
     dataBinding {
         enabled = true
     }
-    compileSdkVersion ApplicationConfig.compileSdk
+
     defaultConfig {
-        applicationId ApplicationConfig.id
         minSdkVersion ApplicationConfig.minSdk
         targetSdkVersion ApplicationConfig.targetSdk
         versionCode ApplicationConfig.versionCode
         versionName ApplicationConfig.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
+
     buildTypes {
         debug {
-            buildConfigField "String", "BASE_URL", BASE_URL
-            buildConfigField "String", "API_KEY", API_KEY
             testCoverageEnabled true
         }
         release {
-            buildConfigField "String", "BASE_URL", BASE_URL
-            buildConfigField "String", "API_KEY", API_KEY
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     testOptions {
         execution 'ANDROID_TEST_ORCHESTRATOR'
         animationsDisabled true
@@ -92,13 +93,28 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':core')
+    implementation project(':libraries:presentation')
+    implementation project(':libraries:ui-view')
 
-    implementation project(':feature_home')
-    implementation project(':feature_news_channel')
+    implementation Libraries.dagger
+    kapt Libraries.daggerCompiler
 
-    implementation AndroidXLibraries.appcompat
-    implementation AndroidXLibraries.navigation_fragment_ktx
-    implementation AndroidXLibraries.navigation_ktx
+    implementation Libraries.room_ktx
+    implementation Libraries.room_runtime
+    kapt Libraries.room_compiler
 
+    implementation Libraries.retrofit
+    implementation Libraries.moshi
+
+
+    testImplementation TestLibraries.junit
+    testImplementation TestLibraries.lifecycleTesting
+    testImplementation TestLibraries.coroutine
+    testImplementation TestLibraries.mockito
+
+    androidTestImplementation TestLibraries.espresso_runner
+    androidTestImplementation TestLibraries.espresso
+    androidTestImplementation TestLibraries.espresso_runner
+    androidTestImplementation TestLibraries.espresso
 }

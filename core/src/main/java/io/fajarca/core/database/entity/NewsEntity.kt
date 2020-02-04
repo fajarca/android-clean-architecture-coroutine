@@ -1,4 +1,4 @@
-package io.fajarca.core.database
+package io.fajarca.core.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

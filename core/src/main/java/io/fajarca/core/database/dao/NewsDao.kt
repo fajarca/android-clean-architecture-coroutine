@@ -1,7 +1,8 @@
-package io.fajarca.core.database
+package io.fajarca.core.database.dao
 
 import androidx.paging.DataSource
 import androidx.room.*
+import io.fajarca.core.database.entity.NewsEntity
 
 @Dao
 abstract class NewsDao {

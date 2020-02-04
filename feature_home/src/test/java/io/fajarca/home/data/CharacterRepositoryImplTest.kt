@@ -2,7 +2,7 @@ package io.fajarca.home.data
 
 import io.fajarca.home.data.mapper.NewsMapper
 import io.fajarca.home.data.source.NewsRemoteDataSource
-import io.fajarca.core.database.NewsDao
+import io.fajarca.core.database.dao.NewsDao
 import io.fajarca.core.network.HttpResult
 import io.fajarca.home.util.TestUtil
 import io.fajarca.home.util.provideFakeCoroutinesDispatcherProvider

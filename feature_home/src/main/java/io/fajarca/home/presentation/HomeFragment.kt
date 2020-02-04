@@ -2,8 +2,12 @@ package io.fajarca.home.presentation
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +43,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initToolbar()
         initRecyclerView()
         vm.newsSource.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
         vm.newsSourceState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
@@ -69,6 +74,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         binding.isLoading = isLoading
     }
 
+    private fun initToolbar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
+        val appBarConfiguration = AppBarConfiguration(findNavController().graph)
+        binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
+    }
 
     override fun onNewsPressed(news: News) {
 

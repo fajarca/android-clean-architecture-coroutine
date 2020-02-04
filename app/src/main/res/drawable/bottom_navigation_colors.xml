@@ -1,8 +1,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_checked="true"
-        android:color="@color/colorPrimary" />
+        android:color="@color/colorOnSurface" />
     <item
         android:state_checked="false"
-        android:color="#fff" />
+        android:color="@color/colorSecondary" />
 </selector>

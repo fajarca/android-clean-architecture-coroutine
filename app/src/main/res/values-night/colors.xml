@@ -10,6 +10,8 @@
     <color name="colorOnError">#FFFFFF</color>
     <color name="colorSurface">#212121</color>
     <color name="colorOnSurface">#FAFAFA</color>
-    <color name="colorOnBackground">#212121</color>
-    <color name="colorBackground">#FAFAFA</color>
+    <color name="colorOnBackground">#FAFAFA</color>
+    <color name="colorBackground">#616161</color>
+    <color name="statusBarColor">#212121</color>
+    <color name="bottomNavigationColor">#9e9e9e</color>
 </resources>

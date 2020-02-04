@@ -24,7 +24,6 @@ out/
 .gradle
 .gradle/
 build/
-buildSrc/
 
 # Signing files
 .signing/

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/grey_800</color>
-    <color name="colorPrimaryDark">@color/grey_900</color>
-    <color name="colorAccent">@color/amber_500</color>
-
-    <color name="amber_500">#FFC107</color>
-    <color name="grey_700">#616161</color>
-    <color name="grey_800">#424242</color>
-    <color name="grey_900">#212121</color>
-
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryVariant">#424242</color>
+    <color name="colorOnPrimary">#212121</color>
+    <color name="colorSecondary">#bdbdbd</color>
+    <color name="colorOnSecondary">#bdbdbd</color>
+    <color name="colorSecondaryVariant">#eeeeee</color>
+    <color name="colorError">#F44336</color>
+    <color name="colorOnError">#FFFFFF</color>
+    <color name="colorSurface">#212121</color>
+    <color name="colorOnSurface">#FAFAFA</color>
+    <color name="colorOnBackground">#212121</color>
+    <color name="colorBackground">#FAFAFA</color>
 </resources>

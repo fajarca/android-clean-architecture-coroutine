@@ -43,6 +43,7 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
         initRecyclerView()
+        vm.getNewsChannel()
         vm.newsChannel.observe(viewLifecycleOwner, Observer { subscribeNewsChannel(it) })
     }
 

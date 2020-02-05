@@ -41,10 +41,13 @@
                 android:layout_marginEnd="16dp"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:text="@{channel.name}"
+                android:minLines="3"
+                android:maxLines="3"
+                android:ellipsize="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView"
-                tools:text="23 jam yang lalu" />
+                tools:text="Al Jazeera" />
 
             <TextView
                 android:id="@+id/tvCountry"
@@ -54,6 +57,9 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:minLines="2"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:gravity="center"
                 android:text="@{channel.country}"
                 app:layout_constraintBottom_toBottomOf="parent"

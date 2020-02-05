@@ -10,6 +10,7 @@ import io.fajarca.news_channel.data.mapper.NewsChannelMapper
 import io.fajarca.news_channel.data.source.NewsChannelRemoteDataSource
 import io.fajarca.news_channel.domain.usecase.GetNewsChannelUseCase
 import io.fajarca.news_channel.presentation.NewsChannelViewModel
+import io.fajarca.news_channel.presentation.mapper.NewsChannelPresentationMapper
 import retrofit2.Retrofit
 
 
@@ -34,5 +35,5 @@ class NewsChannelModule {
 
     @Provides
     @FeatureScope
-    fun provideNewsChannelViewModelFactory(getNewsChannelUseCase: GetNewsChannelUseCase) = NewsChannelViewModel.Factory(getNewsChannelUseCase)
+    fun provideNewsChannelViewModelFactory(getNewsChannelUseCase: GetNewsChannelUseCase, mapper : NewsChannelPresentationMapper) = NewsChannelViewModel.Factory(getNewsChannelUseCase, mapper)
 }

@@ -39,7 +39,7 @@ class NewsChannelRecyclerAdapter(private val listener: NewsChannelClickListener)
     
 
     interface NewsChannelClickListener {
-        fun onNewsChannelPressed(news: NewsChannel)
+        fun onNewsChannelPressed(channel: NewsChannel)
     }
 
     

@@ -19,8 +19,8 @@ import io.fajarca.home.di.DaggerCharacterListComponent
 import io.fajarca.home.domain.entities.News
 import io.fajarca.home.presentation.adapter.NewsRecyclerAdapter
 import io.fajarca.presentation.BaseFragment
+import io.fajarca.presentation.extension.navigateTo
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
@@ -82,7 +82,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     }
 
     override fun onNewsPressed(news: News) {
-
+        navigateTo("app://web_browser/${news.url}")
     }
 
 }

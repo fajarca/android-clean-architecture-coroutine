@@ -18,6 +18,7 @@ import io.fajarca.news_channel.di.DaggerNewsChannelComponent
 import io.fajarca.news_channel.domain.entities.NewsChannel
 import io.fajarca.news_channel.presentation.adapter.NewsChannelRecyclerAdapter
 import io.fajarca.presentation.BaseFragment
+import io.fajarca.presentation.extension.navigateTo
 import javax.inject.Inject
 
 class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannelViewModel>(),
@@ -84,8 +85,8 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
         binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
     }
 
-    override fun onNewsChannelPressed(news: NewsChannel) {
-
+    override fun onNewsChannelPressed(channel: NewsChannel) {
+        navigateTo("app://web_browser/${channel.url}")
     }
 
 

@@ -23,6 +23,8 @@ import javax.inject.Inject
 class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannelViewModel>(),
     NewsChannelRecyclerAdapter.NewsChannelClickListener {
 
+    private val appBarConfiguration by lazy { AppBarConfiguration.Builder(R.id.fragmentNewsChannel).build() }
+
     @Inject
     lateinit var factory: NewsChannelViewModel.Factory
     private lateinit var adapter: NewsChannelRecyclerAdapter
@@ -79,7 +81,6 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
 
     private fun initToolbar() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
-        val appBarConfiguration = AppBarConfiguration(findNavController().graph)
         binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
     }
 

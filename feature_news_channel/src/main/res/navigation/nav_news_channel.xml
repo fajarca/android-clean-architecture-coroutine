@@ -11,7 +11,7 @@
     <fragment
         android:id="@+id/fragmentNewsChannel"
         android:name="io.fajarca.news_channel.presentation.NewsChannelFragment"
-        android:label="News Channel"
+        android:label="Channel"
         tools:layout="@layout/fragment_news_channel">
     </fragment>
 

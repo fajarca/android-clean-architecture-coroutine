@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
 
+    private val navController by lazy { Navigation.findNavController(this, R.id.navHostFragment) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,15 +27,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        val navController = Navigation.findNavController(this, R.id.navHostFragment)
         bottomNavigationView.setupWithNavController(navController)
-        navController.addOnDestinationChangedListener(navigationListener)
-    }
-
-    private val navigationListener = object  : NavController.OnDestinationChangedListener {
-        override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-            Log.v("Destination ", destination.label.toString())
-        }
-
     }
 }

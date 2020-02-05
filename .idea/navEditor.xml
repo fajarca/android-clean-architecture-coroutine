@@ -96,11 +96,6 @@
         </entry>
         <entry key="nav_home.xml">
           <value>
-            <LayoutPositions />
-          </value>
-        </entry>
-        <entry key="nav_main.xml">
-          <value>
             <LayoutPositions>
               <option name="myPositions">
                 <map>
@@ -116,13 +111,35 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="fragmentNewsChannel">
+                </map>
+              </option>
+            </LayoutPositions>
+          </value>
+        </entry>
+        <entry key="nav_main.xml">
+          <value>
+            <LayoutPositions>
+              <option name="myPositions">
+                <map>
+                  <entry key="nav_home">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
+                            <option name="x" value="12" />
                             <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="nav_news_channel">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="150" />
                           </Point>
                         </option>
                       </LayoutPositions>

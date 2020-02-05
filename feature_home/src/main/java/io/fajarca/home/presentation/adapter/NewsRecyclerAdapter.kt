@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.fajarca.core.vo.UiState
 import io.fajarca.home.databinding.ItemFooterBinding
+import io.fajarca.home.databinding.ItemHeadlineBinding
 import io.fajarca.home.databinding.ItemNewsBinding
 import io.fajarca.home.domain.entities.News
+import retrofit2.http.HEAD
 
 class NewsRecyclerAdapter(private val listener: NewsClickListener) : PagedListAdapter<News, RecyclerView.ViewHolder>(
     diffCallback
@@ -16,19 +18,20 @@ class NewsRecyclerAdapter(private val listener: NewsClickListener) : PagedListAd
 
     private val DATA_TYPE = 0
     private val FOOTER_TYPE = 1
+    private val HEADLINE_TYPE = 2
     private var state : UiState = UiState.Loading
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == DATA_TYPE) NewsViewHolder.create(parent) else FooterViewHolder.create(parent)
+        return if (viewType == HEADLINE_TYPE) HeadlineViewHolder.create(parent) else if (viewType == DATA_TYPE) NewsViewHolder.create(parent) else FooterViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(position)
-        if (viewType == DATA_TYPE) (holder as NewsViewHolder).bind(getItem(position) ?: News("","","","","",""), listener) else (holder as FooterViewHolder).bind()
+        if (viewType == HEADLINE_TYPE) (holder as HeadlineViewHolder).bind(getItem(position) ?: News("","","","","",""), listener) else if (viewType == DATA_TYPE) (holder as NewsViewHolder).bind(getItem(position) ?: News("","","","","",""), listener) else (holder as FooterViewHolder).bind()
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(position < super.getItemCount()) DATA_TYPE else FOOTER_TYPE
+        return if (position == 0) HEADLINE_TYPE else if(position < super.getItemCount()) DATA_TYPE else FOOTER_TYPE
     }
 
     class NewsViewHolder(private val binding: ItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -63,8 +66,26 @@ class NewsRecyclerAdapter(private val listener: NewsClickListener) : PagedListAd
         }
     }
 
+    class HeadlineViewHolder(private val binding: ItemHeadlineBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(headline: News, listener: NewsClickListener) {
+            binding.headline = headline
+            binding.root.setOnClickListener { listener.onHeadlinePressed(headline) }
+            binding.executePendingBindings()
+        }
+
+        companion object {
+            fun create(parent: ViewGroup): HeadlineViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemHeadlineBinding.inflate(layoutInflater, parent,false)
+                return HeadlineViewHolder(binding)
+            }
+        }
+    }
+
     interface NewsClickListener {
         fun onNewsPressed(news: News)
+        fun onHeadlinePressed(headline : News)
     }
 
 

@@ -93,4 +93,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         navigateTo("app://web_browser/${news.url}")
     }
 
+    override fun onHeadlinePressed(headline: News) {
+        navigateTo("app://web_browser/${headline.url}")
+    }
+
 }

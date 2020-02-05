@@ -9,10 +9,10 @@ import io.fajarca.home.presentation.HomeFragment
 @Component(
     dependencies = [CoreComponent::class],
     modules = [
-        CharacterModule::class,
+        HomeModule::class,
         RepositoryModule::class
     ]
 )
-interface CharacterListComponent {
+interface HomeComponent {
     fun inject(homeFragment: HomeFragment)
 }

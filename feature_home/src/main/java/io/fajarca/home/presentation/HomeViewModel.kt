@@ -35,6 +35,7 @@ class HomeViewModel (private val getNewsUseCase: GetNewsUseCase, private val map
     private val boundaryCallback = NewsBoundaryCallback("id", getNewsUseCase, viewModelScope)
 
     val newsSourceState = boundaryCallback.newsState
+    val initialLoadingState = boundaryCallback.initialLoading
     val newsSource = LivePagedListBuilder(factory, PAGE_SIZE)
         .setBoundaryCallback(boundaryCallback)
         .build()

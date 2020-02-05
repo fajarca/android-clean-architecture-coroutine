@@ -15,7 +15,7 @@ import retrofit2.Retrofit
 
 
 @Module
-class CharacterModule {
+class HomeModule {
 
     @Provides
     @FeatureScope

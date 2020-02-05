@@ -15,7 +15,7 @@ import io.fajarca.core.MarvelApp
 import io.fajarca.core.vo.UiState
 import io.fajarca.home.R
 import io.fajarca.home.databinding.FragmentHomeBinding
-import io.fajarca.home.di.DaggerCharacterListComponent
+import io.fajarca.home.di.DaggerHomeComponent
 import io.fajarca.home.domain.entities.News
 import io.fajarca.home.presentation.adapter.NewsRecyclerAdapter
 import io.fajarca.presentation.BaseFragment
@@ -34,7 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     override fun getLayoutResourceId() = R.layout.fragment_home
 
     override fun initDaggerComponent() {
-        DaggerCharacterListComponent
+        DaggerHomeComponent
             .builder()
             .coreComponent(MarvelApp.coreComponent(requireContext()))
             .build()
@@ -48,6 +48,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         initRecyclerView()
         vm.newsSource.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
         vm.newsSourceState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
+        vm.initialLoadingState.observe(viewLifecycleOwner, Observer { subscribeInitialLoadingState(it) })
+    }
+
+    private fun subscribeInitialLoadingState(it: UiState) {
+        when(it) {
+            is UiState.Loading -> {
+                binding.isLoading = true
+            }
+            is UiState.Complete -> {
+                binding.isLoading = false
+            }
+        }
     }
 
 
@@ -68,11 +80,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     private fun subscribeNews(data: PagedList<News>) {
         adapter.submitList(data)
-        Timber.v("Pagedlist size : ${data.size}")
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.isLoading = isLoading
+        binding.isLoading = false
     }
 
     private fun initToolbar() {

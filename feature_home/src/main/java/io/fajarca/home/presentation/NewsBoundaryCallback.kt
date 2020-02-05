@@ -21,12 +21,14 @@ class NewsBoundaryCallback(private val country : String, private val getNewsUseC
     private var lastRequestedPage = 1
     private val pageSize = 5
 
+    private val _initialLoading = MutableLiveData<UiState>(UiState.Loading)
+    val initialLoading : LiveData<UiState>
+    get() = _initialLoading
+
     override fun onZeroItemsLoaded() {
-        Timber.v("OnZeroItemLoaded")
         requestAndSaveData()
     }
     override fun onItemAtEndLoaded(itemAtEnd: News) {
-        Timber.v("onItemAtEndLoaded")
         requestAndSaveData()
     }
 
@@ -43,6 +45,7 @@ class NewsBoundaryCallback(private val country : String, private val getNewsUseC
                 setState(UiState.Success)
             })
             setState(UiState.Complete)
+            setInitialLoadingState(UiState.Complete)
         }
 
     }
@@ -54,5 +57,9 @@ class NewsBoundaryCallback(private val country : String, private val getNewsUseC
 
     private fun setState(result : UiState) {
         _newsState.postValue(result)
+    }
+
+    private fun setInitialLoadingState(state: UiState) {
+        _initialLoading.postValue(state)
     }
 }

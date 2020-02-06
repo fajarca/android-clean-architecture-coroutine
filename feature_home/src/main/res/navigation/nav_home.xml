@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/fragmentHome"
+    app:startDestination="@id/fragmentHomeContainer"
     android:id="@+id/nav_home"
     tools:ignore="UnusedNavigation">
 
@@ -15,5 +15,11 @@
         tools:layout="@layout/fragment_home">
     </fragment>
 
+    <fragment
+        android:id="@+id/fragmentHomeContainer"
+        android:name="io.fajarca.home.presentation.container.HomeFragmentContainer"
+        android:label="Container"
+        tools:layout="@layout/fragment_home_container">
+    </fragment>
 
 </navigation>

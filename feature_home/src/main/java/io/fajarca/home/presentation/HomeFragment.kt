@@ -20,7 +20,6 @@ import io.fajarca.home.domain.entities.News
 import io.fajarca.home.presentation.adapter.NewsRecyclerAdapter
 import io.fajarca.presentation.BaseFragment
 import io.fajarca.presentation.extension.navigateTo
-import timber.log.Timber
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
@@ -44,7 +43,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initToolbar()
         initRecyclerView()
         vm.newsSource.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
         vm.newsSourceState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
@@ -81,12 +79,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     private fun subscribeNews(data: PagedList<News>) {
         adapter.submitList(data)
         binding.isLoading = false
-    }
-
-    private fun initToolbar() {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
-        val appBarConfiguration = AppBarConfiguration(findNavController().graph)
-        binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
     }
 
     override fun onNewsPressed(news: News) {

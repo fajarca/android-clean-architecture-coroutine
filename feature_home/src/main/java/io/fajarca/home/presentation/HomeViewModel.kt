@@ -31,13 +31,26 @@ class HomeViewModel (private val getNewsUseCase: GetNewsUseCase, private val map
         const val PAGE_SIZE = 10
     }
 
-    private val factory = getNewsUseCase.getNewsFactory().map { mapper.map(it) }
-    private val boundaryCallback = NewsBoundaryCallback("id", getNewsUseCase, viewModelScope)
+    private val _category = MutableLiveData<String>()
 
-    val newsSourceState = boundaryCallback.newsState
-    val initialLoadingState = boundaryCallback.initialLoading
-    val newsSource = LivePagedListBuilder(factory, PAGE_SIZE)
-        .setBoundaryCallback(boundaryCallback)
-        .build()
+    val news : LiveData<PagedList<News>> = Transformations.switchMap(_category) {
+        search(it)
+    }
 
+    fun setData(country : String, category : String?) {
+        _category.postValue(category)
+    }
+
+    private fun search(category: String?): LiveData<PagedList<News>> {
+         val factory = getNewsUseCase.getNewsFactory().map { mapper.map(it) }
+        val boundaryCallback = NewsBoundaryCallback("id", category, getNewsUseCase, viewModelScope)
+
+        val newsSourceState = boundaryCallback.newsState
+        val initialLoadingState = boundaryCallback.initialLoading
+        val newsSource = LivePagedListBuilder(factory, PAGE_SIZE)
+            .setBoundaryCallback(boundaryCallback)
+            .build()
+
+        return newsSource
+    }
 }

@@ -44,9 +44,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        vm.newsSource.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
+        vm.setData("id", "technology")
+        /*vm.newsSource.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
         vm.newsSourceState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
-        vm.initialLoadingState.observe(viewLifecycleOwner, Observer { subscribeInitialLoadingState(it) })
+        vm.initialLoadingState.observe(viewLifecycleOwner, Observer { subscribeInitialLoadingState(it) })*/
+        vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
+
     }
 
     private fun subscribeInitialLoadingState(it: UiState) {

@@ -5,8 +5,8 @@ import javax.inject.Inject
 
 class GetNewsUseCase @Inject constructor(private val repository: NewsRepository) {
 
-    suspend fun execute(country : String, page : Int, pageSize : Int, onSuccessAction : () -> Unit) {
-         repository.findAllNews(country, page, pageSize, onSuccessAction)
+    suspend fun execute(country : String, category : String?, page : Int, pageSize : Int, onSuccessAction : () -> Unit) {
+         repository.findAllNews(country, category, page, pageSize, onSuccessAction)
     }
 
     fun getNewsFactory() = repository.getNewsFactory()

@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class NewsBoundaryCallback(private val country : String, private val getNewsUseCase: GetNewsUseCase, private val scope : CoroutineScope) : PagedList.BoundaryCallback<News>() {
+class NewsBoundaryCallback(private val country : String, private val category : String?, private val getNewsUseCase: GetNewsUseCase, private val scope : CoroutineScope) : PagedList.BoundaryCallback<News>() {
 
     private val _newsState = MutableLiveData<UiState>()
     val newsState : LiveData<UiState> = _newsState
@@ -39,7 +39,7 @@ class NewsBoundaryCallback(private val country : String, private val getNewsUseC
 
         scope.launch(CoroutineExceptionHandler { _, _ ->  onFetchNewsError()}) {
 
-            getNewsUseCase.execute(country, lastRequestedPage, pageSize, onSuccessAction = {
+            getNewsUseCase.execute(country, category, lastRequestedPage, pageSize, onSuccessAction = {
                 isRequestInProgress = false
                 lastRequestedPage++
                 setState(UiState.Success)

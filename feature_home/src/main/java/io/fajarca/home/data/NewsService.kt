@@ -9,6 +9,7 @@ interface NewsService {
 
     @GET("v2/top-headlines")
     suspend fun getNews(@Query("country") country : String,
+                        @Query("category") category : String?,
                                 @Query("page") page: Int,
                                 @Query("pageSize") pageSize: Int): NewsDto
 

@@ -39,12 +39,12 @@ class HomeFragmentContainer : Fragment() {
 
         val adapter = ViewPagerAdapter(childFragmentManager)
         adapter.addFragment(HomeFragment(), "Regional")
-        adapter.addFragment(HomeFragment(), "Business")
+       /* adapter.addFragment(HomeFragment(), "Business")
         adapter.addFragment(HomeFragment(), "Entertainment")
         adapter.addFragment(HomeFragment(), "General")
         adapter.addFragment(HomeFragment(), "Health")
         adapter.addFragment(HomeFragment(), "Science")
-        adapter.addFragment(HomeFragment(), "Technology")
+        adapter.addFragment(HomeFragment(), "Technology")*/
         viewPager.adapter = adapter
 
         val tabLayout = binding.tabs

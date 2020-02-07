@@ -9,7 +9,7 @@ class GetNewsUseCase @Inject constructor(private val repository: NewsRepository)
          repository.findAllNews(country, category, page, pageSize, onSuccessAction)
     }
 
-    fun getNewsFactory() = repository.getNewsFactory()
+    fun getNewsFactory(country : String, category : String?) = repository.getNewsFactory(country, category)
 
 
 }

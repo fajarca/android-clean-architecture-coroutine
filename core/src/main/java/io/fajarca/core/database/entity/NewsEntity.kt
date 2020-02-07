@@ -13,6 +13,10 @@ data class NewsEntity(
     var url: String = "",
     @ColumnInfo(name = "imageUrl")
     var imageUrl: String = "",
+    @ColumnInfo(name = "country")
+    var country: String = "",
+    @ColumnInfo(name = "category")
+    var category: String = "",
     @ColumnInfo(name = "publishedAt")
     var publishedAt: String = "",
     @ColumnInfo(name = "source_id")

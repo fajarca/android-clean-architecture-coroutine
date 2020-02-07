@@ -22,8 +22,18 @@ import io.fajarca.presentation.BaseFragment
 import io.fajarca.presentation.extension.navigateTo
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
-    NewsRecyclerAdapter.NewsClickListener {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRecyclerAdapter.NewsClickListener {
+
+    companion object {
+        fun newInstance(country : String?, category : String?): HomeFragment {
+            val fragment = HomeFragment()
+            val bundle = Bundle()
+            bundle.putString("country", country)
+            bundle.putString("category", category)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
     @Inject
     lateinit var factory: HomeViewModel.Factory
@@ -44,7 +54,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        vm.setData("id", "technology")
+
+        val country = arguments?.getString("country") ?: "id"
+        val category = arguments?.getString("category")
+
+        vm.setSearchQuery(country, category)
         /*vm.newsSource.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
         vm.newsSourceState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
         vm.initialLoadingState.observe(viewLifecycleOwner, Observer { subscribeInitialLoadingState(it) })*/

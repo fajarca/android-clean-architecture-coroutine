@@ -22,7 +22,7 @@ class NewsRepositoryImpl @Inject constructor(
         val apiResult = remoteDataSource.getNews(dispatcher.io, country, category, page, pageSize)
         if (apiResult is Result.Success) {
             onSuccessAction()
-            return mapper.map(apiResult.data)
+            return mapper.map(country, category, apiResult.data)
         }
 
         return emptyList()
@@ -39,8 +39,11 @@ class NewsRepositoryImpl @Inject constructor(
         insertNews(result)
     }
 
-    override fun getNewsFactory(): DataSource.Factory<Int, News> {
-        return dao.findAllNews().map { mapper.mapToDomain(it) }
-    }
+    override fun getNewsFactory(country: String, category: String?): DataSource.Factory<Int, News> {
+        if (category.isNullOrEmpty()) {
+            return dao.findByCountry(country).map { mapper.mapToDomain(it) }
+        }
 
+        return dao.findByCategory(category).map { mapper.mapToDomain(it) }
+    }
 }

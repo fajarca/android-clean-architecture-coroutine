@@ -13,8 +13,8 @@
         app:showAsAction="ifRoom"
         android:orderInCategory="2" />
 
-    <item android:id="@id/fragmentHome"
-        android:title="History"
+    <item android:id="@id/nav_news_category"
+        android:title="Category"
         android:icon="@drawable/ic_trending"
         app:showAsAction="ifRoom"
         android:orderInCategory="2" />

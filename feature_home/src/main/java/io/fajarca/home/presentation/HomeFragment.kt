@@ -24,21 +24,11 @@ import javax.inject.Inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRecyclerAdapter.NewsClickListener {
 
-    companion object {
-        fun newInstance(country : String?, category : String?): HomeFragment {
-            val fragment = HomeFragment()
-            val bundle = Bundle()
-            bundle.putString("country", country)
-            bundle.putString("category", category)
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
-
     @Inject
     lateinit var factory: HomeViewModel.Factory
     private lateinit var adapter: NewsRecyclerAdapter
     override val vm: HomeViewModel by viewModels(factoryProducer = { factory })
+    private val appBarConfiguration by lazy { AppBarConfiguration.Builder(R.id.fragmentHome).build() }
 
     override fun getLayoutResourceId() = R.layout.fragment_home
 
@@ -53,12 +43,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initToolbar()
         initRecyclerView()
 
-        val country = arguments?.getString("country") ?: "id"
-        val category = arguments?.getString("category")
-
-        vm.setSearchQuery(country, category)
+        vm.setSearchQuery("id", null)
 
         vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
         vm.initialLoadingState.observe(viewLifecycleOwner, Observer { subscribeInitialLoadingState(it) })
@@ -105,4 +94,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
         navigateTo("app://web_browser/${headline.url}")
     }
 
+    private fun initToolbar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
+        binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
+    }
 }

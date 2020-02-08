@@ -59,11 +59,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
         val category = arguments?.getString("category")
 
         vm.setSearchQuery(country, category)
-        /*vm.newsSource.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
-        vm.newsSourceState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
-        vm.initialLoadingState.observe(viewLifecycleOwner, Observer { subscribeInitialLoadingState(it) })*/
-        vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
 
+        vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
+        vm.initialLoadingState.observe(viewLifecycleOwner, Observer { subscribeInitialLoadingState(it) })
+        vm.searchState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
     }
 
     private fun subscribeInitialLoadingState(it: UiState) {

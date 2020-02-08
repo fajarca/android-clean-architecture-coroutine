@@ -37,15 +37,19 @@ class HomeViewModel(
 
     private val _category = MutableLiveData<SearchQuery>()
 
-    val news: LiveData<PagedList<News>> = Transformations.switchMap(_category) {
+    private val searchResult = Transformations.map(_category) {
         search(it.country, it.category)
     }
+
+    val news = Transformations.switchMap(searchResult) { it.news }
+    val initialLoadingState = Transformations.switchMap(searchResult) { it.initialLoadingState }
+    val searchState = Transformations.switchMap(searchResult) { it.searchState }
 
     fun setSearchQuery(country: String, category: String?) {
         _category.postValue(SearchQuery(country, category))
     }
 
-    private fun search(country: String, category: String?): LiveData<PagedList<News>> {
+    private fun search(country: String, category: String?): SearchResult {
         val factory = getNewsUseCase.getNewsFactory(country, category).map { mapper.map(it) }
         val boundaryCallback =
             NewsBoundaryCallback(country, category, getNewsUseCase, viewModelScope)
@@ -56,6 +60,6 @@ class HomeViewModel(
             .setBoundaryCallback(boundaryCallback)
             .build()
 
-        return newsSource
+        return SearchResult(newsSourceState, initialLoadingState, newsSource)
     }
 }

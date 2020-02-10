@@ -12,12 +12,13 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        app:cardElevation="4dp"
+        android:foreground="?attr/selectableItemBackground"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
 
             <ImageView
                 android:id="@+id/imageView"

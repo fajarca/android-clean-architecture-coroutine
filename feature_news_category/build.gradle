@@ -98,7 +98,6 @@ dependencies {
     implementation project(':navigation')
 
     implementation Libraries.dagger
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt Libraries.daggerCompiler
 
     implementation Libraries.room_ktx

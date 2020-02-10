@@ -31,6 +31,7 @@ class NewsMapper {
             input.url,
             input.imageUrl,
             input.publishedAt,
+            input.category,
             input.sourceId,
             input.sourceName
         )

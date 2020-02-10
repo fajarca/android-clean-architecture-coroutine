@@ -27,7 +27,7 @@ class NewsRecyclerAdapter(private val listener: NewsClickListener) : PagedListAd
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(position)
-        if (viewType == HEADLINE_TYPE) (holder as HeadlineViewHolder).bind(getItem(position) ?: News("","","","","",""), listener) else if (viewType == DATA_TYPE) (holder as NewsViewHolder).bind(getItem(position) ?: News("","","","","",""), listener) else (holder as FooterViewHolder).bind()
+        if (viewType == HEADLINE_TYPE) (holder as HeadlineViewHolder).bind(getItem(position) ?: News("","","","","","", ""), listener) else if (viewType == DATA_TYPE) (holder as NewsViewHolder).bind(getItem(position) ?: News("","","","","","", ""), listener) else (holder as FooterViewHolder).bind()
     }
 
     override fun getItemViewType(position: Int): Int {

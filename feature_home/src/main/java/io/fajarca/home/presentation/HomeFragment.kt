@@ -90,12 +90,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     }
 
     override fun onNewsPressed(news: News) {
-        val action = HomeFragmentDirections.actionFragmentHomeToNavWebBrowser(news.url, "Technology", Origin.NEWS)
+        val action = HomeFragmentDirections.actionFragmentHomeToNavWebBrowser(news.url, news.category, Origin.NEWS)
         findNavController().navigate(action)
     }
 
     override fun onHeadlinePressed(headline: News) {
-       // navigateTo("app://web_browser/${headline.url}")
+        val action = HomeFragmentDirections.actionFragmentHomeToNavWebBrowser(headline.url, headline.category, Origin.NEWS)
+        findNavController().navigate(action)
     }
 
     private fun initToolbar() {

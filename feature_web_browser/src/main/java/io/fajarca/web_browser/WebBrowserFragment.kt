@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
-import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import io.fajarca.navigation.Origin
 import io.fajarca.web_browser.databinding.FragmentWebBrowserBinding
 
 /**
@@ -24,6 +24,7 @@ import io.fajarca.web_browser.databinding.FragmentWebBrowserBinding
 class WebBrowserFragment : Fragment() {
 
     private lateinit var binding : FragmentWebBrowserBinding
+    private val args : WebBrowserFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_web_browser, container, false)
@@ -32,16 +33,23 @@ class WebBrowserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initToolbar()
-        val url = arguments?.getString("url") ?: ""
+        val category = args.category
+        val url = args.url
+        val origin = args.origin
+        initToolbar(origin, category)
         initWebView(url)
     }
 
 
-    private fun initToolbar() {
+    private fun initToolbar(origin: Origin, category: String) {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
         val appBarConfiguration = AppBarConfiguration(findNavController().graph)
         binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
+        when(origin) {
+            Origin.NEWS -> binding.contentToolbar.toolbar.title = "Detail"
+            Origin.CHANNEL -> binding.contentToolbar.toolbar.title = category
+            Origin.CATEGORY -> binding.contentToolbar.toolbar.title = category
+        }
     }
 
     private fun initWebView(url : String) {

@@ -97,6 +97,7 @@ dependencies {
     implementation project(':core')
     implementation project(':libraries:presentation')
     implementation project(':libraries:ui-view')
+    implementation project(':navigation')
 
     implementation Libraries.dagger
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

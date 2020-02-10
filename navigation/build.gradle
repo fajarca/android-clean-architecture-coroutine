@@ -33,7 +33,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
             dir: "$buildDir/tmp/kotlin-classes/debug",
             excludes: fileFilter
     )
-    classDirectories = files([ javaClasses ], [ kotlinClasses ])
+    classDirectories = files([javaClasses], [kotlinClasses])
     additionalSourceDirs = files(coverageSourceDirs)
     sourceDirectories = files(coverageSourceDirs)
     executionData = fileTree(dir: "$buildDir", includes: [
@@ -45,7 +45,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
         html.enabled = true
     }
 }
-
 
 
 android {
@@ -93,29 +92,9 @@ android {
 }
 
 dependencies {
-    implementation project(':core')
-    implementation project(':libraries:presentation')
-    implementation project(':libraries:ui-view')
-    implementation project(':navigation')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation Libraries.dagger
-    kapt Libraries.daggerCompiler
-
-    implementation Libraries.room_ktx
-    implementation Libraries.room_runtime
-    kapt Libraries.room_compiler
-
-    implementation Libraries.retrofit
-    implementation Libraries.moshi
-
-
-    testImplementation TestLibraries.junit
-    testImplementation TestLibraries.lifecycleTesting
-    testImplementation TestLibraries.coroutine
-    testImplementation TestLibraries.mockito
-
-    androidTestImplementation TestLibraries.espresso_runner
-    androidTestImplementation TestLibraries.espresso
-    androidTestImplementation TestLibraries.espresso_runner
-    androidTestImplementation TestLibraries.espresso
+    implementation AndroidXLibraries.navigation_fragment_ktx
+    implementation AndroidXLibraries.navigation
+    implementation AndroidXLibraries.navigation_fragment
 }

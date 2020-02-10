@@ -18,8 +18,8 @@ import io.fajarca.home.databinding.FragmentHomeBinding
 import io.fajarca.home.di.DaggerHomeComponent
 import io.fajarca.home.domain.entities.News
 import io.fajarca.home.presentation.adapter.NewsRecyclerAdapter
+import io.fajarca.navigation.Origin
 import io.fajarca.presentation.BaseFragment
-import io.fajarca.presentation.extension.navigateTo
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRecyclerAdapter.NewsClickListener {
@@ -90,11 +90,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     }
 
     override fun onNewsPressed(news: News) {
-        navigateTo("app://web_browser/${news.url}")
+        val action = HomeFragmentDirections.actionFragmentHomeToNavWebBrowser(news.url, "Technology", Origin.NEWS)
+        findNavController().navigate(action)
     }
 
     override fun onHeadlinePressed(headline: News) {
-        navigateTo("app://web_browser/${headline.url}")
+       // navigateTo("app://web_browser/${headline.url}")
     }
 
     private fun initToolbar() {

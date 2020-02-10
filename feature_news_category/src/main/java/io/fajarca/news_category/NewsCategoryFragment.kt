@@ -13,6 +13,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
+import io.fajarca.home.presentation.HomeFragmentDirections
+import io.fajarca.navigation.Origin
 import io.fajarca.news_category.databinding.FragmentNewsCategoryBinding
 import io.fajarca.presentation.extension.navigateTo
 
@@ -51,7 +53,8 @@ class NewsCategoryFragment : Fragment(), NewsCategoryRecyclerAdapter.NewsCategor
     }
 
     override fun onNewsCategoryPressed(category: NewsCategory) {
-        navigateTo("app://home/null/${category.id}")
+        val action = NewsCategoryFragmentDirections.actionFragmentNewsCategoryToNavWebBrowser(category.id, category.name, Origin.CATEGORY)
+        findNavController().navigate(action)
     }
 
     private fun populateCategories(): List<NewsCategory> {

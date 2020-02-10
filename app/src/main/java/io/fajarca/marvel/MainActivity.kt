@@ -1,7 +1,9 @@
 package io.fajarca.marvel
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,5 +21,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNavigation() {
         bottomNavigationView.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener(navigationListner)
+    }
+
+    private val navigationListner = NavController.OnDestinationChangedListener { _, destination, _ ->
+        when(destination.id) {
+            R.id.fragmentWebBrowser -> hideBottomNavigation()
+            else -> showBottomNavigation()
+        }
+    }
+
+    private fun showBottomNavigation() {
+        bottomNavigationView.visibility = View.VISIBLE
+    }
+    private fun hideBottomNavigation() {
+        bottomNavigationView.visibility = View.GONE
     }
 }

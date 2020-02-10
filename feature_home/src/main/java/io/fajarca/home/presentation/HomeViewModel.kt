@@ -45,11 +45,15 @@ class HomeViewModel(
     val initialLoadingState = Transformations.switchMap(searchResult) { it.initialLoadingState }
     val searchState = Transformations.switchMap(searchResult) { it.searchState }
 
-    fun setSearchQuery(country: String, category: String?) {
-        _category.postValue(SearchQuery(country, category))
+    fun setSearchQuery(country: String?, category: String?) {
+        if (country.equals("null", true)) {
+            _category.postValue(SearchQuery(null, category))
+        } else {
+            _category.postValue(SearchQuery(country, category))
+        }
     }
 
-    private fun search(country: String, category: String?): SearchResult {
+    private fun search(country: String?, category: String?): SearchResult {
         val factory = getNewsUseCase.getNewsFactory(country, category).map { mapper.map(it) }
         val boundaryCallback =
             NewsBoundaryCallback(country, category, getNewsUseCase, viewModelScope)

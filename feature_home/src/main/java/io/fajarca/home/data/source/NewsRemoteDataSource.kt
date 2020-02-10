@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 
 class NewsRemoteDataSource (private val newsService: NewsService) : RemoteDataSource() {
 
-    suspend fun getNews(dispatcher: CoroutineDispatcher, country : String, category : String?, page : Int, pageSize : Int): Result<NewsDto> {
+    suspend fun getNews(dispatcher: CoroutineDispatcher, country : String?, category : String?, page : Int, pageSize : Int): Result<NewsDto> {
         return safeApiCall(dispatcher) { newsService.getNews(country, category, page, pageSize) }
     }
 

@@ -13,6 +13,8 @@
         android:name="io.fajarca.home.presentation.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home">
+        <deepLink
+            app:uri="app://home/{country}/{category}" />
     </fragment>
 
 </navigation>

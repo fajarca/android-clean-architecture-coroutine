@@ -11,7 +11,7 @@
     <fragment
         android:id="@+id/fragmentWebBrowser"
         android:name="io.fajarca.web_browser.WebBrowserFragment"
-        android:label="Channel"
+        android:label="Detail"
         tools:layout="@layout/fragment_web_browser">
         <deepLink
             app:uri="app://web_browser/{url}" />

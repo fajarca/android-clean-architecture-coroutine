@@ -47,7 +47,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
         initToolbar()
         initRecyclerView()
 
-        vm.setSearchQuery("id", null)
+        val country = arguments?.getString("country") ?: "id"
+        val category = arguments?.getString("category")
+
+        vm.setSearchQuery(country, category)
 
         vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
         vm.initialLoadingState.observe(viewLifecycleOwner, Observer { subscribeInitialLoadingState(it) })

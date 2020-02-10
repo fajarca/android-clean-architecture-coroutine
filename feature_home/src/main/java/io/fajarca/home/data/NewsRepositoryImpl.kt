@@ -18,7 +18,7 @@ class NewsRepositoryImpl @Inject constructor(
     private val remoteDataSource: NewsRemoteDataSource
 ) : NewsRepository {
 
-    override suspend fun getNewsFromApi(country : String, category : String?, page : Int, pageSize : Int, onSuccessAction: () -> Unit): List<NewsEntity> {
+    override suspend fun getNewsFromApi(country : String?, category : String?, page : Int, pageSize : Int, onSuccessAction: () -> Unit): List<NewsEntity> {
         val apiResult = remoteDataSource.getNews(dispatcher.io, country, category, page, pageSize)
         if (apiResult is Result.Success) {
             onSuccessAction()
@@ -34,14 +34,14 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun findAllNews(country: String, category : String?, page: Int, pageSize: Int, onSuccessAction: () -> Unit) {
+    override suspend fun findAllNews(country: String?, category : String?, page: Int, pageSize: Int, onSuccessAction: () -> Unit) {
         val result = getNewsFromApi(country, category, page, pageSize, onSuccessAction)
         insertNews(result)
     }
 
-    override fun getNewsFactory(country: String, category: String?): DataSource.Factory<Int, News> {
+    override fun getNewsFactory(country: String?, category: String?): DataSource.Factory<Int, News> {
         if (category.isNullOrEmpty()) {
-            return dao.findByCountry(country).map { mapper.mapToDomain(it) }
+            return dao.findByCountry(country ?: "").map { mapper.mapToDomain(it) }
         }
 
         return dao.findByCategory(category).map { mapper.mapToDomain(it) }

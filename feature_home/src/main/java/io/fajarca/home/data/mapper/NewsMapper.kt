@@ -6,7 +6,7 @@ import io.fajarca.home.domain.entities.News
 
 class NewsMapper {
 
-    fun map(country: String, category: String?, input: NewsDto): List<NewsEntity> {
+    fun map(country: String?, category: String?, input: NewsDto): List<NewsEntity> {
         val headlines = mutableListOf<NewsEntity>()
         input.articles?.map {
             headlines.add(
@@ -14,7 +14,7 @@ class NewsMapper {
                     it?.title ?: "",
                     it?.url ?: "",
                     it?.urlToImage ?: "",
-                    country,
+                    country ?: "",
                     category ?: "",
                     it?.publishedAt ?: "",
                     it?.source?.id ?: "",

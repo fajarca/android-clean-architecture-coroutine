@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.news_category.databinding.FragmentNewsCategoryBinding
+import io.fajarca.presentation.extension.navigateTo
 
 /**
  * A simple [Fragment] subclass.
@@ -50,7 +51,7 @@ class NewsCategoryFragment : Fragment(), NewsCategoryRecyclerAdapter.NewsCategor
     }
 
     override fun onNewsCategoryPressed(category: NewsCategory) {
-
+        navigateTo("app://home/null/${category.id}")
     }
 
     private fun populateCategories(): List<NewsCategory> {

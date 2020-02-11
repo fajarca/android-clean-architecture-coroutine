@@ -99,16 +99,8 @@ dependencies {
     implementation project(Modules.ui_view)
     implementation project(Modules.navigation)
 
-    implementation Libraries.dagger
     kapt Libraries.daggerCompiler
-
-    implementation Libraries.room_ktx
-    implementation Libraries.room_runtime
     kapt Libraries.room_compiler
-
-    implementation Libraries.retrofit
-    implementation Libraries.moshi
-
 
     testImplementation TestLibraries.junit
     testImplementation TestLibraries.lifecycleTesting

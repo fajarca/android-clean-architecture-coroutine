@@ -40,19 +40,20 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation Libraries.room_ktx
-    implementation Libraries.room_runtime
+    api Libraries.room_ktx
+    api Libraries.room_runtime
     kapt Libraries.room_compiler
 
-    implementation Libraries.retrofit
     implementation Libraries.moshiConverter
     implementation Libraries.loggingInterceptor
 
     implementation AndroidXLibraries.paging
 
     api Libraries.timber
-    
-    implementation Libraries.dagger
+    api Libraries.retrofit
+    api Libraries.moshi
+
+    api Libraries.dagger
     kapt Libraries.daggerCompiler
 
     implementation Libraries.lifecycleExtensions

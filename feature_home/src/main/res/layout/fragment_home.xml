@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.HomeFragment">
+        tools:context=".presentation.screen.HomeFragment">
 
         <include
             android:id="@+id/content_toolbar"

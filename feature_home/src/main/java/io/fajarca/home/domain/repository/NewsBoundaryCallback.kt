@@ -1,4 +1,4 @@
-package io.fajarca.home.presentation
+package io.fajarca.home.domain.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

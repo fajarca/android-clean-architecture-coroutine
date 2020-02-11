@@ -25,7 +25,7 @@
     
     <fragment
         android:id="@+id/fragmentHome"
-        android:name="io.fajarca.home.presentation.HomeFragment"
+        android:name="io.fajarca.home.presentation.screen.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/fragmentNews"
-        android:name="io.fajarca.home.presentation.NewsFragment"
+        android:name="io.fajarca.home.presentation.screen.NewsFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <argument

@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
 import io.fajarca.home.domain.entities.News
+import io.fajarca.home.presentation.viewmodel.HomeViewModel
 import io.fajarca.home.util.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before

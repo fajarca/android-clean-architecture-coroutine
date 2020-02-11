@@ -2,21 +2,18 @@ package io.fajarca.news_category
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
-import io.fajarca.home.presentation.HomeFragmentDirections
-import io.fajarca.navigation.Origin
 import io.fajarca.news_category.databinding.FragmentNewsCategoryBinding
-import io.fajarca.presentation.extension.navigateTo
 
 /**
  * A simple [Fragment] subclass.

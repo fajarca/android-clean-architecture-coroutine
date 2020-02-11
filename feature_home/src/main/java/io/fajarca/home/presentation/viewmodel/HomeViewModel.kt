@@ -1,13 +1,12 @@
-package io.fajarca.home.presentation
+package io.fajarca.home.presentation.viewmodel
 
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import io.fajarca.home.presentation.mapper.NewsPresentationMapper
-import io.fajarca.home.domain.entities.News
 import io.fajarca.home.domain.entities.SearchQuery
+import io.fajarca.home.domain.repository.NewsBoundaryCallback
 import io.fajarca.home.domain.usecase.GetNewsUseCase
-import kotlinx.coroutines.launch
+import io.fajarca.home.presentation.model.SearchResult
 import javax.inject.Inject
 
 class HomeViewModel(
@@ -56,14 +55,25 @@ class HomeViewModel(
     private fun search(country: String?, category: String?): SearchResult {
         val factory = getNewsUseCase.getNewsFactory(country, category).map { mapper.map(it) }
         val boundaryCallback =
-            NewsBoundaryCallback(country, category, getNewsUseCase, viewModelScope)
+            NewsBoundaryCallback(
+                country,
+                category,
+                getNewsUseCase,
+                viewModelScope
+            )
 
         val newsSourceState = boundaryCallback.newsState
         val initialLoadingState = boundaryCallback.initialLoading
-        val newsSource = LivePagedListBuilder(factory, PAGE_SIZE)
+        val newsSource = LivePagedListBuilder(factory,
+            PAGE_SIZE
+        )
             .setBoundaryCallback(boundaryCallback)
             .build()
 
-        return SearchResult(newsSourceState, initialLoadingState, newsSource)
+        return SearchResult(
+            newsSourceState,
+            initialLoadingState,
+            newsSource
+        )
     }
 }

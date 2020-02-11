@@ -1,4 +1,4 @@
-package io.fajarca.home.presentation
+package io.fajarca.home.presentation.model
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList

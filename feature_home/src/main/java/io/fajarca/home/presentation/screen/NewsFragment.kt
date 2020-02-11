@@ -1,4 +1,4 @@
-package io.fajarca.home.presentation
+package io.fajarca.home.presentation.screen
 
 import android.os.Bundle
 import android.view.View
@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -19,17 +18,18 @@ import io.fajarca.home.databinding.FragmentHomeBinding
 import io.fajarca.home.di.DaggerHomeComponent
 import io.fajarca.home.domain.entities.News
 import io.fajarca.home.presentation.adapter.NewsRecyclerAdapter
+import io.fajarca.home.presentation.viewmodel.HomeViewModel
 import io.fajarca.navigation.Origin
 import io.fajarca.presentation.BaseFragment
 import javax.inject.Inject
 
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRecyclerAdapter.NewsClickListener {
+class NewsFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRecyclerAdapter.NewsClickListener {
 
     @Inject
     lateinit var factory: HomeViewModel.Factory
     private lateinit var adapter: NewsRecyclerAdapter
     override val vm: HomeViewModel by viewModels(factoryProducer = { factory })
-    private val appBarConfiguration by lazy { AppBarConfiguration.Builder(R.id.fragmentHome).build() }
+    private val args : NewsFragmentArgs by navArgs()
 
     override fun getLayoutResourceId() = R.layout.fragment_home
 
@@ -45,10 +45,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initToolbar()
+        val country = args.country
+        val categoryId = args.categoryId
+        val category = args.category
+
+        initToolbar(category)
         initRecyclerView()
 
-        vm.setSearchQuery("id", null)
+        vm.setSearchQuery(country, categoryId)
 
         vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
         vm.initialLoadingState.observe(viewLifecycleOwner, Observer { subscribeInitialLoadingState(it) })
@@ -88,17 +92,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     }
 
     override fun onNewsPressed(news: News) {
-        val action = HomeFragmentDirections.actionFragmentHomeToNavWebBrowser(news.url, news.category, Origin.NEWS)
+        val action =
+            HomeFragmentDirections.actionFragmentHomeToNavWebBrowser(
+                news.url,
+                news.category,
+                Origin.NEWS
+            )
         findNavController().navigate(action)
     }
 
     override fun onHeadlinePressed(headline: News) {
-        val action = HomeFragmentDirections.actionFragmentHomeToNavWebBrowser(headline.url, headline.category, Origin.NEWS)
+        val action =
+            HomeFragmentDirections.actionFragmentHomeToNavWebBrowser(
+                headline.url,
+                headline.category,
+                Origin.NEWS
+            )
         findNavController().navigate(action)
     }
 
-    private fun initToolbar() {
+    private fun initToolbar(title : String) {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
-        binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
+        binding.contentToolbar.toolbar.setupWithNavController(findNavController())
+        binding.contentToolbar.toolbar.title = title
     }
 }

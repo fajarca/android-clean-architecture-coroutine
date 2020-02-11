@@ -43,6 +43,23 @@
 
 
     <fragment
+        android:id="@+id/fragmentNews"
+        android:name="io.fajarca.home.presentation.NewsFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <argument
+            android:name="country"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <argument
+            android:name="category"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
         android:id="@+id/fragmentNewsChannel"
         android:name="io.fajarca.news_channel.presentation.NewsChannelFragment"
         android:label="Channel"
@@ -61,8 +78,8 @@
         android:label="Category"
         tools:layout="@layout/fragment_news_category">
         <action
-            android:id="@+id/action_fragmentNewsCategory_to_nav_web_browser"
-            app:destination="@id/fragmentWebBrowser" />
+            android:id="@+id/action_fragmentNewsCategory_to_fragmentNews"
+            app:destination="@id/fragmentNews" />
     </fragment>
 
 

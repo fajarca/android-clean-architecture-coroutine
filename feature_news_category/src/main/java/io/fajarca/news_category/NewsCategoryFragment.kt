@@ -53,7 +53,7 @@ class NewsCategoryFragment : Fragment(), NewsCategoryRecyclerAdapter.NewsCategor
     }
 
     override fun onNewsCategoryPressed(category: NewsCategory) {
-        val action = NewsCategoryFragmentDirections.actionFragmentNewsCategoryToNavWebBrowser(category.id, category.name, Origin.CATEGORY)
+        val action = NewsCategoryFragmentDirections.actionFragmentNewsCategoryToFragmentNews(null, category.id, category.name)
         findNavController().navigate(action)
     }
 

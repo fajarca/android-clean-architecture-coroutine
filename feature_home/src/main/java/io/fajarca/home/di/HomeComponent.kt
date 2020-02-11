@@ -4,6 +4,7 @@ import dagger.Component
 import io.fajarca.core.di.CoreComponent
 import io.fajarca.core.di.scope.FeatureScope
 import io.fajarca.home.presentation.HomeFragment
+import io.fajarca.home.presentation.NewsFragment
 
 @FeatureScope
 @Component(
@@ -15,4 +16,5 @@ import io.fajarca.home.presentation.HomeFragment
 )
 interface HomeComponent {
     fun inject(homeFragment: HomeFragment)
+    fun inject(newsFragment: NewsFragment)
 }

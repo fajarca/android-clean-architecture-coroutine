@@ -53,8 +53,10 @@ class NetworkModule {
     ): OkHttpClient {
         val client = OkHttpClient.Builder()
         client.cache(cache)
-        client.addInterceptor(loggingInterceptor)
         client.authenticator(authenticator)
+        if (BuildConfig.DEBUG) {
+            client.addInterceptor(loggingInterceptor)
+        }
         return client.build()
     }
 

@@ -96,6 +96,7 @@ dependencies {
     implementation project(':core')
     implementation project(':libraries:presentation')
     implementation project(':libraries:ui-view')
+    implementation project(':navigation')
 
     implementation Libraries.dagger
     kapt Libraries.daggerCompiler

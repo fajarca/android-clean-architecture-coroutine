@@ -94,4 +94,5 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':libraries:presentation')
+    implementation project(':navigation')
 }

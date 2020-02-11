@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/fragmentHome">
+    
+
+    <fragment
+        android:id="@+id/fragmentWebBrowser"
+        android:name="io.fajarca.web_browser.WebBrowserFragment"
+        android:label="Detail"
+        tools:layout="@layout/fragment_web_browser">
+        <argument
+            android:name="url"
+            app:argType="string" />
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <argument
+            android:name="origin"
+            app:argType="io.fajarca.navigation.Origin"/>
+    </fragment>
+
+    
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="io.fajarca.news.presentation.screen.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_fragmentHome_to_nav_web_browser"
+            app:destination="@id/fragmentWebBrowser" />
+        <argument
+            android:name="country"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fragmentNews"
+        android:name="io.fajarca.news.presentation.screen.NewsFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <argument
+            android:name="country"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <argument
+            android:name="category"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentNewsChannel"
+        android:name="io.fajarca.news_channel.presentation.NewsChannelFragment"
+        android:label="Channel"
+        tools:layout="@layout/fragment_news_channel">
+        <action
+            android:id="@+id/action_fragmentNewsChannel_to_nav_web_browser"
+            app:destination="@id/fragmentWebBrowser" />
+        <action
+            android:id="@+id/action_fragmentNewsChannel_to_fragmentHome"
+            app:destination="@id/fragmentHome" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentNewsCategory"
+        android:name="io.fajarca.news_category.NewsCategoryFragment"
+        android:label="Category"
+        tools:layout="@layout/fragment_news_category">
+        <action
+            android:id="@+id/action_fragmentNewsCategory_to_fragmentNews"
+            app:destination="@id/fragmentNews" />
+    </fragment>
+
+
+</navigation>

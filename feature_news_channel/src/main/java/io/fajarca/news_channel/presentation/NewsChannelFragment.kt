@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.core.MarvelApp
 import io.fajarca.core.vo.Result
+import io.fajarca.navigation.Origin
 import io.fajarca.news_channel.R
 import io.fajarca.news_channel.databinding.FragmentNewsChannelBinding
 import io.fajarca.news_channel.di.DaggerNewsChannelComponent
 import io.fajarca.news_channel.domain.entities.NewsChannel
 import io.fajarca.news_channel.presentation.adapter.NewsChannelRecyclerAdapter
 import io.fajarca.presentation.BaseFragment
-import io.fajarca.presentation.extension.navigateTo
 import javax.inject.Inject
 
 class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannelViewModel>(),
@@ -86,7 +86,8 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
     }
 
     override fun onNewsChannelPressed(channel: NewsChannel) {
-        navigateTo("app://web_browser/${channel.url}")
+        val action = NewsChannelFragmentDirections.actionFragmentNewsChannelToNavWebBrowser(channel.url, channel.name, Origin.CHANNEL)
+        findNavController().navigate(action)
     }
 
 

@@ -1,14 +1,17 @@
 package io.fajarca.marvel
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.setupWithNavController
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+
+    private val navController by lazy { Navigation.findNavController(this, R.id.navHostFragment) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,9 +20,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        val navHostFragment: NavHostFragment =
-            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
-        NavigationUI.setupWithNavController(bottomNavigation, navHostFragment.findNavController())
+        bottomNavigationView.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener(navigationListner)
+    }
+
+    private val navigationListner = NavController.OnDestinationChangedListener { _, destination, _ ->
+        when(destination.id) {
+            R.id.fragmentWebBrowser -> hideBottomNavigation()
+            else -> showBottomNavigation()
+        }
+    }
+
+    private fun showBottomNavigation() {
+        bottomNavigationView.visibility = View.VISIBLE
+    }
+    private fun hideBottomNavigation() {
+        bottomNavigationView.visibility = View.GONE
     }
 }

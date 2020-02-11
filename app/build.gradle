@@ -2,8 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-//Apply Safe Args Plugin for Navigation Component
-apply plugin: 'androidx.navigation.safeargs'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'jacoco'
 
 jacoco {
@@ -94,7 +93,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':feature_home')
+    implementation project(':feature_news')
+    implementation project(':feature_news_channel')
+    implementation project(':feature_news_category')
+    implementation project(':feature_web_browser')
+    implementation project(':navigation')
 
     implementation AndroidXLibraries.appcompat
     implementation AndroidXLibraries.navigation_fragment_ktx

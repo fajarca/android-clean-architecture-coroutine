@@ -1,0 +1,121 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = '0.8.5' //Use latest version
+}
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+    def coverageSourceDirs = [
+            "src/main/java"
+    ]
+    def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/*$ViewInjector*.*',
+            '**/*$ViewBinder*.*',
+            '**/BuildConfig.*',
+            '**/Manifest*.*'
+    ]
+    def javaClasses = fileTree(
+            dir: "$buildDir/intermediates/classes/debug",
+            excludes: fileFilter
+    )
+    def kotlinClasses = fileTree(
+            dir: "$buildDir/tmp/kotlin-classes/debug",
+            excludes: fileFilter
+    )
+    classDirectories = files([ javaClasses ], [ kotlinClasses ])
+    additionalSourceDirs = files(coverageSourceDirs)
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "output/code-coverage/connected/*.ec"
+    ])
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+
+
+android {
+    compileSdkVersion ApplicationConfig.compileSdk
+    buildToolsVersion "29.0.2"
+
+    dataBinding {
+        enabled = true
+    }
+
+    defaultConfig {
+        minSdkVersion ApplicationConfig.minSdk
+        targetSdkVersion ApplicationConfig.targetSdk
+        versionCode ApplicationConfig.versionCode
+        versionName ApplicationConfig.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        execution 'ANDROID_TEST_ORCHESTRATOR'
+        animationsDisabled true
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':libraries:presentation')
+    implementation project(':libraries:ui-view')
+    implementation project(':navigation')
+
+    implementation Libraries.dagger
+    kapt Libraries.daggerCompiler
+
+    implementation Libraries.room_ktx
+    implementation Libraries.room_runtime
+    kapt Libraries.room_compiler
+
+    implementation Libraries.retrofit
+    implementation Libraries.moshi
+
+
+    testImplementation TestLibraries.junit
+    testImplementation TestLibraries.lifecycleTesting
+    testImplementation TestLibraries.coroutine
+    testImplementation TestLibraries.mockito
+
+    androidTestImplementation TestLibraries.espresso_runner
+    androidTestImplementation TestLibraries.espresso
+    androidTestImplementation TestLibraries.espresso_runner
+    androidTestImplementation TestLibraries.espresso
+}

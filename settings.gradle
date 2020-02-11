@@ -1,2 +1,2 @@
-include ':app', 'libraries:ui-view',  'libraries:presentation', 'feature_home', ':core',
+include ':app', ':feature_news_channel', ':feature_web_browser', ':feature_news_category', ':feature_category_detail', ':navigation', 'libraries:ui-view',  'libraries:presentation', 'feature_news', ':core',
 rootProject.name='BuzzNews'

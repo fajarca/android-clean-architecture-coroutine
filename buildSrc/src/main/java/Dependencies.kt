@@ -84,3 +84,16 @@ object TestLibraries {
     val espresso_runner = "androidx.test:runner:${Versions.testRunner}"
     val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
 }
+
+object Modules {
+    val app = ":app"
+    val core = ":core"
+    val navigation = ":navigation"
+    val presentation = ":libraries:presentation"
+    val ui_view = ":libraries:ui-view"
+
+    val feature_news = ":feature_news"
+    val feature_news_category = ":feature_news_category"
+    val feature_news_channel = ":feature_news_channel"
+    val feature_web_browser = ":feature_web_browser"
+}

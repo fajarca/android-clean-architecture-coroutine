@@ -92,10 +92,10 @@ android {
 }
 
 dependencies {
-    implementation project(':core')
-    implementation project(':libraries:presentation')
-    implementation project(':libraries:ui-view')
-    implementation project(':navigation')
+    implementation project(Modules.core)
+    implementation project(Modules.presentation)
+    implementation project(Modules.ui_view)
+    implementation project(Modules.navigation)
 
     implementation Libraries.dagger
     kapt Libraries.daggerCompiler

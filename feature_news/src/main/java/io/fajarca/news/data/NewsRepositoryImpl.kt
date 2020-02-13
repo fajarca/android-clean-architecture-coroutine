@@ -6,6 +6,7 @@ import io.fajarca.core.database.entity.NewsEntity
 import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
 import io.fajarca.core.vo.Result
 import io.fajarca.news.data.mapper.NewsMapper
+import io.fajarca.news.data.response.NewsDto
 import io.fajarca.news.data.source.NewsRemoteDataSource
 import io.fajarca.news.domain.entities.News
 import io.fajarca.news.domain.repository.NewsRepository
@@ -18,14 +19,8 @@ class NewsRepositoryImpl @Inject constructor(
     private val remoteDataSource: NewsRemoteDataSource
 ) : NewsRepository {
 
-    override suspend fun getNewsFromApi(country : String?, category : String?, page : Int, pageSize : Int, onSuccessAction: () -> Unit): List<NewsEntity> {
-        val apiResult = remoteDataSource.getNews(dispatcher.io, country, category, page, pageSize)
-        if (apiResult is Result.Success) {
-            onSuccessAction()
-            return mapper.map(country, category, apiResult.data)
-        }
-
-        return emptyList()
+    override suspend fun getNewsFromApi(country : String?, category : String?, page : Int, pageSize : Int, onSuccessAction: () -> Unit): Result<NewsDto> {
+        return remoteDataSource.getNews(dispatcher.io, country, category, page, pageSize)
     }
 
 
@@ -35,8 +30,12 @@ class NewsRepositoryImpl @Inject constructor(
 
 
     override suspend fun findAllNews(country: String?, category : String?, page: Int, pageSize: Int, onSuccessAction: () -> Unit) {
-        val result = getNewsFromApi(country, category, page, pageSize, onSuccessAction)
-        insertNews(result)
+        val apiResult = getNewsFromApi(country, category, page, pageSize, onSuccessAction)
+        if (apiResult is Result.Success) {
+            onSuccessAction()
+            val news =  mapper.map(country, category, apiResult.data)
+            insertNews(news)
+        }
     }
 
     override fun getNewsFactory(country: String?, category: String?): DataSource.Factory<Int, News> {

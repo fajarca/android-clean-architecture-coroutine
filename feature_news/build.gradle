@@ -23,7 +23,8 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
             '**/*$ViewInjector*.*',
             '**/*$ViewBinder*.*',
             '**/BuildConfig.*',
-            '**/Manifest*.*'
+            '**/Manifest*.*',
+            '**/di*.*'
     ]
     def javaClasses = fileTree(
             dir: "$buildDir/intermediates/classes/debug",

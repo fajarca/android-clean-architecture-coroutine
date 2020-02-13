@@ -7,7 +7,7 @@
 
         <variable
             name="category"
-            type="io.fajarca.news_category.NewsCategory" />
+            type="io.fajarca.news_category.presentation.model.NewsCategory" />
     </data>
 
     <androidx.cardview.widget.CardView

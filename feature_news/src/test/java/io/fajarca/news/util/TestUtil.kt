@@ -1,10 +1,10 @@
 package io.fajarca.news.util
 
-import io.fajarca.core.database.CharacterEntity
+
 
 object TestUtil {
 
-    fun generateDummyCharacter(id : Int, title : String = "Title", imageUrl : String = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg" ) : CharacterEntity {
+   /* fun generateDummyCharacter(id : Int, title : String = "Title", imageUrl : String = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/portrait_uncanny.jpg" ) : CharacterEntity {
         return CharacterEntity(
             id = id,
             title = title,
@@ -17,6 +17,6 @@ object TestUtil {
             characters.add(generateDummyCharacter(i))
         }
         return characters
-    }
+    }*/
 
 }

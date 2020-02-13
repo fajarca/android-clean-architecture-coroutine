@@ -74,7 +74,7 @@
 
     <fragment
         android:id="@+id/fragmentNewsCategory"
-        android:name="io.fajarca.news_category.NewsCategoryFragment"
+        android:name="io.fajarca.news_category.presentation.NewsCategoryFragment"
         android:label="Category"
         tools:layout="@layout/fragment_news_category">
         <action

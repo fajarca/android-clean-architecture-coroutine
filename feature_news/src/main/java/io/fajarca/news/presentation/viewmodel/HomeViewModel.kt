@@ -7,6 +7,7 @@ import io.fajarca.news.domain.entities.SearchQuery
 import io.fajarca.news.domain.repository.NewsBoundaryCallback
 import io.fajarca.news.domain.usecase.GetNewsUseCase
 import io.fajarca.news.presentation.model.SearchResult
+import java.util.*
 import javax.inject.Inject
 
 class HomeViewModel(
@@ -53,7 +54,7 @@ class HomeViewModel(
     }
 
     private fun search(country: String?, category: String?): SearchResult {
-        val factory = getNewsUseCase.getNewsFactory(country, category).map { mapper.map(it) }
+        val factory = getNewsUseCase.getNewsFactory(country, category).map { mapper.map(it, Locale.getDefault()) }
         val boundaryCallback =
             NewsBoundaryCallback(
                 country,

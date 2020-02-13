@@ -20,7 +20,7 @@ import org.mockito.MockitoAnnotations
 @ExperimentalCoroutinesApi
 class CharactersViewModelTest {
 
-    // Run tasks synchronously
+    /*// Run tasks synchronously
     @Rule
     @JvmField
     val instantExecutorRule = InstantTaskExecutorRule()
@@ -93,6 +93,6 @@ class CharactersViewModelTest {
         verify(observer).onChanged(HomeViewModel.CharacterState.Loading)
         verify(observer).onChanged(HomeViewModel.CharacterState.Empty)
 
-    }
+    }*/
 
 }

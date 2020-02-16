@@ -10,7 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
-import io.fajarca.core.MarvelApp
+import io.fajarca.core.BuzzNewsApp
 import io.fajarca.core.vo.Result
 import io.fajarca.navigation.Origin
 import io.fajarca.news_channel.R
@@ -36,7 +36,7 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
     override fun initDaggerComponent() {
         DaggerNewsChannelComponent
             .builder()
-            .coreComponent(MarvelApp.coreComponent(requireContext()))
+            .coreComponent(BuzzNewsApp.coreComponent(requireContext()))
             .build()
             .inject(this)
     }

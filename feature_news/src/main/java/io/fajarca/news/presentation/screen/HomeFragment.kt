@@ -11,7 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.fajarca.core.MarvelApp
+import io.fajarca.core.BuzzNewsApp
 import io.fajarca.core.vo.UiState
 import io.fajarca.news.R
 import io.fajarca.news.databinding.FragmentHomeBinding
@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     override fun initDaggerComponent() {
         DaggerNewsComponent
             .builder()
-            .coreComponent(MarvelApp.coreComponent(requireContext()))
+            .coreComponent(BuzzNewsApp.coreComponent(requireContext()))
             .build()
             .inject(this)
     }

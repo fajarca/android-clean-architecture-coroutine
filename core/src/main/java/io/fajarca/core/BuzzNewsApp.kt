@@ -6,7 +6,7 @@ import io.fajarca.core.di.CoreComponent
 import io.fajarca.core.di.DaggerCoreComponent
 import timber.log.Timber
 
-class MarvelApp : Application() {
+class BuzzNewsApp : Application() {
 
 
 
@@ -20,7 +20,7 @@ class MarvelApp : Application() {
          * @param context The application context
          */
         @JvmStatic
-        fun coreComponent(context: Context)= (context.applicationContext as? MarvelApp)?.coreComponent
+        fun coreComponent(context: Context)= (context.applicationContext as? BuzzNewsApp)?.coreComponent
     }
 
     override fun onCreate() {

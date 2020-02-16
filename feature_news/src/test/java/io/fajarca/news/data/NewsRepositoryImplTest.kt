@@ -4,16 +4,14 @@ import io.fajarca.core.database.dao.NewsDao
 import io.fajarca.core.database.entity.NewsEntity
 import io.fajarca.core.network.HttpResult
 import io.fajarca.core.vo.Result
+import io.fajarca.news.CoroutineTestRule
 import io.fajarca.news.data.mapper.NewsMapper
 import io.fajarca.news.data.response.NewsDto
 import io.fajarca.news.data.source.NewsRemoteDataSource
-import io.fajarca.news.util.provideFakeCoroutinesDispatcherProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
-
-import org.junit.Assert.*
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
@@ -22,8 +20,10 @@ import org.mockito.MockitoAnnotations
 @ExperimentalCoroutinesApi
 class NewsRepositoryImplTest {
 
-    private val testCoroutineDispatcher = TestCoroutineDispatcher()
     private lateinit var sut: NewsRepositoryImpl
+
+    @get:Rule
+    val coroutineTestRule = CoroutineTestRule()
 
     @Mock
     lateinit var mapper: NewsMapper
@@ -46,7 +46,7 @@ class NewsRepositoryImplTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         sut = NewsRepositoryImpl(
-            provideFakeCoroutinesDispatcherProvider(testCoroutineDispatcher),
+            coroutineTestRule.testDispatcherProvider,
             mapper,
             dao,
             remoteDataSource
@@ -54,7 +54,7 @@ class NewsRepositoryImplTest {
     }
 
     @Test
-    fun `when inserting news, should call dao insert method`() = testCoroutineDispatcher.runBlockingTest {
+    fun `when inserting news, should call dao insert method`() = coroutineTestRule.testDispatcher.runBlockingTest {
         //Given
         val news = createFakeNewsEntities()
 
@@ -66,22 +66,22 @@ class NewsRepositoryImplTest {
     }
 
     @Test
-    fun `when fetch news from api, get news from network should be invoked`() = testCoroutineDispatcher.runBlockingTest {
+    fun `when fetch news from api, get news from network should be invoked`() = coroutineTestRule.testDispatcher.runBlockingTest {
 
         //When
         sut.getNewsFromApi(country, category, page, pageSize, {})
 
         //Then
-        verify(remoteDataSource).getNews(testCoroutineDispatcher, country, category, page, pageSize)
+        verify(remoteDataSource).getNews(coroutineTestRule.testDispatcher, country, category, page, pageSize)
     }
 
     @Test
-    fun `when get all news success, save news to local db`() = runBlockingTest {
+    fun `when get all news success, save news to local db`() = coroutineTestRule.testDispatcher.runBlockingTest {
         //Given
         val news = createFakeNewsEntities()
         val response = Result.Success(createFakeNewsResponse())
 
-        `when`(remoteDataSource.getNews(testCoroutineDispatcher, country, category, page, pageSize)).thenReturn(response)
+        `when`(remoteDataSource.getNews(coroutineTestRule.testDispatcher, country, category, page, pageSize)).thenReturn(response)
         `when`(mapper.map(country, category, createFakeNewsResponse())).thenReturn(news)
 
         //When
@@ -92,12 +92,12 @@ class NewsRepositoryImplTest {
     }
 
     @Test
-    fun `when get all news failed, insert no news`() = runBlockingTest {
+    fun `when get all news failed, insert no news`() = coroutineTestRule.testDispatcher.runBlockingTest {
         //Given
         val news = createFakeNewsEntities()
         val response = Result.Error(HttpResult.NO_CONNECTION)
 
-        `when`(remoteDataSource.getNews(testCoroutineDispatcher, country, category, page, pageSize)).thenReturn(response)
+        `when`(remoteDataSource.getNews(coroutineTestRule.testDispatcher, country, category, page, pageSize)).thenReturn(response)
 
         //When
         sut.findAllNews(country, category, page, pageSize, {})

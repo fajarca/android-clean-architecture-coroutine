@@ -4,16 +4,18 @@ import androidx.paging.DataSource
 import io.fajarca.core.database.dao.NewsDao
 import io.fajarca.core.database.entity.NewsEntity
 import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
+import io.fajarca.core.dispatcher.DispatcherProvider
 import io.fajarca.core.vo.Result
 import io.fajarca.news.data.mapper.NewsMapper
 import io.fajarca.news.data.response.NewsDto
 import io.fajarca.news.data.source.NewsRemoteDataSource
 import io.fajarca.news.domain.entities.News
 import io.fajarca.news.domain.repository.NewsRepository
+import okhttp3.Dispatcher
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
-    private val dispatcher: CoroutineDispatcherProvider,
+    private val dispatcher: DispatcherProvider,
     private val mapper: NewsMapper,
     private val dao: NewsDao,
     private val remoteDataSource: NewsRemoteDataSource

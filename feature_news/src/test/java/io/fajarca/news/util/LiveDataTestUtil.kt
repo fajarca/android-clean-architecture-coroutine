@@ -70,16 +70,3 @@ fun <T> LiveData<T>.observeForTesting(block: () -> Unit) {
         removeObserver(observer)
     }
 }
-
-@ExperimentalCoroutinesApi
-fun provideFakeCoroutinesDispatcherProvider(
-    dispatcher: TestCoroutineDispatcher?
-): CoroutineDispatcherProvider {
-    val sharedTestCoroutineDispatcher = TestCoroutineDispatcher()
-    return CoroutineDispatcherProvider(
-        dispatcher ?: sharedTestCoroutineDispatcher,
-        dispatcher ?: sharedTestCoroutineDispatcher,
-        dispatcher ?: sharedTestCoroutineDispatcher
-    )
-}
-

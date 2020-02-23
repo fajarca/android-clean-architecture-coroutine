@@ -12,7 +12,7 @@ class NewsChannelPresentationMapper @Inject constructor(): Mapper<List<NewsChann
         input.map {
             val locale = Locale("en", it.country)
             val country = locale.displayCountry
-            newsChannel.add(NewsChannel(it.id, country, it.name, it.url))
+            newsChannel.add(NewsChannel(it.id, country, it.name, it.url, it.newsIntiial))
         }
         return newsChannel
     }

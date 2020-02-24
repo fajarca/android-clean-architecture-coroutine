@@ -1,4 +1,4 @@
-package io.fajarca.news
+package io.fajarca.testutil
 
 import org.junit.Test
 

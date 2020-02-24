@@ -1,4 +1,4 @@
-package io.fajarca.news
+package io.fajarca.testutil.rule
 
 import io.fajarca.core.dispatcher.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher

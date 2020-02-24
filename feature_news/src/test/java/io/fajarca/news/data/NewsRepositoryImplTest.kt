@@ -4,12 +4,12 @@ import io.fajarca.core.database.dao.NewsDao
 import io.fajarca.core.database.entity.NewsEntity
 import io.fajarca.core.network.HttpResult
 import io.fajarca.core.vo.Result
-import io.fajarca.news.CoroutineTestRule
 import io.fajarca.news.data.mapper.NewsMapper
 import io.fajarca.news.data.response.NewsDto
 import io.fajarca.news.data.source.NewsRemoteDataSource
+import io.fajarca.testutil.rule.CoroutineTestRule
+import io.fajarca.testutil.extension.runBlockingTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -54,7 +54,7 @@ class NewsRepositoryImplTest {
     }
 
     @Test
-    fun `when inserting news, should call dao insert method`() = coroutineTestRule.testDispatcher.runBlockingTest {
+    fun `when inserting news, should call dao insert method`() = coroutineTestRule.runBlockingTest {
         //Given
         val news = createFakeNewsEntities()
 
@@ -66,7 +66,7 @@ class NewsRepositoryImplTest {
     }
 
     @Test
-    fun `when fetch news from api, get news from network should be invoked`() = coroutineTestRule.testDispatcher.runBlockingTest {
+    fun `when fetch news from api, get news from network should be invoked`() = coroutineTestRule.runBlockingTest {
 
         //When
         sut.getNewsFromApi(country, category, page, pageSize, {})
@@ -76,7 +76,7 @@ class NewsRepositoryImplTest {
     }
 
     @Test
-    fun `when get all news success, save news to local db`() = coroutineTestRule.testDispatcher.runBlockingTest {
+    fun `when get all news success, save news to local db`() = coroutineTestRule.runBlockingTest {
         //Given
         val news = createFakeNewsEntities()
         val response = Result.Success(createFakeNewsResponse())
@@ -92,7 +92,7 @@ class NewsRepositoryImplTest {
     }
 
     @Test
-    fun `when get all news failed, insert no news`() = coroutineTestRule.testDispatcher.runBlockingTest {
+    fun `when get all news failed, insert no news`() = coroutineTestRule.runBlockingTest {
         //Given
         val news = createFakeNewsEntities()
         val response = Result.Error(HttpResult.NO_CONNECTION)

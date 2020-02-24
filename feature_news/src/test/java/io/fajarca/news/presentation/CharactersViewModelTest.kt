@@ -1,21 +1,6 @@
 package io.fajarca.news.presentation
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.Observer
-import io.fajarca.news.domain.entities.News
-import io.fajarca.news.presentation.viewmodel.HomeViewModel
-import io.fajarca.news.util.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
-import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
 class CharactersViewModelTest {

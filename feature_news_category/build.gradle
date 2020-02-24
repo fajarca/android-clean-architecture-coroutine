@@ -94,7 +94,6 @@ android {
 dependencies {
     implementation project(Modules.core)
     implementation project(Modules.presentation)
-    implementation project(Modules.ui_view)
     implementation project(Modules.navigation)
 
     kapt Libraries.daggerCompiler

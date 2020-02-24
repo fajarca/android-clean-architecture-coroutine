@@ -1,10 +1,11 @@
-package io.fajarca.uiview
+package io.fajarca.presentation.customview
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import io.fajarca.presentation.R
 
 class UiStateView : ConstraintLayout {
 

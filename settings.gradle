@@ -1,7 +1,6 @@
 include ':app', ':test_util',
         ':core',
         ':navigation',
-        'libraries:ui-view',
         'libraries:presentation',
         'feature_news',
         ':feature_news_channel',

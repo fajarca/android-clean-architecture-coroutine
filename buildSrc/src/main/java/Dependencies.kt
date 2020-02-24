@@ -90,7 +90,6 @@ object Modules {
     val core = ":core"
     val navigation = ":navigation"
     val presentation = ":libraries:presentation"
-    val ui_view = ":libraries:ui-view"
     val test_util = ":test_util"
 
     val feature_news = ":feature_news"

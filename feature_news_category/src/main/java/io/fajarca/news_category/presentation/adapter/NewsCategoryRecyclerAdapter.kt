@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import io.fajarca.news_category.R
 import io.fajarca.news_category.databinding.ItemNewsCategoryBinding
 import io.fajarca.news_category.presentation.model.NewsCategory
 
@@ -21,7 +22,8 @@ class NewsCategoryRecyclerAdapter(private val listener: NewsCategoryClickListene
     override fun onBindViewHolder(holder: NewsChannelViewHolder, position: Int) {
        holder.bind(getItem(position) ?: NewsCategory(
            "",
-           ""
+           "",
+           R.drawable.ic_business
        ), listener)
     }
 
@@ -29,6 +31,7 @@ class NewsCategoryRecyclerAdapter(private val listener: NewsCategoryClickListene
 
         fun bind(category: NewsCategory, listener: NewsCategoryClickListener) {
             binding.category = category
+            binding.imageView.setImageResource(category.resourceId)
             binding.root.setOnClickListener { listener.onNewsCategoryPressed(category) }
             binding.executePendingBindings()
         }

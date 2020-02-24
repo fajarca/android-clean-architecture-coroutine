@@ -69,43 +69,50 @@ class NewsCategoryFragment : Fragment(), NewsCategoryRecyclerAdapter.NewsCategor
         categories.add(
             NewsCategory(
                 "business",
-                "Business"
+                "Business",
+                R.drawable.ic_business
             )
         )
         categories.add(
             NewsCategory(
                 "technology",
-                "Technology"
+                "Technology",
+                R.drawable.ic_technology
             )
         )
         categories.add(
             NewsCategory(
                 "entertainment",
-                "Entertainment"
+                "Entertainment",
+                R.drawable.ic_entertainment
             )
         )
         categories.add(
             NewsCategory(
                 "general",
-                "General"
+                "General",
+                R.drawable.ic_general
             )
         )
         categories.add(
             NewsCategory(
                 "health",
-                "Health"
+                "Health",
+                R.drawable.ic_health
             )
         )
         categories.add(
             NewsCategory(
                 "science",
-                "Science"
+                "Science",
+                R.drawable.ic_science
             )
         )
         categories.add(
             NewsCategory(
                 "sports",
-                "Sport"
+                "Sport",
+                R.drawable.ic_sports
             )
         )
         return categories

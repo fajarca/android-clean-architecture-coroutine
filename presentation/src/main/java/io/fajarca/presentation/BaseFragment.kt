@@ -10,9 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import javax.inject.Inject
 
 abstract class BaseFragment<out B : ViewDataBinding, out V : ViewModel> : Fragment() {
     val binding: B

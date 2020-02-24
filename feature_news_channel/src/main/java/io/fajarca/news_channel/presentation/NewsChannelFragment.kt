@@ -63,21 +63,20 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
     private fun subscribeNewsChannel(it: Result<List<NewsChannel>>) {
         when(it) {
             is Result.Loading -> {
-                showLoading(true)
+                binding.uiStateView.showLoading()
             }
             is Result.Success -> {
-                showLoading(false)
+                binding.uiStateView.dismiss()
                 adapter.submitList(it.data)
             }
             is Result.Error -> {
-                showLoading(false)
+                binding.uiStateView.showError(it.errorMessage ?: "Unknown error")
+            }
+            is Result.Empty -> {
+                binding.uiStateView.showEmptyData("No channel found")
             }
         }
 
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.isLoading = isLoading
     }
 
     private fun initToolbar() {

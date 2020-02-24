@@ -12,6 +12,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        style="@style/BuzzNews.CardView"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,14 +41,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:text="@{channel.name}"
-                android:minLines="3"
-                android:maxLines="3"
                 android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="3"
+                android:minLines="3"
+                android:text="@{channel.name}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvInitial"

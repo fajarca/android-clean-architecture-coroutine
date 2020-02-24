@@ -27,11 +27,19 @@ class NewsChannelViewModel (private val getNewsChannelUseCase: GetNewsChannelUse
     val newsChannel : LiveData<Result<List<NewsChannel>>> = _newsChannel
 
     fun getNewsChannel() {
-        _newsChannel.value = Result.Loading
+        setResult(Result.Loading)
         viewModelScope.launch {
             val result = getNewsChannelUseCase.execute()
-            _newsChannel.value = Result.Success(mapper.map(result))
+            if (result.isEmpty()) {
+                setResult(Result.Empty)
+            } else {
+                _newsChannel.value = Result.Success(mapper.map(result))
+            }
         }
+    }
+
+    private fun setResult(result : Result<List<NewsChannel>>) {
+        _newsChannel.value = result
     }
 
 

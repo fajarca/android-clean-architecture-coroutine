@@ -10,7 +10,8 @@ interface NewsRepository {
     suspend fun getNewsFromApi(country : String?, category : String?, page : Int, pageSize : Int, onSuccessAction: () -> Unit) : Result<NewsDto>
     suspend fun insertNews(news : List<NewsEntity>)
     suspend fun findAllNews(country: String?, category : String?, page: Int, pageSize: Int, onSuccessAction : () -> Unit)
-    fun getNewsFactory(country: String?, category : String?) : DataSource.Factory<Int, News>
+    fun findByCountry(country: String?) : DataSource.Factory<Int, News>
+    fun findByCategory(category: String?) : DataSource.Factory<Int, News>
 }
 
 

@@ -40,11 +40,11 @@ class NewsRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getNewsFactory(country: String?, category: String?): DataSource.Factory<Int, News> {
-        if (category.isNullOrEmpty()) {
-            return dao.findByCountry(country ?: "").map { mapper.mapToDomain(it) }
-        }
+    override fun findByCountry(country: String?): DataSource.Factory<Int, News> {
+        return dao.findByCountry(country ?: "").map { mapper.mapToDomain(it) }
+    }
 
-        return dao.findByCategory(category).map { mapper.mapToDomain(it) }
+    override fun findByCategory(category: String?): DataSource.Factory<Int, News> {
+        return dao.findByCategory(category ?: "").map { mapper.mapToDomain(it) }
     }
 }

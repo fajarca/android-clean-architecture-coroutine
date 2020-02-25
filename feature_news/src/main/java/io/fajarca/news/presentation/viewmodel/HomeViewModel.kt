@@ -66,10 +66,6 @@ class HomeViewModel(
             .setBoundaryCallback(boundaryCallback)
             .build()
 
-        return SearchResult(
-            newsSourceState,
-            initialLoadingState,
-            newsSource
-        )
+        return SearchResult(newsSourceState, initialLoadingState, newsSource)
     }
 }

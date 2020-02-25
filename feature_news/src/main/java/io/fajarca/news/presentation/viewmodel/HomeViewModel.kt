@@ -2,6 +2,7 @@ package io.fajarca.news.presentation.viewmodel
 
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import io.fajarca.news.presentation.mapper.NewsPresentationMapper
 import io.fajarca.news.domain.entities.SearchQuery
 import io.fajarca.news.domain.repository.NewsBoundaryCallback
@@ -35,9 +36,9 @@ class HomeViewModel(
         const val PAGE_SIZE = 10
     }
 
-    private val _category = MutableLiveData<SearchQuery>()
+    private val _query = MutableLiveData<SearchQuery>()
 
-    private val searchResult = Transformations.map(_category) {
+    private val searchResult = Transformations.map(_query) {
         search(it.country, it.category)
     }
 
@@ -46,28 +47,22 @@ class HomeViewModel(
     val searchState = Transformations.switchMap(searchResult) { it.searchState }
 
     fun setSearchQuery(country: String?, category: String?) {
-        if (country.equals("null", true)) {
-            _category.postValue(SearchQuery(null, category))
-        } else {
-            _category.postValue(SearchQuery(country, category))
-        }
+        _query.postValue(SearchQuery(country, category))
     }
 
     private fun search(country: String?, category: String?): SearchResult {
         val factory = getNewsUseCase.getNewsFactory(country, category).map { mapper.map(it, Locale.getDefault()) }
-        val boundaryCallback =
-            NewsBoundaryCallback(
-                country,
-                category,
-                getNewsUseCase,
-                viewModelScope
-            )
+        val boundaryCallback = NewsBoundaryCallback(country, category, getNewsUseCase, viewModelScope)
+
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(2 * PAGE_SIZE)
+            .setPageSize(PAGE_SIZE)
+            .build()
 
         val newsSourceState = boundaryCallback.newsState
         val initialLoadingState = boundaryCallback.initialLoading
-        val newsSource = LivePagedListBuilder(factory,
-            PAGE_SIZE
-        )
+        val newsSource = LivePagedListBuilder(factory, config)
             .setBoundaryCallback(boundaryCallback)
             .build()
 

@@ -6,6 +6,7 @@ import androidx.paging.PagedList
 import io.fajarca.core.vo.UiState
 import io.fajarca.news.domain.entities.News
 import io.fajarca.news.domain.usecase.GetNewsUseCase
+import io.fajarca.news.presentation.viewmodel.HomeViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -18,7 +19,6 @@ class NewsBoundaryCallback(private val country : String?, private val category :
     // avoid triggering multiple requests in the same time
     private var isRequestInProgress = false
     private var lastRequestedPage = 1
-    private val pageSize = 5
 
     private val _initialLoading = MutableLiveData<UiState>(UiState.Loading)
     val initialLoading : LiveData<UiState>
@@ -38,7 +38,7 @@ class NewsBoundaryCallback(private val country : String?, private val category :
 
         scope.launch(CoroutineExceptionHandler { _, _ ->  onFetchNewsError()}) {
 
-            getNewsUseCase.execute(country, category, lastRequestedPage, pageSize, onSuccessAction = {
+            getNewsUseCase.execute(country, category, lastRequestedPage, HomeViewModel.PAGE_SIZE, onSuccessAction = {
                 isRequestInProgress = false
                 lastRequestedPage++
                 setState(UiState.Success)

@@ -57,6 +57,9 @@
         <argument
             android:name="category"
             app:argType="string" />
+        <action
+            android:id="@+id/action_fragmentNews_to_fragmentWebBrowser"
+            app:destination="@id/fragmentWebBrowser" />
     </fragment>
 
     <fragment

@@ -3,26 +3,22 @@ package io.fajarca.news.domain.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
-import io.fajarca.core.vo.UiState
+import io.fajarca.core.network.HttpResult
+import io.fajarca.core.vo.Result
 import io.fajarca.news.domain.entities.News
 import io.fajarca.news.domain.usecase.InsertNewsUseCase
 import io.fajarca.news.presentation.viewmodel.HomeViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class NewsBoundaryCallback(private val country : String?, private val category : String?, private val insertNewsUseCase: InsertNewsUseCase, private val scope : CoroutineScope) : PagedList.BoundaryCallback<News>() {
 
-    private val _newsState = MutableLiveData<UiState>()
-    val newsState : LiveData<UiState> = _newsState
+    private val _newsState = MutableLiveData<Result<List<News>>>()
+    val newsState : LiveData<Result<List<News>>> = _newsState
 
     // avoid triggering multiple requests in the same time
     private var isRequestInProgress = false
     private var lastRequestedPage = 1
-
-    private val _initialLoading = MutableLiveData<UiState>(UiState.Loading)
-    val initialLoading : LiveData<UiState>
-    get() = _initialLoading
 
     override fun onZeroItemsLoaded() {
         requestAndSaveData()
@@ -34,31 +30,32 @@ class NewsBoundaryCallback(private val country : String?, private val category :
     private fun requestAndSaveData() {
         if (isRequestInProgress) return
 
-        setState(UiState.Loading)
+        setState(Result.Loading)
 
-        scope.launch(CoroutineExceptionHandler { _, _ ->  onFetchNewsError()}) {
+        scope.launch {
 
-            insertNewsUseCase(country, category, lastRequestedPage, HomeViewModel.PAGE_SIZE, onSuccessAction = {
-                isRequestInProgress = false
-                lastRequestedPage++
-                setState(UiState.Success)
-            })
-            setState(UiState.Complete)
-            setInitialLoadingState(UiState.Complete)
+            insertNewsUseCase(country,
+                category,
+                lastRequestedPage,
+                HomeViewModel.PAGE_SIZE,
+                onSuccessAction = {onFetchSuccess()} ,
+                onErrorAction = { cause, code, errorMessage ->  onFetchNewsError(cause, code, errorMessage)})
         }
 
     }
 
-    private fun onFetchNewsError() {
+    private fun onFetchSuccess() {
         isRequestInProgress = false
-        setState(UiState.Error)
+        lastRequestedPage++
+        setState(Result.Success(emptyList()))
+    }
+    private fun onFetchNewsError(cause : HttpResult, code : Int, errorMessage : String) {
+        isRequestInProgress = false
+        setState(Result.Error(cause, code, errorMessage))
     }
 
-    private fun setState(result : UiState) {
+    private fun setState(result : Result<List<News>>) {
         _newsState.postValue(result)
     }
 
-    private fun setInitialLoadingState(state: UiState) {
-        _initialLoading.postValue(state)
-    }
 }

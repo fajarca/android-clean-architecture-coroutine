@@ -11,7 +11,9 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import io.fajarca.core.BuzzNewsApp
+import io.fajarca.core.vo.Result
 import io.fajarca.core.vo.UiState
 import io.fajarca.news.R
 import io.fajarca.news.databinding.FragmentHomeBinding
@@ -51,26 +53,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
         vm.setSearchQuery("id", null)
 
         vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
-        vm.initialLoadingState.observe(viewLifecycleOwner, Observer { subscribeInitialLoadingState(it) })
         vm.searchState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
     }
 
-    private fun subscribeInitialLoadingState(it: UiState) {
+
+
+    private fun subscribeNewsState(it: Result<List<News>>) {
         when(it) {
-            is UiState.Loading -> {
-                binding.isLoading = true
-            }
-            is UiState.Complete -> {
-                binding.isLoading = false
+            is Result.Loading -> adapter.setState(UiState.Loading)
+            is Result.Success -> adapter.setState(UiState.Success)
+            is Result.Error -> {
+                adapter.setState(UiState.Error)
+                Snackbar.make(binding.root, it.errorMessage ?: "", Snackbar.LENGTH_LONG).show()
             }
         }
+
     }
-
-
-    private fun subscribeNewsState(it: UiState) {
-        adapter.setState(it)
-    }
-
 
     private fun initRecyclerView() {
         adapter = NewsRecyclerAdapter(this)
@@ -83,8 +81,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
 
     private fun subscribeNews(data: PagedList<News>) {
+        showEmptyList(data.isEmpty())
         adapter.submitList(data)
-        binding.isLoading = false
     }
 
     override fun onNewsPressed(news: News) {
@@ -110,5 +108,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     private fun initToolbar() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
         binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
+    }
+
+
+    private fun showEmptyList(shouldShow : Boolean) {
+        if (shouldShow) binding.uiStateView.showEmptyData("No saved news found") else binding.uiStateView.dismiss()
     }
 }

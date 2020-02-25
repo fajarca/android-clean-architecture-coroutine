@@ -3,6 +3,8 @@ package io.fajarca.news.presentation.viewmodel
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import io.fajarca.core.vo.Result
+import io.fajarca.news.domain.entities.News
 import io.fajarca.news.presentation.mapper.NewsPresentationMapper
 import io.fajarca.news.domain.entities.SearchQuery
 import io.fajarca.news.domain.repository.NewsBoundaryCallback
@@ -47,8 +49,7 @@ class HomeViewModel(
     }
 
     val news = Transformations.switchMap(searchResult) { it.news }
-    val initialLoadingState = Transformations.switchMap(searchResult) { it.initialLoadingState }
-    val searchState = Transformations.switchMap(searchResult) { it.searchState }
+    val searchState : LiveData<Result<List<News>>> = Transformations.switchMap(searchResult) { it.searchState }
 
     fun setSearchQuery(country: String?, category: String?) {
         _query.postValue(SearchQuery(country, category))
@@ -65,11 +66,10 @@ class HomeViewModel(
             .build()
 
         val newsSourceState = boundaryCallback.newsState
-        val initialLoadingState = boundaryCallback.initialLoading
         val newsSource = LivePagedListBuilder(factory, config)
             .setBoundaryCallback(boundaryCallback)
             .build()
 
-        return SearchResult(newsSourceState, initialLoadingState, newsSource)
+        return SearchResult(newsSourceState, newsSource)
     }
 }

@@ -7,17 +7,20 @@ import io.fajarca.news.presentation.mapper.NewsPresentationMapper
 import io.fajarca.news.domain.entities.SearchQuery
 import io.fajarca.news.domain.repository.NewsBoundaryCallback
 import io.fajarca.news.domain.usecase.GetNewsUseCase
+import io.fajarca.news.domain.usecase.InsertNewsUseCase
 import io.fajarca.news.presentation.model.SearchResult
 import java.util.*
 import javax.inject.Inject
 
 class HomeViewModel(
     private val getNewsUseCase: GetNewsUseCase,
+    private val insertNewsUseCase: InsertNewsUseCase,
     private val mapper: NewsPresentationMapper
 ) : ViewModel() {
 
     class Factory @Inject constructor(
         private val getNewsUseCase: GetNewsUseCase,
+        private val insertNewsUseCase: InsertNewsUseCase,
         private val mapper: NewsPresentationMapper
     ) : ViewModelProvider.NewInstanceFactory() {
         @Suppress("UNCHECKED_CAST")
@@ -25,6 +28,7 @@ class HomeViewModel(
             if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
                 return HomeViewModel(
                     getNewsUseCase,
+                    insertNewsUseCase,
                     mapper
                 ) as T
             }
@@ -51,8 +55,8 @@ class HomeViewModel(
     }
 
     private fun search(country: String?, category: String?): SearchResult {
-        val factory = getNewsUseCase.getNewsFactory(country, category).map { mapper.map(it, Locale.getDefault()) }
-        val boundaryCallback = NewsBoundaryCallback(country, category, getNewsUseCase, viewModelScope)
+        val factory = getNewsUseCase(country, category).map { mapper.map(it, Locale.getDefault()) }
+        val boundaryCallback = NewsBoundaryCallback(country, category, insertNewsUseCase, viewModelScope)
 
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)

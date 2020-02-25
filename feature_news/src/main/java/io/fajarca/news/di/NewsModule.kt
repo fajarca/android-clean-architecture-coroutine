@@ -10,6 +10,7 @@ import io.fajarca.core.database.dao.NewsDao
 import io.fajarca.core.database.NewsDatabase
 import io.fajarca.core.di.scope.FeatureScope
 import io.fajarca.news.domain.usecase.GetNewsUseCase
+import io.fajarca.news.domain.usecase.InsertNewsUseCase
 import io.fajarca.news.presentation.mapper.NewsPresentationMapper
 import retrofit2.Retrofit
 
@@ -37,6 +38,7 @@ class NewsModule {
     @FeatureScope
     fun provideCharacterListViewModelFactory(
         getNewsUseCase: GetNewsUseCase,
+        insertNewsUseCase: InsertNewsUseCase,
         mapper : NewsPresentationMapper
-    ) = HomeViewModel.Factory(getNewsUseCase, mapper)
+    ) = HomeViewModel.Factory(getNewsUseCase, insertNewsUseCase, mapper)
 }

@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import io.fajarca.core.vo.UiState
 import io.fajarca.news.domain.entities.News
-import io.fajarca.news.domain.usecase.GetNewsUseCase
+import io.fajarca.news.domain.usecase.InsertNewsUseCase
 import io.fajarca.news.presentation.viewmodel.HomeViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class NewsBoundaryCallback(private val country : String?, private val category : String?, private val getNewsUseCase: GetNewsUseCase, private val scope : CoroutineScope) : PagedList.BoundaryCallback<News>() {
+class NewsBoundaryCallback(private val country : String?, private val category : String?, private val insertNewsUseCase: InsertNewsUseCase, private val scope : CoroutineScope) : PagedList.BoundaryCallback<News>() {
 
     private val _newsState = MutableLiveData<UiState>()
     val newsState : LiveData<UiState> = _newsState
@@ -38,7 +38,7 @@ class NewsBoundaryCallback(private val country : String?, private val category :
 
         scope.launch(CoroutineExceptionHandler { _, _ ->  onFetchNewsError()}) {
 
-            getNewsUseCase.execute(country, category, lastRequestedPage, HomeViewModel.PAGE_SIZE, onSuccessAction = {
+            insertNewsUseCase(country, category, lastRequestedPage, HomeViewModel.PAGE_SIZE, onSuccessAction = {
                 isRequestInProgress = false
                 lastRequestedPage++
                 setState(UiState.Success)

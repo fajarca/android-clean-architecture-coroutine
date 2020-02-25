@@ -1,5 +1,5 @@
 package io.fajarca.core.mapper
 
-abstract class Mapper<in I, out O> {
-    abstract fun map(input : I) :  O
+abstract class Mapper<in I, out O>{
+    abstract suspend fun map(input : I) :  O
 }

@@ -1,29 +1,36 @@
 package io.fajarca.news_channel.data.mapper
 
 import io.fajarca.core.database.entity.NewsChannelEntity
+import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
 import io.fajarca.core.mapper.Mapper
 import io.fajarca.news_channel.data.response.SourcesDto
 import io.fajarca.news_channel.domain.entities.NewsChannel
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class NewsChannelMapper : Mapper<SourcesDto, List<NewsChannelEntity>>(){
+class NewsChannelMapper @Inject constructor(private val dispatcherProvider: CoroutineDispatcherProvider) : Mapper<SourcesDto, List<NewsChannelEntity>>(){
 
-    override fun map(input: SourcesDto): List<NewsChannelEntity> {
-        val newsChannel = mutableListOf<NewsChannelEntity>()
-        input.sources?.map {
-            newsChannel.add(NewsChannelEntity(it?.id ?: "", it?.name ?: "", it?.country ?: "", it?.url ?: ""))
+    override suspend fun map(input: SourcesDto): List<NewsChannelEntity> {
+        return withContext(dispatcherProvider.default) {
+            val newsChannel = mutableListOf<NewsChannelEntity>()
+            input.sources?.map {
+                newsChannel.add(NewsChannelEntity(it?.id ?: "", it?.name ?: "", it?.country ?: "", it?.url ?: ""))
+            }
+            newsChannel
         }
-        return newsChannel
     }
 
-    fun mapToDomain(input : List<NewsChannelEntity>): List<NewsChannel> {
-        val newsChannel = mutableListOf<NewsChannel>()
-        input.map {
-            newsChannel.add(NewsChannel(it.id, it.country, it.name, it.url, getChannelInitial(it.name)))
+    suspend fun mapToDomain(input : List<NewsChannelEntity>): List<NewsChannel> {
+        return withContext(dispatcherProvider.default) {
+            val newsChannel = mutableListOf<NewsChannel>()
+            input.map {
+                newsChannel.add(NewsChannel(it.id, it.country, it.name, it.url, getChannelInitial(it.name)))
+            }
+            newsChannel
         }
-        return newsChannel
     }
 
-    fun getChannelInitial(channelName : String) : String {
+    private fun getChannelInitial(channelName : String) : String {
         val splittedChannelName = channelName.split(" ")
         val size = splittedChannelName.size
 

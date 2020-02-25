@@ -91,7 +91,7 @@ class NewsFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
     override fun onNewsPressed(news: News) {
         val action =
-            HomeFragmentDirections.actionFragmentHomeToNavWebBrowser(
+            NewsFragmentDirections.actionFragmentNewsToFragmentWebBrowser(
                 news.url,
                 news.category,
                 Origin.NEWS

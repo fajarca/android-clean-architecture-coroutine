@@ -1,14 +1,13 @@
 package io.fajarca.core.network
 
 import com.squareup.moshi.Moshi
+import io.fajarca.core.vo.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import io.fajarca.core.vo.Result
 
 open class RemoteDataSource {
     open suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): Result<T> {
@@ -43,7 +42,7 @@ open class RemoteDataSource {
         return try {
             val errorBody = throwable.response()?.errorBody()?.string() ?: "Unknown HTTP error body"
             val moshi = Moshi.Builder().build()
-            val adapter = moshi.adapter(JSONObject::class.java)
+            val adapter = moshi.adapter(Object::class.java)
             val errorMessage = adapter.fromJson(errorBody)
             error(HttpResult.CLIENT_ERROR, throwable.code(), errorMessage.toString())
         } catch (exception : Exception) {

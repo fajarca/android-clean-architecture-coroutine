@@ -2,16 +2,18 @@ package io.fajarca.news_channel.data.mapper
 
 import io.fajarca.core.database.entity.NewsChannelEntity
 import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
+import io.fajarca.core.mapper.AsyncMapper
 import io.fajarca.core.mapper.Mapper
 import io.fajarca.news_channel.data.response.SourcesDto
 import io.fajarca.news_channel.domain.entities.NewsChannel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class NewsChannelMapper @Inject constructor(private val dispatcherProvider: CoroutineDispatcherProvider) : Mapper<SourcesDto, List<NewsChannelEntity>>(){
+class NewsChannelMapper @Inject constructor() : AsyncMapper<SourcesDto, List<NewsChannelEntity>>(){
 
-    override suspend fun map(input: SourcesDto): List<NewsChannelEntity> {
-        return withContext(dispatcherProvider.default) {
+    override suspend fun map(dispatcher : CoroutineDispatcher, input: SourcesDto): List<NewsChannelEntity> {
+        return withContext(dispatcher) {
             val newsChannel = mutableListOf<NewsChannelEntity>()
             input.sources?.map {
                 newsChannel.add(NewsChannelEntity(it?.id ?: "", it?.name ?: "", it?.country ?: "", it?.url ?: ""))
@@ -20,8 +22,8 @@ class NewsChannelMapper @Inject constructor(private val dispatcherProvider: Coro
         }
     }
 
-    suspend fun mapToDomain(input : List<NewsChannelEntity>): List<NewsChannel> {
-        return withContext(dispatcherProvider.default) {
+    suspend fun mapToDomain(dispatcher: CoroutineDispatcher, input : List<NewsChannelEntity>): List<NewsChannel> {
+        return withContext(dispatcher) {
             val newsChannel = mutableListOf<NewsChannel>()
             input.map {
                 newsChannel.add(NewsChannel(it.id, it.country, it.name, it.url, getChannelInitial(it.name)))

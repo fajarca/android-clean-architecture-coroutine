@@ -9,6 +9,7 @@ import io.fajarca.news_channel.data.response.SourcesDto
 import io.fajarca.news_channel.data.source.NewsChannelRemoteDataSource
 import io.fajarca.news_channel.domain.entities.NewsChannel
 import io.fajarca.news_channel.domain.repository.NewsChannelRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 class NewsChannelRepositoryImpl @Inject constructor(
@@ -24,7 +25,8 @@ class NewsChannelRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getNewsChannelFromDb(): List<NewsChannel> {
-        return mapper.mapToDomain(dao.findAll())
+        val savedChannel = dao.findAll()
+        return mapper.mapToDomain(dispatcher.default, savedChannel)
     }
 
     override suspend fun insertNewsChannel(newsChannel: List<NewsChannelEntity>) {
@@ -34,7 +36,7 @@ class NewsChannelRepositoryImpl @Inject constructor(
     override suspend fun findAllNewsChannel(): List<NewsChannel> {
         val apiResult = getNewsChannelFromApi()
         if (apiResult is Result.Success) {
-            val newsChannel = mapper.map(apiResult.data)
+            val newsChannel = mapper.map(dispatcher.default, apiResult.data)
             insertNewsChannel(newsChannel)
         }
         return getNewsChannelFromDb()

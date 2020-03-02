@@ -24,10 +24,6 @@ class NewsChannelModule {
 
     @Provides
     @FeatureScope
-    fun provideMapper(dispatcherProvider: CoroutineDispatcherProvider) : NewsChannelMapper = NewsChannelMapper(dispatcherProvider)
-
-    @Provides
-    @FeatureScope
     fun provideNewsChannelService(retrofit: Retrofit) : ChannelService = retrofit.create(ChannelService::class.java)
 
     @Provides

@@ -6,8 +6,8 @@ import javax.inject.Inject
 
 class GetNewsChannelUseCase @Inject constructor(private val repository: NewsChannelRepository) {
 
-    suspend fun execute(): List<NewsChannel> {
-         return repository.findAllNewsChannel()
+    suspend operator fun invoke(): List<NewsChannel> {
+        return repository.findAllNewsChannel()
     }
 
 }

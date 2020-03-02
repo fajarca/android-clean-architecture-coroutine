@@ -96,6 +96,7 @@ dependencies {
     implementation project(Modules.core)
     implementation project(Modules.presentation)
     implementation project(Modules.navigation)
+    implementation project(Modules.test_util)
 
     kapt Libraries.daggerCompiler
     kapt Libraries.room_compiler

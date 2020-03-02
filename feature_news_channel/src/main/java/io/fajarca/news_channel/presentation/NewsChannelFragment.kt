@@ -11,7 +11,6 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.core.BuzzNewsApp
-import io.fajarca.core.vo.Result
 import io.fajarca.navigation.Origin
 import io.fajarca.news_channel.R
 import io.fajarca.news_channel.databinding.FragmentNewsChannelBinding
@@ -60,19 +59,16 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
     }
 
 
-    private fun subscribeNewsChannel(it: Result<List<NewsChannel>>) {
+    private fun subscribeNewsChannel(it: NewsChannelViewModel.NewsChannelState) {
         when(it) {
-            is Result.Loading -> {
+            is NewsChannelViewModel.NewsChannelState.Loading -> {
                 binding.uiStateView.showLoading()
             }
-            is Result.Success -> {
+            is NewsChannelViewModel.NewsChannelState.Success -> {
                 binding.uiStateView.dismiss()
-                adapter.submitList(it.data)
+                adapter.submitList(it.channels)
             }
-            is Result.Error -> {
-                binding.uiStateView.showError(it.errorMessage ?: "Unknown error")
-            }
-            is Result.Empty -> {
+            is NewsChannelViewModel.NewsChannelState.Empty -> {
                 binding.uiStateView.showEmptyData("No channel found")
             }
         }

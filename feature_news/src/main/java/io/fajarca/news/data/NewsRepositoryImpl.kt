@@ -54,4 +54,8 @@ class NewsRepositoryImpl @Inject constructor(
     override fun findByCategory(category: String?): DataSource.Factory<Int, News> {
         return dao.findByCategory(category ?: "").map { mapper.mapToDomain(it) }
     }
+
+    override fun findAll(): DataSource.Factory<Int, News> {
+        return dao.findAll().map { mapper.mapToDomain(it) }
+    }
 }

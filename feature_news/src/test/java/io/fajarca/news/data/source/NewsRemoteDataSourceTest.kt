@@ -1,10 +1,12 @@
 package io.fajarca.news.data.source
 
 import io.fajarca.news.data.NewsService
+import io.fajarca.testutil.extension.runBlockingTest
+import io.fajarca.testutil.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.verify
@@ -23,6 +25,9 @@ class NewsRemoteDataSourceTest {
     private val page = 1
     private val pageSize = 25
 
+    @get:Rule
+    val coroutineTestRule = CoroutineTestRule()
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
@@ -30,7 +35,7 @@ class NewsRemoteDataSourceTest {
     }
 
     @Test
-    fun `when get news, should fetch from network`() = testCoroutineDispatcher.runBlockingTest{
+    fun `when get news, should fetch from network`() = coroutineTestRule.runBlockingTest{
         //Given
 
         //When

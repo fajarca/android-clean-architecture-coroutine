@@ -80,12 +80,14 @@ class NewsRepositoryImplTest {
         //Given
         val news = createFakeNewsEntities()
         val response = Result.Success(createFakeNewsResponse())
+        val onSuccessAction = {}
+        val onErrorAction = {cause : HttpResult, code : Int, errorMessage : String ->  }
 
         `when`(remoteDataSource.getNews(coroutineTestRule.testDispatcher, country, category, page, pageSize)).thenReturn(response)
         `when`(mapper.map(country, category, createFakeNewsResponse())).thenReturn(news)
 
         //When
-        sut.findAllNews(country, category, page, pageSize, {})
+        sut.findAllNews(country, category, page, pageSize, onSuccessAction, onErrorAction)
 
         //Then
         verify(dao).insertAll(news)
@@ -96,11 +98,13 @@ class NewsRepositoryImplTest {
         //Given
         val news = createFakeNewsEntities()
         val response = Result.Error(HttpResult.NO_CONNECTION)
+        val onSuccessAction = {}
+        val onErrorAction = {cause : HttpResult, code : Int, errorMessage : String ->  }
 
         `when`(remoteDataSource.getNews(coroutineTestRule.testDispatcher, country, category, page, pageSize)).thenReturn(response)
 
         //When
-        sut.findAllNews(country, category, page, pageSize, {})
+        sut.findAllNews(country, category, page, pageSize, onSuccessAction, onErrorAction )
 
         //Then
         verify(dao, never()).insertAll(news)

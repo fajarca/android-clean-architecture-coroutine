@@ -10,8 +10,10 @@ class GetNewsUseCase @Inject constructor(private val repository: NewsRepository)
     operator fun invoke(country : String?, category : String?): DataSource.Factory<Int, News> {
         return if (!country.isNullOrEmpty()) {
             repository.findByCountry(country)
-        } else {
+        } else if (!category.isNullOrEmpty()) {
             repository.findByCategory(category)
+        } else {
+            repository.findAll()
         }
     }
 

@@ -13,6 +13,7 @@ interface NewsRepository {
     suspend fun findAllNews(country: String?, category : String?, page: Int, pageSize: Int, onSuccessAction : () -> Unit, onErrorAction: (cause : HttpResult, code : Int, errorMessage : String) -> Unit)
     fun findByCountry(country: String?) : DataSource.Factory<Int, News>
     fun findByCategory(category: String?) : DataSource.Factory<Int, News>
+    fun findAll() : DataSource.Factory<Int, News>
 }
 
 

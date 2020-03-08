@@ -10,12 +10,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import javax.inject.Inject
 
-abstract class BaseFragment<out B : ViewDataBinding, out V : ViewModel> : Fragment() {
+abstract class BaseFragment<out B : ViewDataBinding, V : ViewModel> : Fragment() {
     val binding: B
         get() = mViewDataBinding
 
-    abstract val vm : V
+    lateinit var vm : V
+
+    @Inject
+    lateinit var factory : ViewModelProvider.Factory
 
     private lateinit var mViewDataBinding: B
 
@@ -26,6 +32,7 @@ abstract class BaseFragment<out B : ViewDataBinding, out V : ViewModel> : Fragme
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutResourceId(), container, false)
+        vm = ViewModelProviders.of(this, factory).get(getViewModelClass())
         mViewDataBinding.lifecycleOwner = this
         mViewDataBinding.executePendingBindings()
         return mViewDataBinding.root
@@ -34,4 +41,5 @@ abstract class BaseFragment<out B : ViewDataBinding, out V : ViewModel> : Fragme
     @LayoutRes
     abstract fun getLayoutResourceId(): Int
     abstract fun initDaggerComponent()
+    abstract fun getViewModelClass(): Class<V>
 }

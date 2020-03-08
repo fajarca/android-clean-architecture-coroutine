@@ -8,20 +8,7 @@ import io.fajarca.news_channel.presentation.mapper.NewsChannelPresentationMapper
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class NewsChannelViewModel (private val getNewsChannelUseCase: GetNewsChannelUseCase, private val mapper : NewsChannelPresentationMapper) : ViewModel() {
-
-    class Factory @Inject constructor(
-        private val getNewsChannelUseCase: GetNewsChannelUseCase,
-        private val mapper : NewsChannelPresentationMapper
-    ) : ViewModelProvider.NewInstanceFactory() {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(NewsChannelViewModel::class.java)) {
-                return NewsChannelViewModel(getNewsChannelUseCase, mapper) as T
-            }
-            throw IllegalArgumentException("ViewModel not found")
-        }
-    }
+class NewsChannelViewModel @Inject constructor(private val getNewsChannelUseCase: GetNewsChannelUseCase, private val mapper : NewsChannelPresentationMapper) : ViewModel() {
 
     private val _newsChannel = MutableLiveData<NewsChannelState>()
     val newsChannel : LiveData<NewsChannelState> = _newsChannel

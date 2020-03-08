@@ -29,8 +29,4 @@ class NewsChannelModule {
     @Provides
     @FeatureScope
     fun provideRemoteDataSource(channelService: ChannelService) = NewsChannelRemoteDataSource(channelService)
-
-    @Provides
-    @FeatureScope
-    fun provideNewsChannelViewModelFactory(getNewsChannelUseCase: GetNewsChannelUseCase, mapper : NewsChannelPresentationMapper) = NewsChannelViewModel.Factory(getNewsChannelUseCase, mapper)
 }

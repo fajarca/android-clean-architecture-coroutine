@@ -14,29 +14,11 @@ import io.fajarca.news.presentation.model.SearchResult
 import java.util.*
 import javax.inject.Inject
 
-class HomeViewModel(
+class HomeViewModel @Inject constructor(
     private val getNewsUseCase: GetNewsUseCase,
     private val insertNewsUseCase: InsertNewsUseCase,
     private val mapper: NewsPresentationMapper
 ) : ViewModel() {
-
-    class Factory @Inject constructor(
-        private val getNewsUseCase: GetNewsUseCase,
-        private val insertNewsUseCase: InsertNewsUseCase,
-        private val mapper: NewsPresentationMapper
-    ) : ViewModelProvider.NewInstanceFactory() {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-                return HomeViewModel(
-                    getNewsUseCase,
-                    insertNewsUseCase,
-                    mapper
-                ) as T
-            }
-            throw IllegalArgumentException("ViewModel not found")
-        }
-    }
 
     companion object {
         const val PAGE_SIZE = 10

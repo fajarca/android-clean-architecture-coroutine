@@ -3,7 +3,6 @@ package io.fajarca.news.presentation.screen
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,25 +12,20 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import io.fajarca.core.BuzzNewsApp
-import io.fajarca.core.network.HttpResult
 import io.fajarca.core.vo.Result
 import io.fajarca.core.vo.UiState
+import io.fajarca.navigation.Origin
 import io.fajarca.news.R
 import io.fajarca.news.databinding.FragmentHomeBinding
+import io.fajarca.news.di.DaggerNewsComponent
 import io.fajarca.news.domain.entities.News
 import io.fajarca.news.presentation.adapter.NewsRecyclerAdapter
 import io.fajarca.news.presentation.viewmodel.HomeViewModel
-import io.fajarca.navigation.Origin
-import io.fajarca.news.di.DaggerNewsComponent
 import io.fajarca.presentation.BaseFragment
-import javax.inject.Inject
 
 class NewsFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRecyclerAdapter.NewsClickListener {
 
-    @Inject
-    lateinit var factory: HomeViewModel.Factory
     private lateinit var adapter: NewsRecyclerAdapter
-    override val vm: HomeViewModel by viewModels(factoryProducer = { factory })
     private val args : NewsFragmentArgs by navArgs()
 
     override fun getLayoutResourceId() = R.layout.fragment_home
@@ -117,5 +111,9 @@ class NewsFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
     private fun showEmptyList(shouldShow : Boolean) {
         if (shouldShow) binding.uiStateView.showEmptyData("No saved news found") else binding.uiStateView.dismiss()
+    }
+
+    override fun getViewModelClass(): Class<HomeViewModel> {
+        return HomeViewModel::class.java
     }
 }

@@ -33,12 +33,4 @@ class NewsModule {
     @Provides
     @FeatureScope
     fun provideRemoteDataSource(characterService: NewsService) = NewsRemoteDataSource(characterService)
-
-    @Provides
-    @FeatureScope
-    fun provideCharacterListViewModelFactory(
-        getNewsUseCase: GetNewsUseCase,
-        insertNewsUseCase: InsertNewsUseCase,
-        mapper : NewsPresentationMapper
-    ) = HomeViewModel.Factory(getNewsUseCase, insertNewsUseCase, mapper)
 }

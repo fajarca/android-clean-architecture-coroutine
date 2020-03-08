@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -25,10 +26,9 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
 
     private val appBarConfiguration by lazy { AppBarConfiguration.Builder(R.id.fragmentNewsChannel).build() }
 
-    @Inject
-    lateinit var factory: NewsChannelViewModel.Factory
+
     private lateinit var adapter: NewsChannelRecyclerAdapter
-    override val vm: NewsChannelViewModel by viewModels(factoryProducer = { factory })
+
 
     override fun getLayoutResourceId() = R.layout.fragment_news_channel
 
@@ -83,6 +83,10 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
     override fun onNewsChannelPressed(channel: NewsChannel) {
         val action = NewsChannelFragmentDirections.actionFragmentNewsChannelToNavWebBrowser(channel.url, channel.name, Origin.CHANNEL)
         findNavController().navigate(action)
+    }
+
+    override fun getViewModelClass(): Class<NewsChannelViewModel> {
+        return NewsChannelViewModel::class.java
     }
 
 

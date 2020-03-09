@@ -3,9 +3,7 @@ package io.fajarca.news_channel.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -19,18 +17,14 @@ import io.fajarca.news_channel.di.DaggerNewsChannelComponent
 import io.fajarca.news_channel.domain.entities.NewsChannel
 import io.fajarca.news_channel.presentation.adapter.NewsChannelRecyclerAdapter
 import io.fajarca.presentation.BaseFragment
-import javax.inject.Inject
 
 class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannelViewModel>(),
     NewsChannelRecyclerAdapter.NewsChannelClickListener {
 
     private val appBarConfiguration by lazy { AppBarConfiguration.Builder(R.id.fragmentNewsChannel).build() }
-
-
-    private lateinit var adapter: NewsChannelRecyclerAdapter
-
-
+    private val adapter by lazy { NewsChannelRecyclerAdapter(this) }
     override fun getLayoutResourceId() = R.layout.fragment_news_channel
+    override fun getViewModelClass() = NewsChannelViewModel::class.java
 
     override fun initDaggerComponent() {
         DaggerNewsChannelComponent
@@ -51,7 +45,6 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
 
 
     private fun initRecyclerView() {
-        adapter = NewsChannelRecyclerAdapter(this)
         val layoutManager = GridLayoutManager(requireActivity(), 4)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
@@ -76,18 +69,13 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
     }
 
     private fun initToolbar() {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
-        binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar.toolbar)
+        binding.toolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
     }
 
     override fun onNewsChannelPressed(channel: NewsChannel) {
         val action = NewsChannelFragmentDirections.actionFragmentNewsChannelToNavWebBrowser(channel.url, channel.name, Origin.CHANNEL)
         findNavController().navigate(action)
     }
-
-    override fun getViewModelClass(): Class<NewsChannelViewModel> {
-        return NewsChannelViewModel::class.java
-    }
-
 
 }

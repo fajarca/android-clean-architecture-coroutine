@@ -104,9 +104,9 @@ class NewsFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     }
 
     private fun initToolbar(title : String) {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
-        binding.contentToolbar.toolbar.setupWithNavController(findNavController())
-        binding.contentToolbar.toolbar.title = title
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.includedToolbar.toolbar)
+        binding.includedToolbar.toolbar.setupWithNavController(findNavController())
+        binding.includedToolbar.toolbar.title = title
     }
 
     private fun showEmptyList(shouldShow : Boolean) {

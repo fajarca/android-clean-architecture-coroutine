@@ -40,8 +40,8 @@ class NewsCategoryFragment : Fragment(), NewsCategoryRecyclerAdapter.NewsCategor
     }
 
     private fun initToolbar() {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
-        binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.includedToolbar.toolbar)
+        binding.includedToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
     }
 
     private fun initRecyclerView() {

@@ -3,6 +3,7 @@ package io.fajarca.news.presentation.screen
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -25,9 +26,9 @@ import io.fajarca.presentation.BaseFragment
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRecyclerAdapter.NewsClickListener {
 
-    private lateinit var adapter: NewsRecyclerAdapter
+    private val adapter by lazy { NewsRecyclerAdapter(this) }
     private val appBarConfiguration by lazy { AppBarConfiguration.Builder(R.id.fragmentHome).build() }
-
+    override fun getViewModelClass() = HomeViewModel::class.java
     override fun getLayoutResourceId() = R.layout.fragment_home
 
     override fun initDaggerComponent() {
@@ -37,7 +38,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
             .build()
             .inject(this)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,8 +50,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
         vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
         vm.searchState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
     }
-
-
 
     private fun subscribeNewsState(it: Result<List<News>>) {
         when(it) {
@@ -66,7 +64,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     }
 
     private fun initRecyclerView() {
-        adapter = NewsRecyclerAdapter(this)
         val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
@@ -101,16 +98,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     }
 
     private fun initToolbar() {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
-        binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.includedToolbar.toolbar)
+        (binding.includedToolbar.toolbar as Toolbar).setupWithNavController(findNavController(), appBarConfiguration)
     }
-
 
     private fun showEmptyList(shouldShow : Boolean) {
         if (shouldShow) binding.uiStateView.showEmptyData("No saved news found") else binding.uiStateView.dismiss()
-    }
-
-    override fun getViewModelClass(): Class<HomeViewModel> {
-        return HomeViewModel::class.java
     }
 }

@@ -20,7 +20,7 @@
         tools:context=".presentation.screen.HomeFragment">
 
         <include
-            android:id="@+id/contentToolbar"
+            android:id="@+id/included_toolbar"
             layout="@layout/toolbar"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -36,7 +36,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content_toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/included_toolbar" />
 
         <io.fajarca.presentation.customview.UiStateView
             android:id="@+id/uiStateView"

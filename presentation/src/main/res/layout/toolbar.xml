@@ -1,29 +1,24 @@
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
+
     </data>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:id="@+id/toolbar"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_width="match_parent" />
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                android:background="?attr/colorPrimary"
-                android:elevation="4dp"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_width="match_parent" />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-    </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 </layout>
+
 
 
 

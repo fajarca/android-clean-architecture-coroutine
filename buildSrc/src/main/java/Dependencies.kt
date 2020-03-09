@@ -14,7 +14,7 @@ object Versions {
     val ktlint = "7.1.0"
     val navigation = "2.2.0-rc04"
     val appcompat = "1.2.0-alpha01"
-    val design = "1.2.0-alpha03"
+    val design = "1.1.0"
     val cardview = "1.0.0"
     val recyclerview = "1.2.0-alpha01"
     val paging = "2.1.1"

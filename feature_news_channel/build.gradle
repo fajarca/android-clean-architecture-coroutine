@@ -93,21 +93,13 @@ android {
 }
 
 dependencies {
-    implementation project(':core')
-    implementation project(':libraries:presentation')
-    implementation project(':libraries:ui-view')
-    implementation project(':navigation')
+    implementation project(Modules.core)
+    implementation project(Modules.presentation)
+    implementation project(Modules.navigation)
+    implementation project(Modules.test_util)
 
-    implementation Libraries.dagger
     kapt Libraries.daggerCompiler
-
-    implementation Libraries.room_ktx
-    implementation Libraries.room_runtime
     kapt Libraries.room_compiler
-
-    implementation Libraries.retrofit
-    implementation Libraries.moshi
-
 
     testImplementation TestLibraries.junit
     testImplementation TestLibraries.lifecycleTesting

@@ -42,13 +42,13 @@ class WebBrowserFragment : Fragment() {
 
 
     private fun initToolbar(origin: Origin, category: String) {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.contentToolbar.toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.includedToolbar.toolbar)
         val appBarConfiguration = AppBarConfiguration(findNavController().graph)
-        binding.contentToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
+        binding.includedToolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
         when(origin) {
-            Origin.NEWS -> binding.contentToolbar.toolbar.title = "Detail"
-            Origin.CHANNEL -> binding.contentToolbar.toolbar.title = category
-            Origin.CATEGORY -> binding.contentToolbar.toolbar.title = category
+            Origin.NEWS -> binding.includedToolbar.toolbar.title = "Detail"
+            Origin.CHANNEL -> binding.includedToolbar.toolbar.title = category
+            Origin.CATEGORY -> binding.includedToolbar.toolbar.title = category
         }
     }
 

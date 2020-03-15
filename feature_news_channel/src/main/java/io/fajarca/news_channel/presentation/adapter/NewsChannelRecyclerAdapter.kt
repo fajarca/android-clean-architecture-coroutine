@@ -17,7 +17,7 @@ class NewsChannelRecyclerAdapter(private val listener: NewsChannelClickListener)
     }
 
     override fun onBindViewHolder(holder: NewsChannelViewHolder, position: Int) {
-       holder.bind(getItem(position) ?: NewsChannel("","","",""), listener)
+       holder.bind(getItem(position) ?: NewsChannel("","","","", ""), listener)
     }
 
     class NewsChannelViewHolder(private val binding: ItemNewsChannelBinding) : RecyclerView.ViewHolder(binding.root) {

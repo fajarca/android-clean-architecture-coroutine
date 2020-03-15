@@ -20,7 +20,7 @@
         tools:context=".presentation.screen.HomeFragment">
 
         <include
-            android:id="@+id/content_toolbar"
+            android:id="@+id/included_toolbar"
             layout="@layout/toolbar"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -33,17 +33,15 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scrollbars="vertical"
-            android:visibility="@{isLoading? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content_toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/included_toolbar" />
 
-        <io.fajarca.uiview.UiStateView
+        <io.fajarca.presentation.customview.UiStateView
             android:id="@+id/uiStateView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{isLoading? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
             app:layout_constraintEnd_toEndOf="@+id/recyclerView"
             app:layout_constraintStart_toStartOf="@+id/recyclerView"

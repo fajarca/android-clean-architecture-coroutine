@@ -5,6 +5,7 @@ import dagger.Provides
 import io.fajarca.core.database.NewsDatabase
 import io.fajarca.core.database.dao.NewsChannelDao
 import io.fajarca.core.di.scope.FeatureScope
+import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
 import io.fajarca.news_channel.data.ChannelService
 import io.fajarca.news_channel.data.mapper.NewsChannelMapper
 import io.fajarca.news_channel.data.source.NewsChannelRemoteDataSource
@@ -23,17 +24,9 @@ class NewsChannelModule {
 
     @Provides
     @FeatureScope
-    fun provideMapper() : NewsChannelMapper = NewsChannelMapper()
-
-    @Provides
-    @FeatureScope
     fun provideNewsChannelService(retrofit: Retrofit) : ChannelService = retrofit.create(ChannelService::class.java)
 
     @Provides
     @FeatureScope
     fun provideRemoteDataSource(channelService: ChannelService) = NewsChannelRemoteDataSource(channelService)
-
-    @Provides
-    @FeatureScope
-    fun provideNewsChannelViewModelFactory(getNewsChannelUseCase: GetNewsChannelUseCase, mapper : NewsChannelPresentationMapper) = NewsChannelViewModel.Factory(getNewsChannelUseCase, mapper)
 }

@@ -14,7 +14,7 @@ object Versions {
     val ktlint = "7.1.0"
     val navigation = "2.2.0-rc04"
     val appcompat = "1.2.0-alpha01"
-    val design = "1.2.0-alpha03"
+    val design = "1.1.0"
     val cardview = "1.0.0"
     val recyclerview = "1.2.0-alpha01"
     val paging = "2.1.1"
@@ -83,4 +83,17 @@ object TestLibraries {
     val mockito = "org.mockito:mockito-core:${Versions.mockito}"
     val espresso_runner = "androidx.test:runner:${Versions.testRunner}"
     val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+}
+
+object Modules {
+    val app = ":app"
+    val core = ":core"
+    val navigation = ":navigation"
+    val presentation = ":presentation"
+    val test_util = ":test_util"
+
+    val feature_news = ":feature_news"
+    val feature_news_category = ":feature_news_category"
+    val feature_news_channel = ":feature_news_channel"
+    val feature_web_browser = ":feature_web_browser"
 }

@@ -92,15 +92,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation project(':feature_news')
-    implementation project(':feature_news_channel')
-    implementation project(':feature_news_category')
-    implementation project(':feature_web_browser')
-    implementation project(':navigation')
-
+    implementation project(Modules.navigation)
+    implementation project(Modules.feature_news)
+    implementation project(Modules.feature_news_channel)
+    implementation project(Modules.feature_news_category)
+    implementation project(Modules.feature_web_browser)
     implementation AndroidXLibraries.appcompat
     implementation AndroidXLibraries.navigation_fragment_ktx
     implementation AndroidXLibraries.navigation_ktx
-
 }

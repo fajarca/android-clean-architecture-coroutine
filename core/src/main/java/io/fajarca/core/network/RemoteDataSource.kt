@@ -1,14 +1,13 @@
 package io.fajarca.core.network
 
 import com.squareup.moshi.Moshi
+import io.fajarca.core.vo.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import io.fajarca.core.vo.Result
 
 open class RemoteDataSource {
     open suspend fun <T> safeApiCall(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): Result<T> {
@@ -19,31 +18,35 @@ open class RemoteDataSource {
                 when (throwable) {
                     is HttpException -> {
                         val result = when(throwable.code()) {
-                            in 400..420 -> parseHttpError(throwable)
-                            in 500..599 -> Result.Error(HttpResult.SERVER_ERROR)
-                            else -> Result.Error(HttpResult.NOT_DEFINED)
+                            in 400..451 -> parseHttpError(throwable)
+                            in 500..599 -> error(HttpResult.SERVER_ERROR, throwable.code(),"Server error")
+                            else -> error(HttpResult.NOT_DEFINED, throwable.code(), "Undefined error")
                         }
                         result
                     }
-                    is UnknownHostException -> Result.Error(HttpResult.NO_CONNECTION)
-                    is SocketTimeoutException -> Result.Error(HttpResult.TIMEOUT)
-                    is IOException -> Result.Error(HttpResult.BAD_RESPONSE)
-                    else -> Result.Error(HttpResult.NOT_DEFINED)
+                    is UnknownHostException -> error(HttpResult.NO_CONNECTION, null, "No internet connection")
+                    is SocketTimeoutException -> error(HttpResult.TIMEOUT,null,  "Slow connection")
+                    is IOException -> error(HttpResult.BAD_RESPONSE, null, throwable.message)
+                    else -> error(HttpResult.NOT_DEFINED, null, throwable.message)
 
                 }
             }
         }
     }
 
+    private fun error(cause : HttpResult, code : Int?, errorMessage : String?) : Result.Error {
+        return Result.Error(cause, code,  errorMessage)
+    }
+
     private fun parseHttpError(throwable: HttpException) : Result<Nothing> {
         return try {
-            val errorBody = throwable.response()?.errorBody()?.string() ?: "Unknown HTTP error"
+            val errorBody = throwable.response()?.errorBody()?.string() ?: "Unknown HTTP error body"
             val moshi = Moshi.Builder().build()
-            val adapter = moshi.adapter(JSONObject::class.java)
+            val adapter = moshi.adapter(Object::class.java)
             val errorMessage = adapter.fromJson(errorBody)
-            Result.Error(HttpResult.CLIENT_ERROR, throwable.code(), errorMessage.toString())
+            error(HttpResult.CLIENT_ERROR, throwable.code(), errorMessage.toString())
         } catch (exception : Exception) {
-            Result.Error(HttpResult.CLIENT_ERROR)
+            error(HttpResult.CLIENT_ERROR, throwable.code(), exception.localizedMessage)
         }
     }
 }

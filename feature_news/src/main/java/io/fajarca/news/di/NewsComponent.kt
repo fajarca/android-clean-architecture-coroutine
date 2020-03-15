@@ -11,7 +11,8 @@ import io.fajarca.news.presentation.screen.NewsFragment
     dependencies = [CoreComponent::class],
     modules = [
         NewsModule::class,
-        RepositoryModule::class
+        RepositoryModule::class,
+        ViewModelModule::class
     ]
 )
 interface NewsComponent {

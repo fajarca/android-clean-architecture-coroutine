@@ -10,7 +10,8 @@ import io.fajarca.news_channel.presentation.NewsChannelFragment
     dependencies = [CoreComponent::class],
     modules = [
         NewsChannelModule::class,
-        RepositoryModule::class
+        RepositoryModule::class,
+        ViewModelModule::class
     ]
 )
 interface NewsChannelComponent {

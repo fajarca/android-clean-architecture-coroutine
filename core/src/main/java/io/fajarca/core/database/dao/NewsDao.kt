@@ -13,6 +13,9 @@ abstract class NewsDao {
     @Query("SELECT * FROM news WHERE category = :category ORDER BY publishedAt DESC")
     abstract fun findByCategory(category : String): DataSource.Factory<Int, NewsEntity>
 
+    @Query("SELECT * FROM news ORDER BY publishedAt DESC")
+    abstract fun findAll(): DataSource.Factory<Int, NewsEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAll(news: List<NewsEntity>)
 

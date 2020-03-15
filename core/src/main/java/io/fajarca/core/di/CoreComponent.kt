@@ -7,6 +7,7 @@ import dagger.BindsInstance
 import dagger.Component
 import io.fajarca.core.database.NewsDatabase
 import io.fajarca.core.di.modules.*
+import io.fajarca.core.dispatcher.DispatcherProvider
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -17,7 +18,8 @@ import javax.inject.Singleton
         ContextModule::class,
         NetworkModule::class,
         DatabaseModule::class,
-        SharedPreferenceModule::class
+        SharedPreferenceModule::class,
+        CoroutineDispatcherModule::class
     ]
 )
 interface CoreComponent {
@@ -26,6 +28,7 @@ interface CoreComponent {
     fun sharedPreferenceEditor() : SharedPreferences.Editor
     fun marvelDatabase() : NewsDatabase
     fun retrofit() : Retrofit
+    fun dispatcher() : DispatcherProvider
 
 
     @Component.Builder

@@ -9,6 +9,7 @@ import io.fajarca.news_channel.data.response.SourcesDto
 import io.fajarca.news_channel.data.source.NewsChannelRemoteDataSource
 import io.fajarca.news_channel.domain.entities.NewsChannel
 import io.fajarca.news_channel.domain.repository.NewsChannelRepository
+import kotlinx.coroutines.flow.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -33,13 +34,15 @@ class NewsChannelRepositoryImpl @Inject constructor(
         dao.insertAll(newsChannel)
     }
 
-    override suspend fun findAllNewsChannel(): List<NewsChannel> {
+    override suspend fun findAllNewsChannel(): Flow<List<NewsChannel>> = flow {
+        emit(getNewsChannelFromDb())
         val apiResult = getNewsChannelFromApi()
         if (apiResult is Result.Success) {
             val newsChannel = mapper.map(dispatcher.default, apiResult.data)
             insertNewsChannel(newsChannel)
         }
-        return getNewsChannelFromDb()
+        emit(getNewsChannelFromDb())
+
     }
 
 }

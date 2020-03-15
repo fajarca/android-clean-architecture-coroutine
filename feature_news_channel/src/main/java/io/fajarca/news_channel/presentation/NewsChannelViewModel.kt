@@ -1,14 +1,22 @@
 package io.fajarca.news_channel.presentation
 
-import androidx.lifecycle.*
-import io.fajarca.core.vo.Result
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
 import io.fajarca.news_channel.domain.entities.NewsChannel
 import io.fajarca.news_channel.domain.usecase.GetNewsChannelUseCase
 import io.fajarca.news_channel.presentation.mapper.NewsChannelPresentationMapper
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class NewsChannelViewModel @Inject constructor(private val getNewsChannelUseCase: GetNewsChannelUseCase, private val mapper : NewsChannelPresentationMapper) : ViewModel() {
+class NewsChannelViewModel @Inject constructor(private val getNewsChannelUseCase: GetNewsChannelUseCase,
+                                               private val mapper : NewsChannelPresentationMapper,
+                                               private val dispatcherProvider: CoroutineDispatcherProvider) : ViewModel() {
 
     private val _newsChannel = MutableLiveData<NewsChannelState>()
     val newsChannel : LiveData<NewsChannelState> = _newsChannel
@@ -20,14 +28,20 @@ class NewsChannelViewModel @Inject constructor(private val getNewsChannelUseCase
     }
 
     fun getNewsChannel() {
-        setResult(NewsChannelState.Loading)
         viewModelScope.launch {
-            val result = getNewsChannelUseCase()
-            if (result.isEmpty()) {
-                setResult(NewsChannelState.Empty)
-            } else {
-                setResult(NewsChannelState.Success(mapper.map(result)))
-            }
+            getNewsChannelUseCase()
+                .onStart { setResult(NewsChannelState.Loading) }
+                .map {
+                    mapper.map(dispatcherProvider.default, it)
+                }
+                .collect {
+                    if (it.isEmpty()) {
+                        setResult(NewsChannelState.Empty)
+                    } else {
+                        setResult(NewsChannelState.Success(it))
+                    }
+                }
+
         }
     }
 

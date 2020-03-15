@@ -1,9 +1,7 @@
 package io.fajarca.news_channel.data.mapper
 
 import io.fajarca.core.database.entity.NewsChannelEntity
-import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
 import io.fajarca.core.mapper.AsyncMapper
-import io.fajarca.core.mapper.Mapper
 import io.fajarca.news_channel.data.response.SourcesDto
 import io.fajarca.news_channel.domain.entities.NewsChannel
 import kotlinx.coroutines.CoroutineDispatcher

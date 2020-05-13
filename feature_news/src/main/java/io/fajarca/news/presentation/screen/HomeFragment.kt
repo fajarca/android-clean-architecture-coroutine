@@ -45,10 +45,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
         initToolbar()
         initRecyclerView()
 
+        binding.swipeRefreshLayout.isRefreshing = true
+        binding.swipeRefreshLayout.setOnRefreshListener { refreshNews() }
+        
         vm.setSearchQuery("id", null)
 
         vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
         vm.searchState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
+        vm.refreshNews.observe(viewLifecycleOwner, Observer { subscribeRefreshNews(it) })
     }
 
     private fun subscribeNewsState(it: Result<List<News>>) {
@@ -63,6 +67,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
     }
 
+    private fun subscribeRefreshNews(it: Result<List<News>>) {
+        when(it) {
+            is Result.Success -> {
+                binding.swipeRefreshLayout.isRefreshing = false
+            }
+            is Result.Error -> {
+                binding.swipeRefreshLayout.isRefreshing = false
+            }
+        }
+    }
+
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
@@ -73,6 +88,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
 
     private fun subscribeNews(data: PagedList<News>) {
+        binding.swipeRefreshLayout.isRefreshing = false
         showEmptyList(data.isEmpty())
         adapter.submitList(data)
     }
@@ -104,5 +120,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
     private fun showEmptyList(shouldShow : Boolean) {
         if (shouldShow) binding.uiStateView.showEmptyData("No saved news found") else binding.uiStateView.dismiss()
+    }
+
+    private fun refreshNews() {
+        vm.refreshNews("id", null)
     }
 }

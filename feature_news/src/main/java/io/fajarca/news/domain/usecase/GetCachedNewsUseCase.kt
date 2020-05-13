@@ -5,7 +5,7 @@ import io.fajarca.news.domain.entities.News
 import io.fajarca.news.domain.repository.NewsRepository
 import javax.inject.Inject
 
-class GetNewsUseCase @Inject constructor(private val repository: NewsRepository) {
+class GetCachedNewsUseCase @Inject constructor(private val repository: NewsRepository) {
 
     operator fun invoke(country : String?, category : String?): DataSource.Factory<Int, News> {
         return if (!country.isNullOrEmpty()) {

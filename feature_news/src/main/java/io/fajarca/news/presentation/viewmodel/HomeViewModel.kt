@@ -7,7 +7,7 @@ import io.fajarca.core.vo.Result
 import io.fajarca.news.domain.entities.News
 import io.fajarca.news.domain.entities.SearchQuery
 import io.fajarca.news.domain.repository.NewsBoundaryCallback
-import io.fajarca.news.domain.usecase.GetNewsUseCase
+import io.fajarca.news.domain.usecase.GetCachedNewsUseCase
 import io.fajarca.news.domain.usecase.InsertNewsUseCase
 import io.fajarca.news.domain.usecase.RefreshNewsUseCase
 import io.fajarca.news.presentation.mapper.NewsPresentationMapper
@@ -18,7 +18,7 @@ import java.util.*
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    private val getNewsUseCase: GetNewsUseCase,
+    private val getCachedNewsUseCase: GetCachedNewsUseCase,
     private val insertNewsUseCase: InsertNewsUseCase,
     private val refreshNewsUseCase: RefreshNewsUseCase,
     private val mapper: NewsPresentationMapper
@@ -46,7 +46,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun search(country: String?, category: String?): SearchResult = runBlocking {
-        val factory = getNewsUseCase(country, category).map { mapper.map(it, Locale.getDefault()) }
+        val factory = getCachedNewsUseCase(country, category).map { mapper.map(it, Locale.getDefault()) }
         val boundaryCallback = NewsBoundaryCallback(country, category, insertNewsUseCase, viewModelScope)
 
         val config = PagedList.Config.Builder()

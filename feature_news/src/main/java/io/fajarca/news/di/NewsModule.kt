@@ -5,13 +5,9 @@ import dagger.Provides
 import io.fajarca.news.data.NewsService
 import io.fajarca.news.data.mapper.NewsMapper
 import io.fajarca.news.data.source.NewsRemoteDataSource
-import io.fajarca.news.presentation.viewmodel.HomeViewModel
 import io.fajarca.core.database.dao.NewsDao
 import io.fajarca.core.database.NewsDatabase
 import io.fajarca.core.di.scope.FeatureScope
-import io.fajarca.news.domain.usecase.GetNewsUseCase
-import io.fajarca.news.domain.usecase.InsertNewsUseCase
-import io.fajarca.news.presentation.mapper.NewsPresentationMapper
 import retrofit2.Retrofit
 
 

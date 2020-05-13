@@ -12,9 +12,9 @@ import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
-class GetNewsUseCaseTest {
+class GetCachedNewsUseCaseTest {
 
-    private lateinit var sut: GetNewsUseCase
+    private lateinit var sut: GetCachedNewsUseCase
 
     @Mock
     lateinit var repository: NewsRepository
@@ -26,7 +26,7 @@ class GetNewsUseCaseTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        sut = GetNewsUseCase(repository)
+        sut = GetCachedNewsUseCase(repository)
     }
 
     @Test

@@ -32,14 +32,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     override fun getViewModelClass() = HomeViewModel::class.java
     override fun getLayoutResourceId() = R.layout.fragment_home
 
-    private val swipeRefreshListener = object : SwipeRefreshLayout.OnRefreshListener {
-        override fun onRefresh() {
-            binding.swipeRefreshLayout.isRefreshing = true
-            vm.refreshNews("id", null)
-        }
-
-    }
-
     override fun initDaggerComponent() {
         DaggerNewsComponent
             .builder()
@@ -53,16 +45,37 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
         initToolbar()
         initRecyclerView()
+        initSwipeRefresh()
 
-        binding.swipeRefreshLayout.setOnRefreshListener(swipeRefreshListener)
-        swipeRefreshListener.onRefresh()
-        
         vm.setSearchQuery("id", null)
 
         vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
         vm.searchState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
         vm.refreshNews.observe(viewLifecycleOwner, Observer { subscribeRefreshNews(it) })
     }
+
+
+    private fun initRecyclerView() {
+        val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.adapter = adapter
+    }
+
+    private fun initToolbar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.includedToolbar.toolbar)
+        (binding.includedToolbar.toolbar as Toolbar).setupWithNavController(findNavController(), appBarConfiguration)
+    }
+
+
+    private fun initSwipeRefresh() {
+        val swipeRefreshListener = SwipeRefreshLayout.OnRefreshListener {
+            binding.swipeRefreshLayout.isRefreshing = true
+            vm.refreshNews("id", null)
+        }
+        binding.swipeRefreshLayout.setOnRefreshListener(swipeRefreshListener)
+        swipeRefreshListener.onRefresh()
+    }
+
 
     private fun subscribeNewsState(it: Result<List<News>>) {
         when(it) {
@@ -87,15 +100,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
         }
     }
 
-    private fun initRecyclerView() {
-        val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.itemAnimator = DefaultItemAnimator()
-        binding.recyclerView.isNestedScrollingEnabled = false
-        binding.recyclerView.adapter = adapter
-    }
-
-
     private fun subscribeNews(data: PagedList<News>) {
         showEmptyList(data.isEmpty())
         adapter.submitList(data)
@@ -119,11 +123,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
                 Origin.NEWS
             )
         findNavController().navigate(action)
-    }
-
-    private fun initToolbar() {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.includedToolbar.toolbar)
-        (binding.includedToolbar.toolbar as Toolbar).setupWithNavController(findNavController(), appBarConfiguration)
     }
 
     private fun showEmptyList(shouldShow : Boolean) {

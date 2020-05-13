@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import io.fajarca.core.BuzzNewsApp
 import io.fajarca.core.vo.Result
@@ -31,6 +32,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     override fun getViewModelClass() = HomeViewModel::class.java
     override fun getLayoutResourceId() = R.layout.fragment_home
 
+    private val swipeRefreshListener = object : SwipeRefreshLayout.OnRefreshListener {
+        override fun onRefresh() {
+            binding.swipeRefreshLayout.isRefreshing = true
+            vm.refreshNews("id", null)
+        }
+
+    }
+
     override fun initDaggerComponent() {
         DaggerNewsComponent
             .builder()
@@ -45,8 +54,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
         initToolbar()
         initRecyclerView()
 
-        binding.swipeRefreshLayout.isRefreshing = true
-        binding.swipeRefreshLayout.setOnRefreshListener { refreshNews() }
+        binding.swipeRefreshLayout.setOnRefreshListener(swipeRefreshListener)
+        swipeRefreshListener.onRefresh()
         
         vm.setSearchQuery("id", null)
 
@@ -88,7 +97,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
 
     private fun subscribeNews(data: PagedList<News>) {
-        binding.swipeRefreshLayout.isRefreshing = false
         showEmptyList(data.isEmpty())
         adapter.submitList(data)
     }
@@ -120,9 +128,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
     private fun showEmptyList(shouldShow : Boolean) {
         if (shouldShow) binding.uiStateView.showEmptyData("No saved news found") else binding.uiStateView.dismiss()
-    }
-
-    private fun refreshNews() {
-        vm.refreshNews("id", null)
     }
 }

@@ -23,7 +23,6 @@ import io.fajarca.news.domain.entities.News
 import io.fajarca.news.presentation.adapter.NewsRecyclerAdapter
 import io.fajarca.news.presentation.viewmodel.HomeViewModel
 import io.fajarca.presentation.BaseFragment
-import io.fajarca.presentation.extension.gone
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRecyclerAdapter.NewsClickListener {
 
@@ -41,7 +40,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     }
 
     override fun onPause() {
-        binding.shimmer.stopShimmer()
+        binding.shimmer.stop()
         super.onPause()
     }
 
@@ -99,17 +98,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     private fun subscribeRefreshNews(it: Result<List<News>>) {
         when(it) {
             is Result.Loading -> {
-                binding.shimmer.showShimmer(true)
+                binding.shimmer.start(requireActivity(), 5, R.layout.placeholder_item_news)
                 binding.swipeRefreshLayout.isRefreshing = true
             }
             is Result.Success -> {
-                binding.shimmer.hideShimmer()
-                binding.shimmer.gone()
+                binding.shimmer.stop()
                 binding.swipeRefreshLayout.isRefreshing = false
             }
             is Result.Error -> {
-                binding.shimmer.hideShimmer()
-                binding.shimmer.gone()
+                binding.shimmer.stop()
                 binding.swipeRefreshLayout.isRefreshing = false
             }
         }

@@ -12,8 +12,7 @@ import io.fajarca.news.domain.usecase.InsertNewsUseCase
 import io.fajarca.news.domain.usecase.RefreshNewsUseCase
 import io.fajarca.news.presentation.mapper.NewsPresentationMapper
 import io.fajarca.news.presentation.model.SearchResult
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import java.util.*
 import javax.inject.Inject
 

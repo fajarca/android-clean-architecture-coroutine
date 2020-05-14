@@ -11,4 +11,6 @@ class RefreshNewsUseCase @Inject constructor(private val repository: NewsReposit
         return repository.refreshNews(country, category, 1, 10)
     }
 
+    fun get() : List<News> = emptyList()
+
 }

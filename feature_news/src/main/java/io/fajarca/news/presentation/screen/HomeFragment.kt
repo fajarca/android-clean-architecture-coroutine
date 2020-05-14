@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.paging.PagedList
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
@@ -24,6 +23,7 @@ import io.fajarca.news.domain.entities.News
 import io.fajarca.news.presentation.adapter.NewsRecyclerAdapter
 import io.fajarca.news.presentation.viewmodel.HomeViewModel
 import io.fajarca.presentation.BaseFragment
+import io.fajarca.presentation.extension.gone
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRecyclerAdapter.NewsClickListener {
 
@@ -40,18 +40,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
             .inject(this)
     }
 
+    override fun onPause() {
+        binding.shimmer.stopShimmer()
+        super.onPause()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initToolbar()
         initRecyclerView()
         initSwipeRefresh()
+        registerObservers()
 
         vm.setSearchQuery("id", null)
-
-        vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
-        vm.searchState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
-        vm.refreshNews.observe(viewLifecycleOwner, Observer { subscribeRefreshNews(it) })
     }
 
 
@@ -69,11 +71,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
     private fun initSwipeRefresh() {
         val swipeRefreshListener = SwipeRefreshLayout.OnRefreshListener {
-            binding.swipeRefreshLayout.isRefreshing = true
             vm.refreshNews("id", null)
         }
         binding.swipeRefreshLayout.setOnRefreshListener(swipeRefreshListener)
         swipeRefreshListener.onRefresh()
+    }
+
+    private fun registerObservers() {
+        vm.news.observe(viewLifecycleOwner, Observer { subscribeNews(it) })
+        vm.searchState.observe(viewLifecycleOwner, Observer { subscribeNewsState(it) })
+        vm.refreshNews.observe(viewLifecycleOwner, Observer { subscribeRefreshNews(it) })
     }
 
 
@@ -91,17 +98,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
     private fun subscribeRefreshNews(it: Result<List<News>>) {
         when(it) {
+            is Result.Loading -> {
+                binding.shimmer.showShimmer(true)
+                binding.swipeRefreshLayout.isRefreshing = true
+            }
             is Result.Success -> {
+                binding.shimmer.hideShimmer()
+                binding.shimmer.gone()
                 binding.swipeRefreshLayout.isRefreshing = false
             }
             is Result.Error -> {
+                binding.shimmer.hideShimmer()
+                binding.shimmer.gone()
                 binding.swipeRefreshLayout.isRefreshing = false
             }
         }
     }
 
     private fun subscribeNews(data: PagedList<News>) {
-        showEmptyList(data.isEmpty())
         adapter.submitList(data)
     }
 
@@ -123,9 +137,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
                 Origin.NEWS
             )
         findNavController().navigate(action)
-    }
-
-    private fun showEmptyList(shouldShow : Boolean) {
-        if (shouldShow) binding.uiStateView.showEmptyData("No saved news found") else binding.uiStateView.dismiss()
     }
 }

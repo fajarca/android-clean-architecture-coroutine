@@ -98,7 +98,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
     private fun subscribeRefreshNews(it: Result<List<News>>) {
         when(it) {
             is Result.Loading -> {
-                binding.shimmer.start(requireActivity(), 5, R.layout.placeholder_item_news)
+                binding.shimmer.start(5, R.layout.placeholder_item_news)
                 binding.swipeRefreshLayout.isRefreshing = true
             }
             is Result.Success -> {

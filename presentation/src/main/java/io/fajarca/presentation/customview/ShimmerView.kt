@@ -12,6 +12,9 @@ import io.fajarca.presentation.extension.visible
 
 class ShimmerView : ShimmerFrameLayout {
 
+    companion object {
+        const val DEFAULT_PLACEHOLDER_ITEM_COUNT = 5
+    }
 
     private lateinit var container : LinearLayout
 
@@ -21,47 +24,42 @@ class ShimmerView : ShimmerFrameLayout {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init(context)
+        initAttributeSet(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         init(context)
+        initAttributeSet(attrs)
     }
 
 
     private fun init(context: Context) {
         val view = View.inflate(context, R.layout.shimmer_placeholder, this)
         container = view.findViewById(R.id.container) as LinearLayout
-
-
-        for (x in 0..5) {
-            val placeholder = inflate(context, R.layout.default_placeholder, null )
-            container.addView(placeholder)
-        }
-
     }
+
+    private fun initAttributeSet(attrs: AttributeSet) {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ShimmerView)
+        val placeHolderItemCount = typedArray.getInt(R.styleable.ShimmerView_sv_placeholder_item_count, DEFAULT_PLACEHOLDER_ITEM_COUNT)
+        start(placeHolderItemCount)
+        typedArray.recycle()
+    }
+
 
     fun start() {
         visible()
         startShimmer()
     }
 
-    fun start(context: Context, numberOfPlaceholderItem : Int) {
-        container.removeAllViews()
-        repeat(numberOfPlaceholderItem) {
-            val placeholder = inflate(context, R.layout.default_placeholder, null )
-            container.addView(placeholder)
-        }
+    fun start(numberOfPlaceholderItem : Int) {
+        createPlaceholderItem(numberOfPlaceholderItem)
         visible()
         startShimmer()
         invalidate()
     }
 
-    fun start(context: Context, numberOfPlaceholderItem : Int, @LayoutRes layoutResId : Int) {
-        container.removeAllViews()
-        repeat(numberOfPlaceholderItem) {
-            val item = inflate(context, layoutResId, null )
-            container.addView(item)
-        }
+    fun start(numberOfPlaceholderItem : Int, @LayoutRes layoutResId : Int) {
+        createPlaceholderItem(numberOfPlaceholderItem, layoutResId)
         visible()
         startShimmer()
         invalidate()
@@ -70,6 +68,14 @@ class ShimmerView : ShimmerFrameLayout {
     fun stop() {
         gone()
         stopShimmer()
+    }
+
+    private fun createPlaceholderItem(numberOfPlaceholderItem : Int, layoutResId: Int = R.layout.default_placeholder) {
+        repeat(numberOfPlaceholderItem) {
+            val placeholder = inflate(context, layoutResId, null )
+            container.addView(placeholder)
+        }
+        invalidate()
     }
 
 }

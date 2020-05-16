@@ -53,4 +53,6 @@ dependencies {
     api AndroidXLibraries.navigation_fragment
     api AndroidXLibraries.paging
     api AndroidXLibraries.constraintLayout
+
+    implementation Libraries.shimmer
 }

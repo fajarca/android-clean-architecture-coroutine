@@ -79,7 +79,6 @@ class NewsFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
 
 
     private fun subscribeNews(data: PagedList<News>) {
-        showEmptyList(data.isEmpty())
         adapter.submitList(data)
     }
 
@@ -107,10 +106,6 @@ class NewsFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(), NewsRec
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.includedToolbar.toolbar)
         binding.includedToolbar.toolbar.setupWithNavController(findNavController())
         binding.includedToolbar.toolbar.title = title
-    }
-
-    private fun showEmptyList(shouldShow : Boolean) {
-        if (shouldShow) binding.uiStateView.showEmptyData("No saved news found") else binding.uiStateView.dismiss()
     }
 
     override fun getViewModelClass(): Class<HomeViewModel> {

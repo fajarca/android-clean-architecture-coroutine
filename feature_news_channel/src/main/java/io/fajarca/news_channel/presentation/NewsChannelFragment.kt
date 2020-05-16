@@ -2,13 +2,11 @@ package io.fajarca.news_channel.presentation
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import io.fajarca.core.BuzzNewsApp
 import io.fajarca.navigation.Origin
 import io.fajarca.news_channel.R
@@ -45,7 +43,7 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
 
 
     private fun initRecyclerView() {
-        val layoutManager = GridLayoutManager(requireActivity(), 4)
+        val layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.itemAnimator = DefaultItemAnimator()
         binding.recyclerView.adapter = adapter
@@ -69,8 +67,8 @@ class NewsChannelFragment : BaseFragment<FragmentNewsChannelBinding, NewsChannel
     }
 
     private fun initToolbar() {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar.toolbar)
-        binding.toolbar.toolbar.setupWithNavController(findNavController(), appBarConfiguration)
+        /*(requireActivity() as AppCompatActivity).setSupportActionBar(binding.toolbar.toolbar)
+        binding.toolbar.appsetupWithNavController(findNavController(), appBarConfiguration)*/
     }
 
     override fun onNewsChannelPressed(channel: NewsChannel) {

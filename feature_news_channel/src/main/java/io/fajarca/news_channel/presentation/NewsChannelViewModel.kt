@@ -5,13 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
+import io.fajarca.news_channel.domain.entities.ChannelContent
+import io.fajarca.news_channel.domain.entities.ChannelHeader
 import io.fajarca.news_channel.domain.entities.NewsChannel
+import io.fajarca.news_channel.domain.entities.NewsChannelItem
 import io.fajarca.news_channel.domain.usecase.GetNewsChannelUseCase
 import io.fajarca.news_channel.presentation.mapper.NewsChannelPresentationMapper
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 class NewsChannelViewModel @Inject constructor(private val getNewsChannelUseCase: GetNewsChannelUseCase,
@@ -23,7 +28,7 @@ class NewsChannelViewModel @Inject constructor(private val getNewsChannelUseCase
 
     sealed class NewsChannelState {
         object Loading: NewsChannelState()
-        data class Success(val channels : List<NewsChannel>) : NewsChannelState()
+        data class Success(val channels : List<NewsChannelItem>) : NewsChannelState()
         object Empty : NewsChannelState()
     }
 
@@ -31,9 +36,8 @@ class NewsChannelViewModel @Inject constructor(private val getNewsChannelUseCase
         viewModelScope.launch {
             getNewsChannelUseCase()
                 .onStart { setResult(NewsChannelState.Loading) }
-                .map {
-                    mapper.map(dispatcherProvider.default, it)
-                }
+                .map { mapper.map(it) }
+                .flowOn(dispatcherProvider.default)
                 .collect {
                     if (it.isEmpty()) {
                         setResult(NewsChannelState.Empty)
@@ -46,8 +50,7 @@ class NewsChannelViewModel @Inject constructor(private val getNewsChannelUseCase
     }
 
     private fun setResult(result : NewsChannelState) {
-        _newsChannel.value = result
+        _newsChannel.postValue(result)
     }
-
 
 }

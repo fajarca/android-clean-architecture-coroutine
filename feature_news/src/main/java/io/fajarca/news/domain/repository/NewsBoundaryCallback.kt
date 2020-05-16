@@ -20,9 +20,6 @@ class NewsBoundaryCallback(private val country : String?, private val category :
     private var isRequestInProgress = false
     private var lastRequestedPage = 1
 
-    override fun onZeroItemsLoaded() {
-        requestAndSaveData()
-    }
     override fun onItemAtEndLoaded(itemAtEnd: News) {
         requestAndSaveData()
     }

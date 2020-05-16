@@ -6,4 +6,8 @@
         <attr name="text" format="string" localization="suggested" />
     </declare-styleable>
 
+    <declare-styleable name="ShimmerView">
+        <attr name="sv_placeholder_item_count" format="integer"/>
+    </declare-styleable>
+
 </resources>

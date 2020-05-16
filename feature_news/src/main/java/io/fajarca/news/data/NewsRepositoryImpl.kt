@@ -23,29 +23,33 @@ class NewsRepositoryImpl @Inject constructor(
     private val remoteDataSource: NewsRemoteDataSource
 ) : NewsRepository {
 
-    override suspend fun getNewsFromApi(country : String?, category : String?, page : Int, pageSize : Int, onSuccessAction: () -> Unit): Result<NewsDto> {
-        return remoteDataSource.getNews(dispatcher.io, country, category, page, pageSize)
+    override suspend fun refreshNews(country: String?, category: String?, page: Int, pageSize: Int): Result<List<News>> {
+        val apiResult = remoteDataSource.getNews(dispatcher.io, country, category, page, pageSize)
+        return when(apiResult) {
+            is Result.Loading -> Result.Loading
+            is Result.Success -> {
+                val news =  mapper.map(country, category, apiResult.data)
+                dao.insertAll(news)
+                Result.Success(emptyList())
+            }
+            is Result.Error -> Result.Error(apiResult.cause, apiResult.code, apiResult.errorMessage)
+        }
     }
 
-
-    override suspend fun insertNews(news: List<NewsEntity>) {
-        dao.insertAll(news)
-    }
 
     override suspend fun findAllNews(country: String?, category: String?, page: Int, pageSize: Int, onSuccessAction: () -> Unit, onErrorAction: (cause: HttpResult, code : Int, errorMessage : String) -> Unit) {
-        val apiResult = getNewsFromApi(country, category, page, pageSize, onSuccessAction)
+        val apiResult = remoteDataSource.getNews(dispatcher.io, country, category, page, pageSize)
         when(apiResult) {
             is Result.Success -> {
                 onSuccessAction()
                 val news =  mapper.map(country, category, apiResult.data)
-                insertNews(news)
+                dao.insertAll(news)
             }
             is Result.Error -> {
                 onErrorAction(apiResult.cause, apiResult.code ?: 0, apiResult.errorMessage ?: "")
             }
         }
     }
-
 
     override fun findByCountry(country: String?): DataSource.Factory<Int, News> {
         return dao.findByCountry(country ?: "").map { mapper.mapToDomain(it) }

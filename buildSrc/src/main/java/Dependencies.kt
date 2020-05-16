@@ -35,6 +35,7 @@ object Versions {
     val espresso = "3.3.0-alpha03"
     val testRunner = "1.3.0-alpha03"
     val jacoco = "0.8.5"
+    val shimmer = "0.5.0"
 }
 
 object Libraries {
@@ -61,6 +62,7 @@ object Libraries {
 
     val dagger = "com.google.dagger:dagger:${Versions.dagger}"
     val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+    val shimmer = "com.facebook.shimmer:shimmer:${Versions.shimmer}"
 }
 
 object AndroidXLibraries {

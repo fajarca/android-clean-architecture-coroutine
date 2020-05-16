@@ -3,12 +3,13 @@ package io.fajarca.presentation.customview
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.*
+import android.widget.LinearLayout
 import androidx.annotation.LayoutRes
 import com.facebook.shimmer.ShimmerFrameLayout
 import io.fajarca.presentation.R
 import io.fajarca.presentation.extension.gone
 import io.fajarca.presentation.extension.visible
+
 
 class ShimmerView : ShimmerFrameLayout {
 
@@ -45,11 +46,6 @@ class ShimmerView : ShimmerFrameLayout {
         typedArray.recycle()
     }
 
-
-    fun start() {
-        visible()
-        startShimmer()
-    }
 
     fun start(numberOfPlaceholderItem : Int) {
         createPlaceholderItem(numberOfPlaceholderItem)

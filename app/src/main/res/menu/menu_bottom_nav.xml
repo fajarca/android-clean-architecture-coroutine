@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@id/fragmentHome"
-        android:title="Home"
+        android:title="@string/home"
         android:icon="@drawable/ic_home"
         app:showAsAction="always"
         android:orderInCategory="1" />
 
     <item android:id="@id/fragmentNewsCategory"
-        android:title="Category"
+        android:title="@string/category"
         android:icon="@drawable/ic_trending"
         app:showAsAction="ifRoom"
         android:orderInCategory="2" />
 
     <item android:id="@id/fragmentNewsChannel"
-        android:title="Channel"
+        android:title="@string/channel"
         android:icon="@drawable/ic_channel"
         app:showAsAction="ifRoom"
         android:orderInCategory="2" />

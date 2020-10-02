@@ -12,7 +12,8 @@ import io.fajarca.news.domain.usecase.InsertNewsUseCase
 import io.fajarca.news.domain.usecase.RefreshNewsUseCase
 import io.fajarca.news.presentation.mapper.NewsPresentationMapper
 import io.fajarca.news.presentation.model.SearchResult
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
 
@@ -65,8 +66,7 @@ class HomeViewModel @Inject constructor(
     fun refreshNews(country: String?, category: String?) {
         _refreshNews.value = Result.Loading
         viewModelScope.launch {
-            val result = refreshNewsUseCase(country, category)
-            when(result) {
+            when(val result = refreshNewsUseCase(country, category)) {
                 is Result.Success -> {
                     _refreshNews.value = Result.Success(emptyList())
                 }

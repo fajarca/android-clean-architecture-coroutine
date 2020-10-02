@@ -5,8 +5,6 @@ import io.fajarca.testutil.extension.runBlockingTest
 import io.fajarca.testutil.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock

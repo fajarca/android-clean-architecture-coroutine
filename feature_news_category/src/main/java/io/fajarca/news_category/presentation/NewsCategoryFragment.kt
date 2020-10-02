@@ -14,8 +14,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import io.fajarca.news_category.R
-import io.fajarca.news_category.presentation.adapter.NewsCategoryRecyclerAdapter
 import io.fajarca.news_category.databinding.FragmentNewsCategoryBinding
+import io.fajarca.news_category.presentation.adapter.NewsCategoryRecyclerAdapter
 import io.fajarca.news_category.presentation.model.NewsCategory
 
 /**

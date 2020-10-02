@@ -2,18 +2,13 @@ package io.fajarca.news.data
 
 import androidx.paging.DataSource
 import io.fajarca.core.database.dao.NewsDao
-import io.fajarca.core.database.entity.NewsEntity
-import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
 import io.fajarca.core.dispatcher.DispatcherProvider
 import io.fajarca.core.network.HttpResult
 import io.fajarca.core.vo.Result
 import io.fajarca.news.data.mapper.NewsMapper
-import io.fajarca.news.data.response.NewsDto
 import io.fajarca.news.data.source.NewsRemoteDataSource
 import io.fajarca.news.domain.entities.News
 import io.fajarca.news.domain.repository.NewsRepository
-import okhttp3.Dispatcher
-import timber.log.Timber
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
@@ -24,8 +19,7 @@ class NewsRepositoryImpl @Inject constructor(
 ) : NewsRepository {
 
     override suspend fun refreshNews(country: String?, category: String?, page: Int, pageSize: Int): Result<List<News>> {
-        val apiResult = remoteDataSource.getNews(dispatcher.io, country, category, page, pageSize)
-        return when(apiResult) {
+        return when(val apiResult = remoteDataSource.getNews(dispatcher.io, country, category, page, pageSize)) {
             is Result.Loading -> Result.Loading
             is Result.Success -> {
                 val news =  mapper.map(country, category, apiResult.data)
@@ -38,8 +32,7 @@ class NewsRepositoryImpl @Inject constructor(
 
 
     override suspend fun findAllNews(country: String?, category: String?, page: Int, pageSize: Int, onSuccessAction: () -> Unit, onErrorAction: (cause: HttpResult, code : Int, errorMessage : String) -> Unit) {
-        val apiResult = remoteDataSource.getNews(dispatcher.io, country, category, page, pageSize)
-        when(apiResult) {
+        when(val apiResult = remoteDataSource.getNews(dispatcher.io, country, category, page, pageSize)) {
             is Result.Success -> {
                 onSuccessAction()
                 val news =  mapper.map(country, category, apiResult.data)

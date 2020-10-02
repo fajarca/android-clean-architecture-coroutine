@@ -21,10 +21,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNavigation() {
         bottomNavigationView.setupWithNavController(navController)
-        navController.addOnDestinationChangedListener(navigationListner)
+        navController.addOnDestinationChangedListener(navigationListener)
     }
 
-    private val navigationListner = NavController.OnDestinationChangedListener { _, destination, _ ->
+    private val navigationListener = NavController.OnDestinationChangedListener { _, destination, _ ->
         when(destination.id) {
             R.id.fragmentWebBrowser -> hideBottomNavigation()
             else -> showBottomNavigation()

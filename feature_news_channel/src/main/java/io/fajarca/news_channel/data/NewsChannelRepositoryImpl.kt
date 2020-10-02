@@ -9,8 +9,8 @@ import io.fajarca.news_channel.data.response.SourcesDto
 import io.fajarca.news_channel.data.source.NewsChannelRemoteDataSource
 import io.fajarca.news_channel.domain.entities.NewsChannel
 import io.fajarca.news_channel.domain.repository.NewsChannelRepository
-import kotlinx.coroutines.flow.*
-import timber.log.Timber
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class NewsChannelRepositoryImpl @Inject constructor(

@@ -1,15 +1,15 @@
 package io.fajarca.core.network
 
+import io.fajarca.core.vo.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Assert.*
 import org.junit.Test
 import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import io.fajarca.core.vo.Result
 
 @ExperimentalCoroutinesApi
 class RemoteDataSourceTest {

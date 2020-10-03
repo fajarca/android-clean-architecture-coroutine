@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,8 +11,8 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
         style="@style/BuzzNews.CardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,6 +26,7 @@
                 android:layout_height="80dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:contentDescription="@string/image"
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -41,12 +42,12 @@
                 android:maxLines="3"
                 android:minLines="3"
                 android:text="@{news.title}"
-                tools:text="Bitcoin whale moves $1.1 billion in bitcoins for an $80 fee"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Bitcoin whale moves $1.1 billion in bitcoins for an $80 fee" />
 
             <TextView
                 android:id="@+id/tvSource"
@@ -56,10 +57,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="@{news.sourceName}"
-                tools:text="CNN Indonesia"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                tools:text="CNN Indonesia" />
 
             <TextView
                 android:id="@+id/tvTimestamp"
@@ -68,11 +69,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                tools:text="23 jam yang lalu"
                 android:text="@{news.publishedAt}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvSource"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                tools:text="23 jam yang lalu" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,8 +7,8 @@ import io.fajarca.core.vo.Result
 import io.fajarca.news.data.mapper.NewsMapper
 import io.fajarca.news.data.response.NewsDto
 import io.fajarca.news.data.source.NewsRemoteDataSource
-import io.fajarca.testutil.rule.CoroutineTestRule
 import io.fajarca.testutil.extension.runBlockingTest
+import io.fajarca.testutil.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
@@ -32,9 +32,9 @@ class NewsRepositoryImplTest {
     @Mock
     lateinit var remoteDataSource: NewsRemoteDataSource
 
-    private val FAKE_NEWS_TITLE =
+    private val fakeNewsTitle =
         "Teknologi AI Tidak Terlalu Cocok Digunakan untuk Mencari Alien - SINDOnews.com"
-    private val FAKE_NEWS_IMAGE_URL =
+    private val fakeNewsImageUrl =
         "https://pict.sindonews.net/dyn/620/content/2020/02/11/124/1523392.jpg"
 
     private val country = "id"
@@ -69,7 +69,7 @@ class NewsRepositoryImplTest {
     fun `when fetch news from api, get news from network should be invoked`() = coroutineTestRule.runBlockingTest {
 
         //When
-        sut.getNewsFromApi(country, category, page, pageSize, {})
+        sut.getNewsFromApi(country, category, page, pageSize) {}
 
         //Then
         verify(remoteDataSource).getNews(coroutineTestRule.testDispatcher, country, category, page, pageSize)
@@ -81,7 +81,7 @@ class NewsRepositoryImplTest {
         val news = createFakeNewsEntities()
         val response = Result.Success(createFakeNewsResponse())
         val onSuccessAction = {}
-        val onErrorAction = {cause : HttpResult, code : Int, errorMessage : String ->  }
+        val onErrorAction = { _: HttpResult, _: Int, _: String ->  }
 
         `when`(remoteDataSource.getNews(coroutineTestRule.testDispatcher, country, category, page, pageSize)).thenReturn(response)
         `when`(mapper.map(country, category, createFakeNewsResponse())).thenReturn(news)
@@ -99,7 +99,7 @@ class NewsRepositoryImplTest {
         val news = createFakeNewsEntities()
         val response = Result.Error(HttpResult.NO_CONNECTION)
         val onSuccessAction = {}
-        val onErrorAction = {cause : HttpResult, code : Int, errorMessage : String ->  }
+        val onErrorAction = { _: HttpResult, _: Int, _: String ->  }
 
         `when`(remoteDataSource.getNews(coroutineTestRule.testDispatcher, country, category, page, pageSize)).thenReturn(response)
 
@@ -113,9 +113,9 @@ class NewsRepositoryImplTest {
     private fun createFakeNewsEntities(): List<NewsEntity> {
         return arrayListOf(
             NewsEntity(
-                FAKE_NEWS_TITLE,
+                fakeNewsTitle,
                 "https://autotekno.sindonews.com/read/1523392/124/teknologi-ai-tidak-terlalu-cocok-digunakan-untuk-mencari-alien-1581400925",
-                FAKE_NEWS_IMAGE_URL,
+                fakeNewsImageUrl,
                 "id",
                 "technology",
                 "2020-02-11T12:30:49Z",
@@ -128,7 +128,7 @@ class NewsRepositoryImplTest {
 
     private fun createFakeNewsResponse(): NewsDto {
         val source = NewsDto.Article.Source("","")
-        val articles = NewsDto.Article("", FAKE_NEWS_TITLE,"", FAKE_NEWS_IMAGE_URL, source)
+        val articles = NewsDto.Article("", fakeNewsTitle,"", fakeNewsImageUrl, source)
         return NewsDto(arrayListOf(articles))
     }
 

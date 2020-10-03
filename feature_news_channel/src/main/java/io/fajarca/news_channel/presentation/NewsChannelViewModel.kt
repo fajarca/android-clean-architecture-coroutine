@@ -5,9 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.fajarca.core.dispatcher.CoroutineDispatcherProvider
-import io.fajarca.news_channel.domain.entities.ChannelContent
-import io.fajarca.news_channel.domain.entities.ChannelHeader
-import io.fajarca.news_channel.domain.entities.NewsChannel
 import io.fajarca.news_channel.domain.entities.NewsChannelItem
 import io.fajarca.news_channel.domain.usecase.GetNewsChannelUseCase
 import io.fajarca.news_channel.presentation.mapper.NewsChannelPresentationMapper
@@ -16,7 +13,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 class NewsChannelViewModel @Inject constructor(private val getNewsChannelUseCase: GetNewsChannelUseCase,

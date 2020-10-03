@@ -2,12 +2,12 @@ package io.fajarca.news.di
 
 import dagger.Module
 import dagger.Provides
+import io.fajarca.core.database.NewsDatabase
+import io.fajarca.core.database.dao.NewsDao
+import io.fajarca.core.di.scope.FeatureScope
 import io.fajarca.news.data.NewsService
 import io.fajarca.news.data.mapper.NewsMapper
 import io.fajarca.news.data.source.NewsRemoteDataSource
-import io.fajarca.core.database.dao.NewsDao
-import io.fajarca.core.database.NewsDatabase
-import io.fajarca.core.di.scope.FeatureScope
 import retrofit2.Retrofit
 
 
@@ -16,7 +16,7 @@ class NewsModule {
 
     @Provides
     @FeatureScope
-    fun provideNewseDao(db: NewsDatabase) : NewsDao = db.newsDao()
+    fun provideNewsDao(db: NewsDatabase) : NewsDao = db.newsDao()
 
     @Provides
     @FeatureScope

@@ -88,7 +88,6 @@ object TestLibraries {
 }
 
 object Modules {
-    val app = ":app"
     val core = ":core"
     val navigation = ":navigation"
     val presentation = ":presentation"

@@ -88,28 +88,28 @@ class NewsChannelRecyclerAdapter(private val listener: NewsChannelClickListener)
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<NewsChannelItem>() {
             override fun areItemsTheSame(oldItem: NewsChannelItem, newItem: NewsChannelItem): Boolean {
-                when (oldItem) {
+                return when (oldItem) {
                     is ChannelHeader -> {
                         val new = newItem as ChannelHeader
-                        return oldItem.name == new.name
+                        oldItem.name == new.name
                     }
                     is ChannelContent -> {
                         val new = newItem as ChannelContent
-                        return oldItem.newsChannel.id == new.newsChannel.id
+                        oldItem.newsChannel.id == new.newsChannel.id
                     }
                     else -> throw IllegalArgumentException("Unknown type")
                 }
             }
 
             override fun areContentsTheSame(oldItem: NewsChannelItem, newItem: NewsChannelItem): Boolean {
-                when (oldItem) {
+                return when (oldItem) {
                     is ChannelHeader -> {
                         val new = newItem as ChannelHeader
-                        return oldItem.name == new.name
+                        oldItem.name == new.name
                     }
                     is ChannelContent -> {
                         val new = newItem as ChannelContent
-                        return oldItem.newsChannel == new.newsChannel
+                        oldItem.newsChannel == new.newsChannel
                     }
                     else -> throw IllegalArgumentException("Unknown type")
                 }

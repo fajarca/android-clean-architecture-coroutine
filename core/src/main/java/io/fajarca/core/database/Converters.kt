@@ -1,7 +1,7 @@
 package io.fajarca.core.database
 
 import androidx.room.TypeConverter
-import java.util.Date
+import java.util.*
 
 class Converters {
     @TypeConverter

@@ -47,7 +47,7 @@ class ShimmerView : ShimmerFrameLayout {
     }
 
 
-    fun start(numberOfPlaceholderItem : Int) {
+    private fun start(numberOfPlaceholderItem : Int) {
         createPlaceholderItem(numberOfPlaceholderItem)
         visible()
         startShimmer()

@@ -19,7 +19,7 @@ class NewsChannelPresentationMapper @Inject constructor() : Mapper<List<NewsChan
                     newsChannel.add(ChannelHeader(countryName))
                 }
                 is ChannelContent -> {
-                    val channel = NewsChannel(it.newsChannel.id, getReadableCountryName(it.newsChannel.country), it.newsChannel.name, it.newsChannel.url, it.newsChannel.newsIntiial)
+                    val channel = NewsChannel(it.newsChannel.id, getReadableCountryName(it.newsChannel.country), it.newsChannel.name, it.newsChannel.url, it.newsChannel.newsInitial)
                     val content = ChannelContent(channel)
                     newsChannel.add(content)
                 }

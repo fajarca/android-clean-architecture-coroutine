@@ -2,18 +2,17 @@ package io.fajarca.news.data.mapper
 
 import io.fajarca.core.database.entity.NewsEntity
 import io.fajarca.news.data.response.NewsDto
+import org.junit.Assert.assertEquals
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.MockitoAnnotations
 
 class NewsMapperTest {
 
-    private val FAKE_NEWS_TITLE = "Teknologi AI Tidak Terlalu Cocok Digunakan untuk Mencari Alien - SINDOnews.com"
-    private val FAKE_NEWS_IMAGE_URL = "https://pict.sindonews.net/dyn/620/content/2020/02/11/124/1523392.jpg"
-    private val FAKE_COUNTRY = "id"
-    private val FAKE_CATEGORY = "technology"
+    private val fakeNewsTitle = "Teknologi AI Tidak Terlalu Cocok Digunakan untuk Mencari Alien - SINDOnews.com"
+    private val fakeNewsImageUrl = "https://pict.sindonews.net/dyn/620/content/2020/02/11/124/1523392.jpg"
+    private val fakeCountry = "id"
+    private val fakeCategory = "technology"
     private lateinit var sut : NewsMapper
 
 
@@ -29,13 +28,13 @@ class NewsMapperTest {
         val response = createFakeNewsResponse()
 
         //When
-        val output = sut.map(FAKE_COUNTRY, FAKE_CATEGORY, response)
+        val output = sut.map(fakeCountry, fakeCategory, response)
 
         //Then
-        assertEquals(output[0].country, FAKE_COUNTRY)
-        assertEquals(output[0].category, FAKE_CATEGORY)
-        assertEquals(output[0].title, FAKE_NEWS_TITLE)
-        assertEquals(output[0].imageUrl, FAKE_NEWS_IMAGE_URL)
+        assertEquals(output[0].country, fakeCountry)
+        assertEquals(output[0].category, fakeCategory)
+        assertEquals(output[0].title, fakeNewsTitle)
+        assertEquals(output[0].imageUrl, fakeNewsImageUrl)
     }
 
     @Test
@@ -62,15 +61,15 @@ class NewsMapperTest {
         val output = sut.mapToDomain(fakeNews)
 
         //Then
-        assertEquals(output.title, FAKE_NEWS_TITLE)
-        assertEquals(output.imageUrl, FAKE_NEWS_IMAGE_URL)
+        assertEquals(output.title, fakeNewsTitle)
+        assertEquals(output.imageUrl, fakeNewsImageUrl)
     }
 
     private fun createFakeNewsEntity(): NewsEntity {
         return NewsEntity(
-            FAKE_NEWS_TITLE,
+            fakeNewsTitle,
             "https://autotekno.sindonews.com/read/1523392/124/teknologi-ai-tidak-terlalu-cocok-digunakan-untuk-mencari-alien-1581400925",
-            FAKE_NEWS_IMAGE_URL,
+            fakeNewsImageUrl,
             "id",
             "technology",
             "2020-02-11T12:30:49Z",
@@ -81,7 +80,7 @@ class NewsMapperTest {
 
     private fun createFakeNewsResponse(): NewsDto {
         val source = NewsDto.Article.Source("","")
-        val articles = NewsDto.Article("", FAKE_NEWS_TITLE,"", FAKE_NEWS_IMAGE_URL, source)
+        val articles = NewsDto.Article("", fakeNewsTitle,"", fakeNewsImageUrl, source)
         return NewsDto(arrayListOf(articles))
     }
 

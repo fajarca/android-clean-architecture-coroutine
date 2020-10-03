@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import io.fajarca.core.vo.Constant
 import io.fajarca.core.database.NewsDatabase
+import io.fajarca.core.vo.Constant
 import javax.inject.Singleton
 
 @Module
